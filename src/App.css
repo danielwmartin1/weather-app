@@ -49,9 +49,11 @@ header, footer {
   flex-wrap: wrap;
   color: white;
   padding: 10px;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   text-align: center;
-  text-decoration: underline;
+  background-color: #069dbf; /* Blue background */
+  border-radius: 5px;
+  border: 2px solid #ffffff;
 }
 
 .statusMessage {
