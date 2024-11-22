@@ -42,6 +42,21 @@ header, footer {
   min-height: 80vh;
 }
 
+.fiveDay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  color: white;
+  padding: 10px;
+  font-size: 1.5rem;
+}
+
+.statusMessage {
+  color: white;
+  font-size: 2.5rem;
+}
+
 .search-form {
   display: flex;
   justify-content: center;
@@ -164,5 +179,24 @@ header, footer {
   .forecast-day {
     flex: 1 1 100%;
     margin: 5px 0;
+  }
+}
+
+@media (max-width: 320px) {
+  .app {
+    padding: 10px;
+  }
+
+  .current-weather, .forecast {
+    padding: 5px;
+  }
+
+  .forecast-day {
+    padding: 5px;
+    margin: 5px 0;
+  }
+
+  .search-form input, .search-form button {
+    padding: 5px;
   }
 }

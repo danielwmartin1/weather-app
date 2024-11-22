@@ -2,8 +2,9 @@
 import React from 'react';
 
 const Forecast = ({ forecastData }) => {
-    if (!forecastData) return <div>Loading...</div>;
-
+    if (!forecastData) {
+        return null;        
+    }
     const getDayParts = (list) => {
         const dayParts = [];
         for (let i = 0; i < list.length; i += 8) {

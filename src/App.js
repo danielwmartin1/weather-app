@@ -26,6 +26,7 @@ const App = () => {
     <div className="app-container">
       <Header />
         <div className="app">
+          <h1 className="fiveDay">5-Day Forecast</h1>
           <Search onSearch={handleSearch} />
           <CurrentWeather weatherData={weatherData} />
           <Forecast forecastData={forecastData} />
