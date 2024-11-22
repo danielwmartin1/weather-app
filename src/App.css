@@ -9,7 +9,7 @@ body {
 
 header, footer {
   text-align: center;
-  padding: 10px;
+  padding: 5px;
   background-color: #007bff; /* Blue background */
   color: white;
   width: 100%;
@@ -17,8 +17,15 @@ header, footer {
   flex-shrink: 0; /* Prevent shrinking */
 }
 
+.app-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1; /* Allow to grow and shrink */
+  overflow: hidden;
+}
+
 .app {
-  height: 100vh; /* Full height of the screen */
+  flex: 1; /* Allow to grow and shrink */
   text-align: center;
   background-color: #f0f8ff; /* Light blue background */
   font-family: Arial, sans-serif;
@@ -26,12 +33,13 @@ header, footer {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  flex: 1; /* Allow to grow and shrink */
   overflow: hidden;
   background-image: url('./images/blueribbon.jpg');
   background-size: cover;
   z-index: 0;
   padding: 20px;
+  position: relative;
+  min-height: 80vh;
 }
 
 .search-form {

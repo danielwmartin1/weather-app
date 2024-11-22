@@ -23,15 +23,15 @@ const App = () => {
   
 
   return (
-    <>
+    <div className="app-container">
       <Header />
-      <div className="app">
-        <Search onSearch={handleSearch} />
-        <CurrentWeather weatherData={weatherData} />
-        <Forecast forecastData={forecastData} />
-      </div>
+        <div className="app">
+          <Search onSearch={handleSearch} />
+          <CurrentWeather weatherData={weatherData} />
+          <Forecast forecastData={forecastData} />
+        </div>
       <Footer />
-    </>
+    </div>
   );
 };
 
