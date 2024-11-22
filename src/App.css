@@ -56,6 +56,20 @@ header, footer {
   border: 2px solid #ffffff;
 }
 
+.popup-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  color: black;
+  padding: 10px;
+  font-size: 1.3rem;
+  text-align: center;
+  background-color: #ffc414; /* Blue background */
+  border-radius: 5px;
+  border: 2px solid red;
+}
+
 .statusMessage {
   color: white;
   font-size: 2.5rem;
