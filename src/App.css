@@ -1,38 +1,58 @@
-.App {
+/* src/App.css */
+
+.app {
   text-align: center;
+  padding: 20px;
+  background-color: #f0f8ff; /* Light blue background */
+  font-family: Arial, sans-serif;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.search-form input {
+  padding: 10px;
+  width: 200px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+.search-form button {
+  padding: 10px;
+  border: none;
+  background-color: #007bff; /* Blue background */
   color: white;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
-.App-link {
-  color: #61dafb;
+.search-form button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+.current-weather, .forecast {
+  margin-top: 20px;
+  background-color: #ffffff; /* White background */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.forecast {
+  display: flex;
+  justify-content: space-around;
+}
+
+.forecast-day {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #f9f9f9; /* Light grey background */
+}
+
+.forecast-day p {
+  margin: 5px 0;
+}
+
+@media (max-width: 600px) {
+  .forecast {
+    flex-direction: column;
   }
 }
