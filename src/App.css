@@ -18,6 +18,7 @@ header, footer {
 }
 
 .app {
+  height: 100vh; /* Full height of the screen */
   text-align: center;
   background-color: #f0f8ff; /* Light blue background */
   font-family: Arial, sans-serif;
