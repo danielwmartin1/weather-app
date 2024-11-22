@@ -14,11 +14,16 @@ const Forecast = ({ forecastData }) => {
 
     const dayParts = getDayParts(forecastData.list);
 
+    const getDayName = (timestamp) => {
+        const date = new Date(timestamp * 1000);
+        return date.toLocaleDateString('en-US', { weekday: 'long' });
+    };
+
     return (
         <div className="forecast">
             {dayParts.map((day, dayIndex) => (
                 <div key={dayIndex} className="forecast-day">
-                    <h3>Day {dayIndex + 1}</h3>
+                    <h3>{getDayName(day[0].dt)}</h3>
                     {day.map((part, partIndex) => (
                         <div key={part.dt} className="forecast-part">
                             <p>{new Date(part.dt * 1000).toLocaleTimeString()}</p>
