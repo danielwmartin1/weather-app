@@ -1,10 +1,44 @@
 /* src/App.css */
 
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  margin: 0;
+}
+
+header, footer {
+  text-align: center;
+  padding: 10px;
+  background-color: #007bff; /* Blue background */
+  color: white;
+  width: 100%;
+  position: relative;
+  flex-shrink: 0; /* Prevent shrinking */
+}
+
 .app {
   text-align: center;
-  padding: 20px;
   background-color: #f0f8ff; /* Light blue background */
   font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1; /* Allow to grow and shrink */
+  overflow: hidden;
+  background-image: url('./images/blueribbon.jpg');
+  background-size: cover;
+  z-index: 0;
+  padding: 20px;
+}
+
+.search-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+  flex-wrap: wrap;
 }
 
 .search-form input {
@@ -12,6 +46,8 @@
   width: 200px;
   border: 1px solid #ccc;
   border-radius: 4px;
+  margin: 10px;
+  text-align: center;
 }
 
 .search-form button {
@@ -21,23 +57,36 @@
   color: white;
   border-radius: 4px;
   cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
 }
 
 .search-form button:hover {
   background-color: #0056b3; /* Darker blue on hover */
+  transform: scale(1.05);
+}
+
+.search-form button:active {
+  background-color: #003f7f; /* Even darker blue on active */
+  transform: scale(0.95);
 }
 
 .current-weather, .forecast {
-  margin-top: 20px;
   background-color: #ffffff; /* White background */
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  max-width: 600px;
 }
 
 .forecast {
   display: flex;
   justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  min-width: 90%;
+  min-height: 80%;
+  margin: 1rem;
 }
 
 .forecast-day {
@@ -45,14 +94,66 @@
   border: 1px solid #ddd;
   border-radius: 4px;
   background-color: #f9f9f9; /* Light grey background */
+  margin: 10px;
+  flex: 1 1 calc(33.333% - 20px);
+  box-sizing: border-box;
 }
 
 .forecast-day p {
   margin: 5px 0;
 }
 
-@media (max-width: 600px) {
-  .forecast {
-    flex-direction: column;
+/* src/App.css */
+
+/* Existing styles... */
+
+@media (max-width: 1024px) {
+  .app {
+    padding: 20px;
+  }
+
+  .current-weather, .forecast {
+    width: 100%;
+    padding: 15px;
+  }
+
+  .forecast-day {
+    flex: 1 1 calc(50% - 20px);
+  }
+}
+
+@media (max-width: 768px) {
+  .app {
+    padding: 20px;
+  }
+
+  .current-weather, .forecast {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .forecast-day {
+    flex: 1 1 calc(50% - 20px);
+  }
+}
+
+@media (max-width: 480px) {
+  header, footer {
+    padding: 5px;
+  }
+
+  .search-form input {
+    width: 100%;
+    margin: 5px 0;
+  }
+
+  .search-form button {
+    width: 100%;
+    margin: 5px 0;
+  }
+
+  .forecast-day {
+    flex: 1 1 100%;
+    margin: 5px 0;
   }
 }
