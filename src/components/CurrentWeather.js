@@ -3,7 +3,7 @@
 import React from 'react';
 
 const CurrentWeather = ({ weatherData }) => {
-  if (!weatherData || !weatherData.main || !weatherData.sys || !weatherData.weather || !weatherData.wind) return <div>Loading...</div>;
+  if (!weatherData || !weatherData.main || !weatherData.sys || !weatherData.weather || !weatherData.wind) return null;
 
   return (
     <div className="current-weather">
