@@ -27,7 +27,7 @@ const Forecast = ({ forecastData }) => {
         const day = date.getDate();
         let daySuffix;
 
-        if (day > 3 && day < 21) {
+        if (day === 11 || day === 12 || day === 13) {
             daySuffix = 'th';
         } else {
             switch (day % 10) {
