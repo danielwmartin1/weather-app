@@ -61,7 +61,8 @@ header, footer {
   text-align: center;
   background-color: #069dbf; /* Blue background */
   border-radius: 5px;
-  border: 1px solid #ffffff;
+  border: 1.5px solid #ffffff;
+  margin: 0;
 }
 
 .popup-content {
