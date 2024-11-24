@@ -3,11 +3,24 @@
 import React from 'react';
 
 const CurrentWeather = ({ weatherData }) => {
+  const [time, setTime] = React.useState(new Date());
+
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      setTime(new Date());
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   if (!weatherData || !weatherData.main || !weatherData.sys || !weatherData.weather || !weatherData.wind) return null;
 
   return (
     <div className="current-weather">
       <h2>{weatherData.name}, {weatherData.sys.country}</h2>
+      <h3 className='time'>
+        {time.toLocaleTimeString()}
+      </h3>
       <p>Current Temp: {Math.round(weatherData.main.temp)}°F</p> {/* Temperature in Fahrenheit */}
       <p>Feels like: {Math.round(weatherData.main.feels_like)}°F</p>
         <p>High: {Math.round(weatherData.main.temp_max)}°F</p>

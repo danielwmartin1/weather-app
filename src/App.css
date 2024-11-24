@@ -57,11 +57,11 @@ header, footer {
   flex-wrap: wrap;
   color: white;
   padding: 10px;
-  font-size: 1.3rem;
+  font-size: 1.25rem;
   text-align: center;
   background-color: #069dbf; /* Blue background */
   border-radius: 5px;
-  border: 2px solid #ffffff;
+  border: 1px solid #ffffff;
 }
 
 .popup-content {
@@ -121,6 +121,11 @@ header, footer {
   transform: scale(0.95);
 }
 
+.time {
+  font-size: 1rem;
+  color: #333;
+}
+
 .current-weather, .forecast {
   background-color: #ffffff; /* White background */
   padding: 20px;
@@ -130,6 +135,7 @@ header, footer {
   max-width: 600px;
   overflow-y: visible; /* Remove vertical scroll */
   height: auto; /* Adjust height to fit content */
+  text-transform: capitalize;
 }
 
 .forecast {
