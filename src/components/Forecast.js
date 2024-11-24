@@ -7,8 +7,8 @@ const Forecast = ({ forecastData }) => {
     }
     const getDayParts = (list) => {
         const dayParts = [];
-        for (let i = 0; i < list.length; i += 8) {
-            dayParts.push(list.slice(i, i + 8));
+        for (let i = 0; i < list.length; i += 5) {
+            dayParts.push(list.slice(i, i + 5));
         }
         return dayParts.slice(0, 5); // Get data for 2 days
     };
