@@ -151,7 +151,7 @@ header, footer {
   align-items: center;
   justify-content: center;
   margin: 1rem;
-  min-width: 100%;
+  min-width: 90%;
 }
 
 .forecast-day {
@@ -172,6 +172,8 @@ header, footer {
   margin: 5px 0;
 }
 
+
+
 @media (max-width: 1024px) {
   .app, .current-weather, .forecast {
     padding: 20px;
@@ -179,9 +181,6 @@ header, footer {
 }
 
 @media (max-width: 768px) {
-  .forecast {
-    min-width: 90%;
-  }
 
   .forecast-day {
     grid-template-columns: 1fr;
