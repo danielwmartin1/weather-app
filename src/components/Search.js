@@ -12,6 +12,7 @@ const Search = ({ onSearch }) => {
             return;
         }
         onSearch(city);
+        setCity('');
     };
 
     return (
