@@ -9,16 +9,10 @@ body {
 
 header {
   border-bottom: 3px solid aqua; /* Darker blue border */
-  font-size: 1.25rem;
-  font-weight: bold;
-  letter-spacing: 1px;
-  font-family: 'Lobster', cursive; /* Stylish font for title */
 }
 
 footer {
   border-top: 3px solid aqua; /* Darker blue border */
-  font-family: 'Lobster', cursive; /* Stylish font for title */
-  font-size: 1.1rem;
 }
 
 header, footer {
@@ -62,12 +56,12 @@ header, footer {
   align-items: center;
   flex-wrap: wrap;
   color: white;
-  padding: 15px;
+  padding: 10px;
   font-size: 1.25rem;
   text-align: center;
-  background-color: #007bff; /* Blue background */
+  background-color: #069dbf; /* Blue background */
   border-radius: 5px;
-  margin: 1rem;
+  border: 1px solid #ffffff;
 }
 
 .popup-content {
@@ -94,28 +88,26 @@ header, footer {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 20px;
 }
 
 .search-form input {
   padding: 10px;
   width: 200px;
   border: 1px solid #ccc;
-  border-radius: 5px;
-  margin: 10px;
+  border-radius: 4px;
   text-align: center;
+  margin-top: 1rem;
 }
 
 .search-form button {
-  margin-top: 10px;
   padding: 10px;
   border: none;
   background-color: #007bff; /* Blue background */
   color: white;
-  border-radius: 5px;
+  border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s, transform 0.2s;
-  border: 2px solid aqua; /* Blue border */
+  margin: 1rem;
 }
 
 .search-form button:hover {
@@ -137,46 +129,46 @@ header, footer {
   background-color: #007bff; /* Blue background */
   color: white; /* White text */
   padding: 20px;
-  border: 2px solid aqua; /* Darker blue border */
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   width: auto; /* Adjust width to fit content */
+  max-width: 600px;
   overflow-y: visible; /* Remove vertical scroll */
   height: auto; /* Adjust height to fit content */
   text-transform: capitalize;
 }
 
 .current-weather {
-  margin: 1rem;
-  width: 60%;
+  width: 100%
 }
 
 .forecast {
   display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   margin: 1rem;
-  width: 100%;
+  min-width: 90%;
 }
 
 .forecast-day {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr); /* 6 evenly spaced columns */
+  gap: 10px;
   padding: 10px;
-  border: 1.5px solid aqua;
+  border: 1px solid #ddd;
   border-radius: 5px;
   background-color: #0056b3; /* Darker blue background */
   color: white; /* White text */
   margin: 0.5rem;
   box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  word-wrap: break-word; /* Ensure long words break */
+  width: 100%;
 }
 
 .forecast-day p {
-  margin: 5px;
+  margin: 5px 0;
 }
+
 
 /* src/App.css */
 
@@ -188,7 +180,7 @@ header, footer {
   }
 
   .current-weather, .forecast {
-    width: 100%;
+    width: 90%;
     padding: 15px;
   }
 }
@@ -199,22 +191,53 @@ header, footer {
   }
 
   .current-weather, .forecast {
-    width: 100%;
-    padding: 10px;
+    width: 90%;
+    padding: 15px;
   }
+
+  .forecast {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 1rem;
+    min-width: 90%;
+  }
+
+  .forecast-day {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr); /* 3 evenly spaced columns */
+    gap: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #0056b3; /* Darker blue background */
+    color: white; /* White text */
+    margin: 0.5rem;
+    box-sizing: border-box;
+    width: 100%;
+  }
+  
+
+
 }
 
 @media (max-width: 480px) {
+  header, footer {
+    padding: 5px;
+  }
+
   .search-form input {
     width: 100%;
     margin: 5px 0;
   }
 
-  .forecast-day {
-    width: 100%; /* Full width on small screens */
-    height: auto; /* Auto height on small screens */
+  .search-form button {
+    width: 100%;
     margin: 5px 0;
   }
+
+
 }
 
 @media (max-width: 320px) {
@@ -222,14 +245,7 @@ header, footer {
     padding: 10px;
   }
 
-  .current-weather, .forecast {
-    padding: 5px;
-  }
 
-  .forecast-day {
-    padding: 5px;
-    margin: 5px 0;
-  }
 
   .search-form input, .search-form button {
     padding: 5px;
