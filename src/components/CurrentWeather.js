@@ -11,7 +11,7 @@ const CurrentWeather = ({ weatherData }) => {
       <p>{Math.round(weatherData.main.temp)}°F</p> {/* Temperature in Fahrenheit */}
       <p>{weatherData.weather[0].description}</p>
       <p>Humidity: {weatherData.main.humidity}%</p>
-      <p>Wind Speed: {weatherData.wind.speed} m/s</p>
+      <p>Wind Speed: {weatherData.wind.speed} ft/s</p>
     </div>
   );
 };
