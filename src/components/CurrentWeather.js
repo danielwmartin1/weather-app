@@ -31,7 +31,7 @@ const CurrentWeather = ({ weatherData }) => {
       alt={weatherData.weather[0].description} 
       />
       <p>Humidity: {weatherData.main.humidity}%</p>
-      <p>Wind Speed: {weatherData.wind.speed} ft/s</p>
+      <p style={{textTransform: 'lowercase'}}>Wind Speed: {weatherData.wind.speed} ft/s</p>
     </div>
   );
 };
