@@ -15,6 +15,16 @@ const CurrentWeather = ({ weatherData }) => {
 
   if (!weatherData || !weatherData.main || !weatherData.sys || !weatherData.weather || !weatherData.wind) return null;
 
+  const weatherDetails = [
+    { label: 'Current Temp', value: `${Math.round(weatherData.main.temp)}°${weatherData.units === 'metric' ? 'C' : 'F'}` },
+    { label: 'Feels like', value: `${Math.round(weatherData.main.feels_like)}°${weatherData.units === 'metric' ? 'C' : 'F'}` },
+    { label: 'High', value: `${Math.round(weatherData.main.temp_max)}°${weatherData.units === 'metric' ? 'C' : 'F'}` },
+    { label: 'Low', value: `${Math.round(weatherData.main.temp_min)}°${weatherData.units === 'metric' ? 'C' : 'F'}` },
+    { label: 'Description', value: weatherData.weather[0].description },
+    { label: 'Humidity', value: `${weatherData.main.humidity}%` },
+    { label: 'Wind Speed', value: `${weatherData.wind.speed} ${weatherData.units === 'metric' ? 'm/s' : 'ft/s'}` }
+  ];
+
   return (
     <div className="current-weather">
       <div className="current-weather-container">
@@ -22,20 +32,16 @@ const CurrentWeather = ({ weatherData }) => {
         <h3 className='time'>
           {time.toLocaleTimeString()}
         </h3>
-        <p>Current Temp: {Math.round(weatherData.main.temp)}°F</p> {/* Temperature in Fahrenheit */}
-        <p>Feels like: {Math.round(weatherData.main.feels_like)}°F</p>
-        <p>High: {Math.round(weatherData.main.temp_max)}°F</p>
-        <p>Low: {Math.round(weatherData.main.temp_min)}°F</p>
-        <p>{weatherData.weather[0].description}</p>
-        <img 
-          src={`http://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`} 
-          alt={weatherData.weather[0].description} 
-        />
-        <p>Humidity: {weatherData.main.humidity}%</p>
-        <p style={{textTransform: 'lowercase'}}>Wind Speed: {weatherData.wind.speed} ft/s</p>
+        {weatherDetails.map((detail, index) => (
+          <p className='details' key={index}>{detail.label}: {detail.value}</p>
+        ))}
       </div>
     </div>
   );
+  <img 
+  src={`http://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`} 
+  alt={weatherData.weather[0].description} 
+/>
 };
 
 export default CurrentWeather;

@@ -1,10 +1,16 @@
 :root {
   --primary-color: #0056b3;
   --secondary-color: #007bff;
-  --accent-color: #069dbf;
+  --accent-color: aqua;
   --background-color: #f0f8ff;
   --text-color: white;
-  --border-color: #ddd;
+  --border-color: var(--accent-color);
+}
+
+#title {
+  font-size: 2.5rem;
+  color: var(--text-color);
+  margin: 1rem;
 }
 
 body {
@@ -15,14 +21,24 @@ body {
 }
 
 header, footer {
-  border: 3px solid var(--accent-color);
   text-align: center;
-  padding: 5px;
+  padding: 0.1rem;
   background-color: var(--primary-color);
   color: var(--text-color);
   width: 100%;
   position: relative;
   flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+header {
+  border-bottom: 3px solid var(--accent-color);
+}
+
+footer {
+  border-top: 3px solid var(--accent-color);
 }
 
 .app-container {
@@ -50,6 +66,15 @@ header, footer {
   min-height: 80vh;
 }
 
+.details {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  text-align: center;
+  color: var(--text-color);
+}
+
 .fiveDay, .popup-content {
   display: flex;
   justify-content: center;
@@ -58,13 +83,12 @@ header, footer {
   padding: 10px;
   font-size: 1.25rem;
   text-align: center;
-  border-radius: 5px;
-  border: 1px solid var(--text-color);
 }
 
 .fiveDay {
-  color: var(--text-color);
-  background-color: var(--accent-color);
+  color: aqua;
+  background-color: rgba(0, 0, 0, 0.5);
+  border: 2mm ridge aqua;
 }
 
 .popup-content {
@@ -87,7 +111,8 @@ header, footer {
 
 .search-form input {
   padding: 10px;
-  width: 200px;
+  width: 80%;
+  max-width: 300px;
   border: 1px solid #ccc;
   border-radius: 4px;
   text-align: center;
@@ -103,6 +128,8 @@ header, footer {
   cursor: pointer;
   transition: background-color 0.3s, transform 0.2s;
   margin: 1rem;
+  width: 80%;
+  max-width: 300px;
 }
 
 .search-form button:hover {
@@ -123,27 +150,36 @@ header, footer {
 .current-weather, .forecast {
   background-color: var(--secondary-color);
   color: var(--text-color);
-  padding: 20px;
+  padding: 20px; /* Added padding */
   border-radius: 5px;
-  border: 1px solid var(--border-color);
+  border: 3px solid var(--accent-color);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  width: auto;
+  width: 90%;
   max-width: 600px;
   overflow-y: visible;
   height: auto;
   text-transform: capitalize;
 }
 
+.current-weather {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 1rem;
+}
+
 .current-weather-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   background-color: var(--primary-color);
   padding: 1rem;
   border-radius: 5px;
   border: 1px solid var(--border-color);
+  width: 90%;
 }
 
-.current-weather {
-  width: 100%;
-}
 
 .forecast {
   display: flex;
@@ -151,7 +187,8 @@ header, footer {
   align-items: center;
   justify-content: center;
   margin: 1rem;
-  min-width: 90%;
+  width: 90%;
+  max-width: 600px;
 }
 
 .forecast-day {
@@ -172,8 +209,6 @@ header, footer {
   margin: 5px 0;
 }
 
-
-
 @media (max-width: 1024px) {
   .app, .current-weather, .forecast {
     padding: 20px;
@@ -181,6 +216,9 @@ header, footer {
 }
 
 @media (max-width: 768px) {
+  .current-weather-container {
+    padding: 0.5rem;
+  }
 
   .forecast-day {
     grid-template-columns: 1fr;
