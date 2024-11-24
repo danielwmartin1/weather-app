@@ -13,9 +13,9 @@ const App = () => {
   const [weatherData, setWeatherData] = useState(null);
   const [forecastData, setForecastData] = useState(null);
 
-  const handleSearch = async (city) => {
-    const weather = await fetchWeatherData(city);
-    const forecast = await fetchForecastData(city);
+  const handleSearch = async (location) => {
+    const weather = await fetchWeatherData(location);
+    const forecast = await fetchForecastData(location);
   
     setWeatherData(weather);
     setForecastData(forecast);
@@ -25,12 +25,19 @@ const App = () => {
   return (
     <div className="app-container">
       <Header />
-        <div className="app">
-          <h1 className="fiveDay">5-Day Forecast</h1>
-          <Search onSearch={handleSearch} />
-          <CurrentWeather weatherData={weatherData} />
-          <Forecast forecastData={forecastData} />
-        </div>
+      <div className="app">
+        <Search onSearch={handleSearch} />
+        {weatherData && forecastData ? (
+          <>
+            <CurrentWeather weatherData={weatherData} />
+              <hr />
+            <h2 className='fiveDay'>5-Day Forecast</h2>
+            <Forecast forecastData={forecastData} />
+          </>
+        ) : (
+          null
+        )}
+      </div>
       <Footer />
     </div>
   );

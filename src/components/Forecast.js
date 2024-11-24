@@ -1,5 +1,6 @@
 // src/components/Forecast.js
 import React from 'react';
+import '../App.css';
 
 const Forecast = ({ forecastData }) => {
     if (!forecastData) {
@@ -12,7 +13,9 @@ const Forecast = ({ forecastData }) => {
         }
         return dayParts.slice(0, 5); // Get data for 2 days
     };
-
+    const getWeatherIconUrl = (icon) => {
+        return `http://openweathermap.org/img/wn/${icon}@2x.png`;
+    };
     const dayParts = getDayParts(forecastData.list);
 
     const getDayName = (timestamp) => {
@@ -45,12 +48,13 @@ const Forecast = ({ forecastData }) => {
         <div className="forecast">
             {dayParts.map((day, dayIndex) => (
                 <div key={dayIndex} className="forecast-day">
-                    <h3>{getDayName(day[0].dt)} - {formatDate(day[0].dt)}</h3>
+                    <h3 className='dateHeader'>{getDayName(day[0].dt)} - {formatDate(day[0].dt)}</h3>
                     {day.map((part, partIndex) => (
                         <div key={part.dt} className="forecast-part">
-                            <p>{new Date(part.dt * 1000).toLocaleTimeString()}</p>
+                            <p>{new Date(part.dt * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
                             <p>{Math.round(part.main.temp)}°F</p>
                             <p>{part.weather[0].description}</p>
+                            <img className='small-icon' src={getWeatherIconUrl(part.weather[0].icon)} alt={part.weather[0].description} />
                         </div>
                     ))}
                 </div>

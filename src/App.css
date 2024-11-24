@@ -11,6 +11,9 @@
   font-size: 2.5rem;
   color: var(--text-color);
   margin: 1rem;
+  text-align: center;
+  font-family: 'Roboto', sans-serif;
+  text-shadow: var(--accent-color) 2px 2px 2px;
 }
 
 body {
@@ -73,6 +76,15 @@ footer {
   flex-wrap: wrap;
   text-align: center;
   color: var(--text-color);
+  margin: 0.5rem;
+}
+
+.dateHeader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.25rem;
+  color: var(--text-color);
 }
 
 .fiveDay, .popup-content {
@@ -86,9 +98,18 @@ footer {
 }
 
 .fiveDay {
-  color: aqua;
-  background-color: rgba(0, 0, 0, 0.5);
-  border: 2mm ridge aqua;
+  color: var(--text-color);
+  background-color: rgba(0, 58, 139, 0.7);
+  text-decoration: underline;
+  margin-bottom: 0.5rem;
+  text-shadow: var(--accent-color) 1px 1px 1px;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+}
+
+hr {
+  width: 100%;
+  border: 1px solid var(--border-color);
 }
 
 .popup-content {
@@ -147,48 +168,21 @@ footer {
   color: var(--text-color);
 }
 
-.current-weather, .forecast {
-  background-color: var(--secondary-color);
-  color: var(--text-color);
-  padding: 20px; /* Added padding */
-  border-radius: 5px;
-  border: 3px solid var(--accent-color);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  width: 90%;
-  max-width: 600px;
-  overflow-y: visible;
-  height: auto;
-  text-transform: capitalize;
-}
-
 .current-weather {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 1rem;
-}
-
-.current-weather-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   background-color: var(--primary-color);
-  padding: 1rem;
+  color: var(--text-color);
   border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow-y: visible;
+  text-transform: capitalize;
+  padding: 1rem 5rem;
   border: 1px solid var(--border-color);
-  width: 90%;
+  margin: 1rem;
 }
 
-
-.forecast {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin: 1rem;
-  width: 90%;
-  max-width: 600px;
+.small-icon {
+  width: 50px;
+  height: 50px;
 }
 
 .forecast-day {
@@ -200,23 +194,24 @@ footer {
   border-radius: 5px;
   background-color: var(--primary-color);
   color: var(--text-color);
-  margin: 0.5rem;
+  margin: 0.25rem;
   box-sizing: border-box;
-  width: 100%;
+  min-width: 480px;
+  width: auto;
 }
 
 .forecast-day p {
-  margin: 5px 0;
+  margin: 0.25rem;
 }
 
 @media (max-width: 1024px) {
-  .app, .current-weather, .forecast {
+  .app, .current-weather {
     padding: 20px;
   }
 }
 
 @media (max-width: 768px) {
-  .current-weather-container {
+  .current-weather {
     padding: 0.5rem;
   }
 
@@ -224,9 +219,10 @@ footer {
     grid-template-columns: 1fr;
   }
 
-  .forecast-part {
-    grid-template-columns: repeat(3, 1fr);
-    padding-bottom: 1rem;
+
+  .forecast-day {
+    grid-template-columns: 1fr;
+    gap: 5px;
   }
 }
 
@@ -239,6 +235,12 @@ footer {
     width: 100%;
     margin: 5px 0;
   }
+
+
+
+  .details {
+    flex-direction: column;
+  }
 }
 
 @media (max-width: 320px) {
@@ -248,5 +250,9 @@ footer {
 
   .search-form input, .search-form button {
     padding: 5px;
+  }
+
+  .statusMessage {
+    font-size: 2rem;
   }
 }
