@@ -1,4 +1,11 @@
-/* src/App.css */
+:root {
+  --primary-color: #0056b3;
+  --secondary-color: #007bff;
+  --accent-color: #069dbf;
+  --background-color: #f0f8ff;
+  --text-color: white;
+  --border-color: #ddd;
+}
 
 body {
   display: flex;
@@ -7,35 +14,28 @@ body {
   margin: 0;
 }
 
-header {
-  border-bottom: 3px solid aqua; /* Darker blue border */
-}
-
-footer {
-  border-top: 3px solid aqua; /* Darker blue border */
-}
-
 header, footer {
+  border: 3px solid var(--accent-color);
   text-align: center;
   padding: 5px;
-  background-color: #0056b3; /* Blue background */
-  color: white;
+  background-color: var(--primary-color);
+  color: var(--text-color);
   width: 100%;
   position: relative;
-  flex-shrink: 0; /* Prevent shrinking */
+  flex-shrink: 0;
 }
 
 .app-container {
   display: flex;
   flex-direction: column;
-  flex: 1; /* Allow to grow and shrink */
+  flex: 1;
   overflow: hidden;
 }
 
 .app {
-  flex: 1; /* Allow to grow and shrink */
+  flex: 1;
   text-align: center;
-  background-color: #f0f8ff; /* Light blue background */
+  background-color: var(--background-color);
   font-family: Arial, sans-serif;
   display: flex;
   flex-direction: column;
@@ -50,36 +50,31 @@ header, footer {
   min-height: 80vh;
 }
 
-.fiveDay {
+.fiveDay, .popup-content {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  color: white;
   padding: 10px;
   font-size: 1.25rem;
   text-align: center;
-  background-color: #069dbf; /* Blue background */
   border-radius: 5px;
-  border: 1px solid #ffffff;
+  border: 1px solid var(--text-color);
+}
+
+.fiveDay {
+  color: var(--text-color);
+  background-color: var(--accent-color);
 }
 
 .popup-content {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
   color: black;
-  padding: 10px;
-  font-size: 1.3rem;
-  text-align: center;
-  background-color: #ffc414; /* Blue background */
-  border-radius: 5px;
+  background-color: #ffc414;
   border: 2px solid red;
 }
 
 .statusMessage {
-  color: white;
+  color: var(--text-color);
   font-size: 2.5rem;
 }
 
@@ -102,8 +97,8 @@ header, footer {
 .search-form button {
   padding: 10px;
   border: none;
-  background-color: #007bff; /* Blue background */
-  color: white;
+  background-color: var(--secondary-color);
+  color: var(--text-color);
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s, transform 0.2s;
@@ -111,42 +106,43 @@ header, footer {
 }
 
 .search-form button:hover {
-  background-color: #0056b3; /* Darker blue on hover */
+  background-color: var(--primary-color);
   transform: scale(1.05);
 }
 
 .search-form button:active {
-  background-color: #003f7f; /* Even darker blue on active */
+  background-color: #003f7f;
   transform: scale(0.95);
 }
 
 .time {
   font-size: 1.15rem;
-  color: white;
+  color: var(--text-color);
 }
 
 .current-weather, .forecast {
-  background-color: #007bff; /* Blue background */
-  color: white; /* White text */
+  background-color: var(--secondary-color);
+  color: var(--text-color);
   padding: 20px;
   border-radius: 5px;
+  border: 1px solid var(--border-color);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  width: auto; /* Adjust width to fit content */
+  width: auto;
   max-width: 600px;
-  overflow-y: visible; /* Remove vertical scroll */
-  height: auto; /* Adjust height to fit content */
+  overflow-y: visible;
+  height: auto;
   text-transform: capitalize;
 }
 
 .current-weather-container {
-  background-color: #0056b3;
+  background-color: var(--primary-color);
   padding: 1rem;
   border-radius: 5px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--border-color);
 }
 
 .current-weather {
-  width: 100%
+  width: 100%;
 }
 
 .forecast {
@@ -160,13 +156,13 @@ header, footer {
 
 .forecast-day {
   display: grid;
-  grid-template-columns: repeat(6, 1fr); /* 6 evenly spaced columns */
+  grid-template-columns: repeat(6, 1fr);
   gap: 10px;
   padding: 10px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--border-color);
   border-radius: 5px;
-  background-color: #0056b3; /* Darker blue background */
-  color: white; /* White text */
+  background-color: var(--primary-color);
+  color: var(--text-color);
   margin: 0.5rem;
   box-sizing: border-box;
   width: 100%;
@@ -176,57 +172,23 @@ header, footer {
   margin: 5px 0;
 }
 
-
-
 @media (max-width: 1024px) {
-  .app {
+  .app, .current-weather, .forecast {
     padding: 20px;
-  }
-
-  .current-weather, .forecast {
-    padding: 15px;
   }
 }
 
 @media (max-width: 768px) {
-  .app {
-    padding: 20px;
-  }
-
-  .current-weather, .forecast {
-    padding: 15px;
-  }
-
   .forecast {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 1rem;
     min-width: 90%;
   }
 
   .forecast-day {
-    display: grid;
-    grid-template-columns: repeat(1, 1fr); 
-    gap: 10px;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #0056b3; 
-    color: white; 
-    margin: 0.5rem;
-    box-sizing: border-box;
-    width: 100%;
+    grid-template-columns: 1fr;
   }
 
   .forecast-part {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); 
-    border-radius: 5px;
-    color: white; 
-    box-sizing: border-box;
-    width: 100%;
+    grid-template-columns: repeat(3, 1fr);
     padding-bottom: 1rem;
   }
 }
@@ -236,12 +198,7 @@ header, footer {
     padding: 5px;
   }
 
-  .search-form input {
-    width: 100%;
-    margin: 5px 0;
-  }
-
-  .search-form button {
+  .search-form input, .search-form button {
     width: 100%;
     margin: 5px 0;
   }
@@ -251,8 +208,6 @@ header, footer {
   .app {
     padding: 10px;
   }
-
-
 
   .search-form input, .search-form button {
     padding: 5px;
