@@ -7,6 +7,14 @@ body {
   margin: 0;
 }
 
+header {
+  border-bottom: 3px solid aqua; /* Darker blue border */
+}
+
+footer {
+  border-top: 3px solid aqua; /* Darker blue border */
+}
+
 header, footer {
   text-align: center;
   padding: 5px;
