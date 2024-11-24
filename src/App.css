@@ -141,11 +141,15 @@ header, footer {
   margin: 0.5rem;
   box-sizing: border-box;
   flex: 1 1 150px; /* Flex-grow, flex-shrink, and flex-basis */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 10px;
 }
 
 .forecast-day p {
   margin: 5px 0;
 }
+
 
 /* src/App.css */
 
