@@ -141,7 +141,6 @@ header, footer {
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   width: auto; /* Adjust width to fit content */
-  max-width: 600px;
   overflow-y: visible; /* Remove vertical scroll */
   height: auto; /* Adjust height to fit content */
   text-transform: capitalize;
@@ -153,8 +152,8 @@ header, footer {
 }
 
 .forecast {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
   gap: 10px;
   align-items: center;
   justify-content: center;
@@ -212,21 +211,9 @@ header, footer {
   }
 
   .forecast-day {
-    width: 100%; /* Full width on
-
-@media (max-width: 480px) {
-
-  .search-form input {
-    width: 100%;
-    margin: 5px 0;
-  }
-
-
-  .forecast-day {
     width: 100%; /* Full width on small screens */
     height: auto; /* Auto height on small screens */
     margin: 5px 0;
-    grid-template-columns: 1fr; /* Single column on very small screens */
   }
 }
 
