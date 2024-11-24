@@ -34,11 +34,11 @@ header, footer {
 }
 
 header {
-  border-bottom: 3px solid var(--accent-color);
+  border-bottom: 5px ridge var(--accent-color);
 }
 
 footer {
-  border-top: 3px solid var(--accent-color);
+  border-top: 5px ridge var(--accent-color);
 }
 
 .app-container {
