@@ -89,7 +89,6 @@ header, footer {
   justify-content: center;
   align-items: center;
   margin: 20px;
-  flex-wrap: wrap;
 }
 
 .search-form input {
@@ -122,12 +121,13 @@ header, footer {
 }
 
 .time {
-  font-size: 1rem;
-  color: #333;
+  font-size: 1.15rem;
+  color: white;
 }
 
 .current-weather, .forecast {
-  background-color: #ffffff; /* White background */
+  background-color: #007bff; /* Blue background */
+  color: white; /* White text */
   padding: 20px;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -151,7 +151,8 @@ header, footer {
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 5px;
-  background-color: #f9f9f9; /* Light grey background */
+  background-color: #0056b3; /* Darker blue background */
+  color: white; /* White text */
   margin: 0.5rem;
   box-sizing: border-box;
   flex: 1 1 150px; /* Flex-grow, flex-shrink, and flex-basis */
