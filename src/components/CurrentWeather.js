@@ -8,8 +8,15 @@ const CurrentWeather = ({ weatherData }) => {
   return (
     <div className="current-weather">
       <h2>{weatherData.name}, {weatherData.sys.country}</h2>
-      <p>{Math.round(weatherData.main.temp)}°F</p> {/* Temperature in Fahrenheit */}
+      <p>Current Temp: {Math.round(weatherData.main.temp)}°F</p> {/* Temperature in Fahrenheit */}
+      <p>Feels like: {Math.round(weatherData.main.feels_like)}°F</p>
+        <p>High: {Math.round(weatherData.main.temp_max)}°F</p>
+        <p>Low: {Math.round(weatherData.main.temp_min)}°F</p>
       <p>{weatherData.weather[0].description}</p>
+      <img 
+      src={`http://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`} 
+      alt={weatherData.weather[0].description} 
+      />
       <p>Humidity: {weatherData.main.humidity}%</p>
       <p>Wind Speed: {weatherData.wind.speed} ft/s</p>
     </div>

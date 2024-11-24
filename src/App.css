@@ -116,7 +116,7 @@ header, footer {
 .current-weather, .forecast {
   background-color: #ffffff; /* White background */
   padding: 20px;
-  border-radius: 8px;
+  border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   width: auto; /* Adjust width to fit content */
   max-width: 600px;
@@ -136,9 +136,9 @@ header, footer {
 .forecast-day {
   padding: 10px;
   border: 1px solid #ddd;
-  border-radius: 4px;
+  border-radius: 5px;
   background-color: #f9f9f9; /* Light grey background */
-  margin: 10px;
+  margin: 0.5rem;
   box-sizing: border-box;
   flex: 1 1 150px; /* Flex-grow, flex-shrink, and flex-basis */
 }
