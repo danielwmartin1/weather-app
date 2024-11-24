@@ -138,6 +138,13 @@ header, footer {
   text-transform: capitalize;
 }
 
+.current-weather-container {
+  background-color: #0056b3;
+  padding: 1rem;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
 .current-weather {
   width: 100%
 }
@@ -148,7 +155,7 @@ header, footer {
   align-items: center;
   justify-content: center;
   margin: 1rem;
-  min-width: 90%;
+  min-width: 100%;
 }
 
 .forecast-day {
@@ -170,9 +177,6 @@ header, footer {
 }
 
 
-/* src/App.css */
-
-/* Existing styles... */
 
 @media (max-width: 1024px) {
   .app {
@@ -180,7 +184,6 @@ header, footer {
   }
 
   .current-weather, .forecast {
-    width: 90%;
     padding: 15px;
   }
 }
@@ -191,7 +194,6 @@ header, footer {
   }
 
   .current-weather, .forecast {
-    width: 90%;
     padding: 15px;
   }
 
@@ -206,20 +208,27 @@ header, footer {
 
   .forecast-day {
     display: grid;
-    grid-template-columns: repeat(1, 1fr); /* 3 evenly spaced columns */
+    grid-template-columns: repeat(1, 1fr); 
     gap: 10px;
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 5px;
-    background-color: #0056b3; /* Darker blue background */
-    color: white; /* White text */
+    background-color: #0056b3; 
+    color: white; 
     margin: 0.5rem;
     box-sizing: border-box;
     width: 100%;
   }
-  
 
-
+  .forecast-part {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    border-radius: 5px;
+    color: white; 
+    box-sizing: border-box;
+    width: 100%;
+    padding-bottom: 1rem;
+  }
 }
 
 @media (max-width: 480px) {
@@ -236,8 +245,6 @@ header, footer {
     width: 100%;
     margin: 5px 0;
   }
-
-
 }
 
 @media (max-width: 320px) {
