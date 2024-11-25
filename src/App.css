@@ -274,7 +274,7 @@ hr {
 
 @media (max-width: 320px) {
   .forecast-day, header, footer, .current-weather, .dateHeader, .fiveDay, #title, footer {
-    font-size: small;
+    font-size: smaller;
   }
 
   .search-form input, .search-form button {
