@@ -32,7 +32,6 @@ body {
 
 header, footer {
   text-align: center;
-  padding: 0.1rem;
   background-color: var(--color-primary);
   color: var(--color-text);
   width: 100%;
@@ -41,6 +40,12 @@ header, footer {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+footer {
+  position: relative;
+  bottom: 0;
+  width: 100%;
 }
 
 header {
@@ -111,6 +116,7 @@ footer {
   text-shadow: #016ccf 1px 1px 1px;
   border: 1px solid var(--color-border);
   border-radius: 5px;
+  margin: 0.5rem;
 }
 
 hr {
@@ -233,7 +239,7 @@ hr {
 
 @media (max-width: 480px) {
   header, footer {
-    padding: 5px;
+
   }
 
   .search-form input, .search-form button {
