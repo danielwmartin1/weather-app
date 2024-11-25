@@ -25,9 +25,6 @@ const Forecast = ({ forecastData }) => {
 
     const formatDate = (timestamp) => {
         const date = new Date(timestamp * 1000);
-        const hours = date.getHours();
-        const formattedHours = hours > 9 ? hours : hours % 12 || 12;
-        const formattedTime = `${formattedHours}:${date.getMinutes().toString().padStart(2, '0')} ${hours >= 12 ? 'PM' : 'AM'}`;
         const options = { month: 'short', day: 'numeric', year: 'numeric' };
         const formattedDate = date.toLocaleDateString('en-US', options);
         const day = date.getDate();
