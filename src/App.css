@@ -240,6 +240,11 @@ hr {
 }
 
 @media (max-width: 768px) {
+
+  .forecast-day, header, footer, .current-weather, .dateHeader, .fiveDay, #title, footer {
+    font-size: medium;
+  }
+
   .current-weather {
     padding: 0.5rem;
   }
@@ -253,6 +258,10 @@ hr {
 
 @media (max-width: 480px) {
 
+  .forecast-day, header, footer, .current-weather, .dateHeader, .fiveDay, #title, footer {
+    font-size: small;
+  }
+
   .search-form input, .search-form button {
     width: 100%;
     margin: 5px 0;
@@ -264,8 +273,8 @@ hr {
 }
 
 @media (max-width: 320px) {
-  .app {
-    padding: 10px;
+  .forecast-day, header, footer, .current-weather, .dateHeader, .fiveDay, #title, footer {
+    font-size: small;
   }
 
   .search-form input, .search-form button {
