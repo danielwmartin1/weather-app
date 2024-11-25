@@ -93,12 +93,22 @@ footer {
   margin: 0.5rem;
 }
 
+#text{
+  text-transform: lowercase !important;
+}
+
 .dateHeader {
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 1.25rem;
   color: var(--color-text);
+  background-color: rgba(0, 58, 139, 0.7);
+  text-decoration: underline;
+  text-shadow: #016ccf 1px 1px 1px;
+  border: 1px solid var(--color-border);
+  border-radius: 5px;
+  margin: 0.5rem;
 }
 
 .fiveDay, .popup-content {
@@ -201,8 +211,7 @@ hr {
 .forecast-day {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
-  gap: 10px;
-  padding: 10px;
+  padding: 1rem;
   border: 1px solid var(--color-border);
   border-radius: 5px;
   background-color: var(--color-primary);
@@ -213,10 +222,16 @@ hr {
   width: auto;
 }
 
+
+.forecast-part {
+  margin: 0rem;
+}
+
 .forecast-day p {
   margin: 0rem;
   padding: 0rem;
 }
+
 
 @media (max-width: 1024px) {
   .app, .current-weather {
@@ -230,19 +245,13 @@ hr {
   }
 
   .forecast-day {
-    grid-template-columns: 1fr;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
   }
 
-  .forecast-day {
-    grid-template-columns: 1fr;
-    gap: 0;
-  }
 }
 
 @media (max-width: 480px) {
-  header, footer {
-
-  }
 
   .search-form input, .search-form button {
     width: 100%;

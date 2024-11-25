@@ -4,7 +4,7 @@ import React from 'react';
 
 const CurrentWeather = ({ weatherData }) => {
   const time = new Date();
-  if (!weatherData || !weatherData.main || !weatherData.sys || !weatherData.weather || !weatherData.wind) return null;
+  if (!weatherData || !weatherData.main || !weatherData.sys || !weatherData.weather || !weatherData.weather.length || !weatherData.wind) return null;
 
   const weatherDetails = [
     { label: 'Current Temp', value: `${Math.round(weatherData.main.temp)}°${weatherData.units === 'metric' ? 'C' : 'F'}` },
