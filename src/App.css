@@ -74,7 +74,7 @@ footer {
   justify-content: center;
   overflow: hidden;
   background-image: url('./images/blueribbon.jpg');
-  background-size: cover;
+  background-size: 100%;
   z-index: 0;
   padding: 20px;
   position: relative;
