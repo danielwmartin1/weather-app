@@ -201,7 +201,8 @@ hr {
 }
 
 .forecast-day p {
-  margin: 0.25rem;
+  margin: 0rem;
+  padding: 0rem;
 }
 
 @media (max-width: 1024px) {
@@ -222,7 +223,7 @@ hr {
 
   .forecast-day {
     grid-template-columns: 1fr;
-    gap: 5px;
+    gap: 0;
   }
 }
 

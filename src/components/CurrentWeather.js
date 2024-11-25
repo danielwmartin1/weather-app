@@ -20,7 +20,7 @@ const CurrentWeather = ({ weatherData }) => {
     <div className="current-weather">
         <h2>{weatherData.name}, {weatherData.sys.country}</h2>
         <h3 className='time'>
-          {time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+          {time.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}
         </h3>
     {weatherDetails.map((detail, index) => (
       <p className='details' key={index}>{detail.label}: {detail.value}</p>

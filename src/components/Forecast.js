@@ -25,6 +25,9 @@ const Forecast = ({ forecastData }) => {
 
     const formatDate = (timestamp) => {
         const date = new Date(timestamp * 1000);
+        const hours = date.getHours();
+        const formattedHours = hours > 9 ? hours : hours % 12 || 12;
+        const formattedTime = `${formattedHours}:${date.getMinutes().toString().padStart(2, '0')} ${hours >= 12 ? 'PM' : 'AM'}`;
         const options = { month: 'short', day: 'numeric', year: 'numeric' };
         const formattedDate = date.toLocaleDateString('en-US', options);
         const day = date.getDate();
@@ -51,7 +54,7 @@ const Forecast = ({ forecastData }) => {
                     <h3 className='dateHeader'>{getDayName(day[0].dt)} - {formatDate(day[0].dt)}</h3>
                     {day.map((part, partIndex) => (
                         <div key={part.dt} className="forecast-part">
-                            <p>{new Date(part.dt * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
+                            <p>{new Date(part.dt * 1000).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}</p>
                             <p>{Math.round(part.main.temp)}°F</p>
                             <p>{part.weather[0].description}</p>
                             <img className='small-icon' src={getWeatherIconUrl(part.weather[0].icon)} alt={part.weather[0].description} />
