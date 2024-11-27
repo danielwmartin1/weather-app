@@ -1,6 +1,7 @@
 // src/components/Search.js
 import '../index.css';
 import '../App.css';
+import '../utils/api.js'
 import stateLabelValues from '../utils/stateLabelValues.js'
 import React, { useState, useEffect } from 'react';
 

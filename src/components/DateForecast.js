@@ -2,6 +2,7 @@
 import React from 'react';
 import '../index.css';
 import '../App.css';
+import '../utils/api.js'
 
 const DayForecast = ({ dayData }) => {
     // If there is no data, return null

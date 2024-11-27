@@ -2,6 +2,7 @@
 import '../index.css';
 import '../App.css';
 import React from 'react';
+import '../utils/api.js'
 
 const CurrentWeather = ({ weatherData }) => {
   const time = new Date();

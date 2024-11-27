@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import '../index.css';
 import '../App.css';
+import '../utils/api.js'
 import DayForecast from './DateForecast.js';
 
 const Forecast = ({ forecastData }) => {
