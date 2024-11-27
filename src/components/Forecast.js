@@ -1,9 +1,12 @@
 // src/components/Forecast.js
-import React from 'react';
+import React, { useState } from 'react';
 import '../index.css';
 import '../App.css';
+import DayForecast from './DateForecast.js';
 
 const Forecast = ({ forecastData }) => {
+    const [selectedDay, setSelectedDay] = useState(null);
+
     if (!forecastData) {
         return null;        
     }
@@ -45,25 +48,31 @@ const Forecast = ({ forecastData }) => {
         return formattedDate.replace(/\d+/, day + daySuffix);
     };
 
-    const specDay = () => {
-        alert('Click on a day to see the full forecast for that day.');
-    }
+    const handleDayClick = (dayData) => {
+        setSelectedDay(dayData);
+    };
 
     return (
         <div className="forecast">
-            {dayParts.map((day, dayIndex) => (
-                <div key={dayIndex} className="forecast-day">
-                    <h3 className='dateHeader' onClick={specDay}>{getDayName(day[0].dt)} - {formatDate(day[0].dt)}</h3>
-                    {day.map((part, partIndex) => (
-                        <div key={part.dt} className="forecast-part">
-                            <p>{new Date(part.dt * 1000).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}</p>
-                            <p>{Math.round(part.main.temp)}°F</p>
-                            <p>{part.weather[0].description}</p>
-                            <img className='small-icon' src={getWeatherIconUrl(part.weather[0].icon)} alt={part.weather[0].description} />
-                        </div>
-                    ))}
-                </div>
-            ))}
+            {selectedDay ? (
+                <DayForecast dayData={selectedDay} />
+            ) : (
+                dayParts.map((day, dayIndex) => (
+                    <div key={dayIndex} className="forecast-day">
+                        <h3 className='dateHeader' onClick={() => handleDayClick(day)}>
+                            {getDayName(day[0].dt)} - {formatDate(day[0].dt)}
+                        </h3>
+                        {day.map((part, partIndex) => (
+                            <div key={part.dt} className="forecast-part">
+                                <p>{new Date(part.dt * 1000).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}</p>
+                                <p>{Math.round(part.main.temp)}°F</p>
+                                <p>{part.weather[0].description}</p>
+                                <img className='small-icon' src={getWeatherIconUrl(part.weather[0].icon)} alt={part.weather[0].description} />
+                            </div>
+                        ))}
+                    </div>
+                ))
+            )}
         </div>
     );
 };

@@ -95,9 +95,7 @@ footer {
   margin: 0.5rem;
 }
 
-#text {
-  text-transform: lowercase !important;
-}
+
 
 .dateHeader {
   display: flex;
@@ -199,7 +197,6 @@ hr {
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   overflow-y: visible;
-  text-transform: capitalize;
   padding: 1rem 5rem;
   border: 1px solid var(--color-border);
   margin: 1rem;
