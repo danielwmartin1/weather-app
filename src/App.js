@@ -26,20 +26,19 @@ const App = () => {
       <div className="app-container" style={{height: '100vh!important'}}>
         <Header />
         <div className="app">
+          <>
+            <Search onSearch={handleSearch} />
+            {weatherData && forecastData ? (
               <>
-                <Search onSearch={handleSearch} />
-                {weatherData && forecastData ? (
-                  <>
-                    <CurrentWeather weatherData={weatherData} />
-                    <hr />
-                    <h2 className='fiveDay'>5-Day Forecast</h2>
-                    <Forecast forecastData={forecastData} />
-                  </>
-                ) : (
-                  null
-                )}
+                <CurrentWeather weatherData={weatherData} />
+                <hr />
+                <h2 className='fiveDay'>5-Day Forecast</h2>
+                <Forecast forecastData={forecastData} />
               </>
-            {/* Add more routes here as needed */}
+            ) : (
+              null
+            )}
+          </>
         </div>
         <Footer />
       </div>

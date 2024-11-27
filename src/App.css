@@ -196,12 +196,15 @@ hr {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
 }
 
 .search-form input {
   padding: var(--padding-small);
-  width: 100%;
-  max-width: 300px;
+  width: 80%;
+  max-width: 320px;
   border: 1px solid #ccc;
   border-radius: var(--border-radius);
   text-align: center;
@@ -216,8 +219,8 @@ hr {
   cursor: pointer;
   transition: background-color 0.3s, transform 0.2s;
   margin: var(--margin-medium);
-  width: 80%;
-  max-width: 300px;
+  width: 50%;
+  max-width: 320px;
 }
 
 .search-form button:hover {
