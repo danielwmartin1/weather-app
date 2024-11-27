@@ -143,6 +143,15 @@ footer {
   margin: var(--margin-medium);
 }
 
+.forecast {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: var(--padding-small);
+  margin: var(--margin-medium);
+  text-align: center;
+}
 
 .forecast-part {
   justify-content: center;
@@ -198,7 +207,7 @@ hr {
   align-items: center;
   width: 100%;
   max-width: 500px;
-  margin: 0 auto;
+  margin: 1rem;
 }
 
 .search-form input {
