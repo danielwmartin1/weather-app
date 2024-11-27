@@ -145,6 +145,14 @@ footer {
   margin: var(--margin-small);
 }
 
+
+.forecast-part {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+
 hr {
   width: 100%;
   border: 1px solid var(--color-border);
@@ -277,82 +285,6 @@ hr {
 @media (max-width: 768px) {
   .forecast-day, header, footer, .current-weather, footer {
     font-size: var(--font-size-small);
-  }
-
-  .locationTime, .dateHeader, .fiveDay {
-    font-size: var(--font-size-medium);
-  }
-
-  .forecast-day {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0;
-  }
-
-  .forecast-part {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .weather-detail {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@media (max-width: 480px) {
-  .forecast-day, header, footer, .current-weather, footer {
-    font-size: var(--font-size-small);
-  }
-
-  .forecast {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .forecast-day {
-    grid-template-columns: repeat(2, 1fr);
-    padding: var(--padding-small);
-  }
-
-  .search-form input, .search-form button {
-    width: 100%;
-    margin: 5px 0;
-  }
-
-  .forecast-day p {
-    margin: 0.25rem;
-  }
-
-  .weather-detail {
-    display: flex;
-    flex-direction: column;
-  }
-}
-
-@media (max-width: 320px) {
-  .forecast-day, header, footer, .current-weather, .dateHeader, .fiveDay, footer {
-    font-size: var(--font-size-small);
-  }
-
-  .search-form input, .search-form button {
-    padding: 5px;
-  }
-
-  .statusMessage {
-    font-size: 2rem;
-  }
-
-  .forecast-day {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 768px) {
-  .forecast-day, header, footer, .current-weather, footer {
-    font-size: var(--font-size-small);
     padding: var(--padding-small);
   }
 
@@ -364,13 +296,6 @@ hr {
   .forecast-day {
     grid-template-columns: repeat(3, 1fr);
     gap: 0;
-  }
-
-  .forecast-part {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
   }
 
   .weather-detail {
@@ -451,3 +376,4 @@ header, footer, .details, .dateHeader, .fiveDay, .popup-content, .statusMessage,
        -o-transition: background-color 0.3s, transform 0.2s;
           transition: background-color 0.3s, transform 0.2s;
 }
+
