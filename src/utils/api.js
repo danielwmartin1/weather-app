@@ -27,3 +27,30 @@ export const fetchForecastData = async (location, units = "imperial") => {
       return null;
     }
   };
+
+// Fetches location data from the OpenWeatherMap API
+export const fetchLocationData = async (lat, lon) => {
+    try {
+      const response = await axios.get(`${BASE_URL}weather?lat=${lat}&lon=${lon}&appid=${API_KEY}`);
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  };
+
+// Fetches forecast data from the OpenWeatherMap API by date
+export const fetchForecastDataByDate = async (location, date, units = "imperial") => {
+    try {
+      const response = await axios.get(`${BASE_URL}forecast?q=${location}&appid=${API_KEY}&units=${units}`);
+      const forecastData = response.data.list || [];
+      const filteredData = forecastData.filter((data) => {
+        const dataDate = new Date(data.dt * 1000);
+        return dataDate.toDateString() === date.toDateString();
+      });
+      return filteredData;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  };

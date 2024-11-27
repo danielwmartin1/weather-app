@@ -45,11 +45,15 @@ const Forecast = ({ forecastData }) => {
         return formattedDate.replace(/\d+/, day + daySuffix);
     };
 
+    const specDay = () => {
+        alert('Click on a day to see the full forecast for that day.');
+    }
+
     return (
         <div className="forecast">
             {dayParts.map((day, dayIndex) => (
                 <div key={dayIndex} className="forecast-day">
-                    <h3 className='dateHeader'>{getDayName(day[0].dt)} - {formatDate(day[0].dt)}</h3>
+                    <h3 className='dateHeader' onClick={specDay}>{getDayName(day[0].dt)} - {formatDate(day[0].dt)}</h3>
                     {day.map((part, partIndex) => (
                         <div key={part.dt} className="forecast-part">
                             <p>{new Date(part.dt * 1000).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}</p>
