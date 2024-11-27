@@ -5,6 +5,7 @@ import { fetchWeatherData, fetchForecastData } from './utils/api';
 import CurrentWeather from './components/CurrentWeather';
 import Forecast from './components/Forecast';
 import Search from './components/Search';
+import './index.css';
 import './App.css';
 import Footer from './components/Footer';
 import Header from './components/Header';

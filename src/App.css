@@ -224,38 +224,24 @@ hr {
   width: auto;
 }
 
-.forecast-part {
-  margin: 0rem;
-}
-
 .forecast-day p {
   margin: 0rem;
   padding: 0rem;
 }
 
-@media (max-width: 1024px) {
-  .app, .current-weather {
-    padding: 1.25rem;
-  }
-}
 
 @media (max-width: 768px) {
-  .forecast-day, header, footer, .current-weather, .dateHeader, .fiveDay, #title, footer {
+  .forecast-day, header, footer, .current-weather, .dateHeader, .fiveDay, footer {
     font-size: var(--font-size-small);
   }
 
-  .current-weather {
-    padding: 0.5rem;
-  }
-
   .forecast-day {
-    display: grid;
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
 @media (max-width: 480px) {
-  .forecast-day, header, footer, .current-weather, .dateHeader, .fiveDay, #title, footer {
+  .forecast-day, header, footer, .current-weather, .dateHeader, .fiveDay, footer {
     font-size: var(--font-size-smaller);
   }
 
@@ -267,10 +253,14 @@ hr {
   .details {
     flex-direction: column;
   }
+
+  .forecast-day {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @media (max-width: 320px) {
-  .forecast-day, header, footer, .current-weather, .dateHeader, .fiveDay, #title, footer {
+  .forecast-day, header, footer, .current-weather, .dateHeader, .fiveDay, footer {
     font-size: var(--font-size-smaller);
   }
 
@@ -280,5 +270,9 @@ hr {
 
   .statusMessage {
     font-size: 2rem;
+  }
+
+  .forecast-day {
+    grid-template-columns: 1fr;
   }
 }
