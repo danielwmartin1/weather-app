@@ -52,6 +52,7 @@ header, footer {
 
 
 header {
+  top: 0;
   border-bottom: 5px ridge var(--color-accent);
 }
 
@@ -84,7 +85,6 @@ footer {
   background-repeat: no-repeat;
   background-position: center;
   z-index: 0;
-  padding: var(--padding-large);
   position: relative;
   min-height: 100vh;
 }
@@ -207,6 +207,16 @@ hr {
   max-width: 320px;
   border: 1px solid #ccc;
   border-radius: var(--border-radius);
+  text-align: center;
+}
+
+#picture {
+  width: 100%;
+  height: auto;
+  margin-bottom: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-align: center;
 }
 
