@@ -52,12 +52,20 @@ const Forecast = ({ forecastData }) => {
         setSelectedDay(dayData);
     };
 
+    const handleBackClick = () => {
+        setSelectedDay(null);
+    };
+
     return (
         <div className="forecast">
-            {selectedDay ? (<DayForecast dayData={selectedDay} />) : (
+            {selectedDay ? (
+                <div onClick={handleBackClick}>
+                    <DayForecast dayData={selectedDay} />
+                </div>
+            ) : (
                 dayParts.map((day, dayIndex) => (
-                    <div key={dayIndex} className="forecast-day">
-                        <h3 className='dateHeader' onClick={() => handleDayClick(day)}>
+                    <div key={dayIndex} className="forecast-day" onClick={() => handleDayClick(day)}>
+                        <h3 className='dateHeader'>
                             {getDayName(day[0].dt)} - {formatDate(day[0].dt)}
                         </h3>
                         {day.map((part, partIndex) => (
