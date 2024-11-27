@@ -232,12 +232,24 @@ hr {
 
   .forecast-day {
     grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+  }
+
+  .forecast-part {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 }
-
 @media (max-width: 480px) {
   .forecast-day, header, footer, .current-weather, .dateHeader, .fiveDay, footer {
     font-size: var(--font-size-smaller);
+  }
+
+  .forecast-day {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 0;
   }
 
   .search-form input, .search-form button {
@@ -249,9 +261,7 @@ hr {
     flex-direction: column;
   }
 
-  .forecast-day {
-    grid-template-columns: repeat(2, 1fr);
-  }
+
 }
 
 @media (max-width: 320px) {
