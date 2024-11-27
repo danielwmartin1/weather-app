@@ -24,8 +24,10 @@ const Search = ({ onSearch }) => {
             const data = await response.json();
             if (data && data.length > 0) {
                 const locationName = data[0].name;
+                const state = data[0].state ? data[0].state : '';
+                const county = data[0].county ? data[0].county : '';
                 const countryName = data[0].country;
-                setLocation(`${locationName}, ${countryName}`);
+                setLocation(`${locationName}${county ? `, ${county}` : ''}${state ? `, ${state}` : ''}, ${countryName}`);
             }
         };
 
