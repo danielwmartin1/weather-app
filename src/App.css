@@ -85,6 +85,16 @@ footer {
   min-height: 80vh;
 }
 
+.day-forecast {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 0.625rem;
+  font-size: var(--font-size-medium);
+  text-align: center;
+}
+
 .details {
   display: flex;
   justify-content: center;
@@ -255,13 +265,15 @@ hr {
   .forecast-day {
     grid-template-columns: repeat(2, 1fr);
     padding: 0.625rem;
-    margin-right: inherit;
-    margin-left: inherit;
   }
 
   .search-form input, .search-form button {
     width: 100%;
     margin: 5px 0;
+  }
+
+  .forecast-day p {
+    margin: 0.25rem;
   }
 
   .details {
