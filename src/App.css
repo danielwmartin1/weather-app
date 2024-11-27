@@ -6,7 +6,7 @@
   --color-text: white;
   --color-border: var(--color-accent);
   --font-size-large: 2.75rem;
-  --font-size-medium: 1.25rem;
+  --font-size-medium: 1.35rem;
   --font-size-small: 1rem;
   --padding-small: 0.5rem;
   --padding-medium: 1rem;
@@ -47,13 +47,10 @@ header, footer {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: var(--padding-small);
 }
 
 footer {
-  position: relative;
-  bottom: 0;
-  width: 100%;
+
 }
 
 header {
@@ -62,6 +59,9 @@ header {
 
 footer {
   border-top: 5px ridge var(--color-accent);
+  position: relative;
+  bottom: 0;
+  width: 100%;
 }
 
 .app-container {
@@ -142,7 +142,7 @@ footer {
   text-shadow: #016ccf 1px 1px 1px;
   border: 1px solid var(--color-border);
   border-radius: 5px;
-  margin: var(--margin-small);
+  margin: var(--margin-medium);
 }
 
 
