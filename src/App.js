@@ -9,7 +9,6 @@ import './index.css';
 import './App.css';
 import Footer from './components/Footer';
 import Header from './components/Header';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 
 const App = () => {
@@ -24,12 +23,9 @@ const App = () => {
     setForecastData(forecast);
   };
   return (
-    <Router>
-      <div className="app-container">
+      <div className="app-container" style={{height: '100vh!important'}}>
         <Header />
         <div className="app">
-          <Routes>
-            <Route path="/" element={
               <>
                 <Search onSearch={handleSearch} />
                 {weatherData && forecastData ? (
@@ -43,13 +39,10 @@ const App = () => {
                   null
                 )}
               </>
-            } />
             {/* Add more routes here as needed */}
-          </Routes>
         </div>
         <Footer />
       </div>
-    </Router>
   );
 };
 

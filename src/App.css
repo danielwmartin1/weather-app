@@ -290,7 +290,7 @@ hr {
 }
 
 /* Vendor prefixes for compatibility */
-header, footer, .app, .details, .dateHeader, .fiveDay, .popup-content, .statusMessage, .search-form, .current-weather, .forecast-day {
+.app, .details, .dateHeader, .fiveDay, .popup-content, .statusMessage, .search-form, .current-weather, .forecast-day {
   -webkit-box-sizing: border-box;
      -moz-box-sizing: border-box;
           box-sizing: border-box;
