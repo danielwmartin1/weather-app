@@ -252,7 +252,8 @@ hr {
   overflow-y: visible;
   padding: var(--padding-large);
   border: 1px solid var(--color-border);
-  margin: var(--margin-medium);
+  margin: var(--margin-small);
+  width: 100%;
 }
 
 .small-icon {
@@ -268,10 +269,8 @@ hr {
   border-radius: 5px;
   background-color: var(--color-primary);
   color: var(--color-text);
-  margin: var(--margin-small);
   box-sizing: border-box;
-  min-width: 480px;
-  width: auto;
+  width: 100%;
 }
 
 .forecast-day p {
