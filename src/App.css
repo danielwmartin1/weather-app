@@ -49,9 +49,6 @@ header, footer {
   align-items: center;
 }
 
-footer {
-
-}
 
 header {
   border-bottom: 5px ridge var(--color-accent);
@@ -376,4 +373,3 @@ header, footer, .details, .dateHeader, .fiveDay, .popup-content, .statusMessage,
        -o-transition: background-color 0.3s, transform 0.2s;
           transition: background-color 0.3s, transform 0.2s;
 }
-
