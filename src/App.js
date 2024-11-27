@@ -23,6 +23,8 @@ const App = () => {
   };
   
 
+  const [showForecast, setShowForecast] = useState(true);
+
   return (
     <div className="app-container">
       <Header />
@@ -31,9 +33,9 @@ const App = () => {
         {weatherData && forecastData ? (
           <>
             <CurrentWeather weatherData={weatherData} />
-              <hr />
-            <h2 className='fiveDay'>5-Day Forecast</h2>
-            <Forecast forecastData={forecastData} />
+            <hr />
+            <h2 className='fiveDay' onClick={() => setShowForecast(!showForecast)}>5-Day Forecast</h2>
+            {showForecast && <Forecast forecastData={forecastData} />}
           </>
         ) : (
           null

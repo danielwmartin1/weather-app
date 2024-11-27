@@ -54,9 +54,7 @@ const Forecast = ({ forecastData }) => {
 
     return (
         <div className="forecast">
-            {selectedDay ? (
-                <DayForecast dayData={selectedDay} />
-            ) : (
+            {selectedDay ? (<DayForecast dayData={selectedDay} />) : (
                 dayParts.map((day, dayIndex) => (
                     <div key={dayIndex} className="forecast-day">
                         <h3 className='dateHeader' onClick={() => handleDayClick(day)}>
