@@ -149,7 +149,9 @@ footer {
   align-items: center;
   flex-wrap: wrap;
   padding: var(--padding-small);
-  margin: var(--margin-medium);
+  margin-bottom: 1rem;
+  margin-left: var(--margin-small);
+  margin-right: var(--margin-small);
   text-align: center;
 }
 
@@ -257,6 +259,16 @@ hr {
   color: var(--color-text);
 }
 
+.weather {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: var(--padding-medium);
+  font-size: var(--font-size-medium);
+  text-align: center;
+}
+
 .weather-detail {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -273,10 +285,8 @@ hr {
   border-radius: var(--border-radius);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   overflow-y: visible;
-  padding: var(--padding-large);
   border: 1px solid var(--color-border);
-  margin: var(--margin-small);
-  width: 100%;
+  margin: 0 var(--margin-medium) var(--margin-medium) var(--margin-medium);
 }
 
 .small-icon {
@@ -287,7 +297,7 @@ hr {
 .forecast-day {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
-  padding: var(--padding-large);
+  padding: var(--padding-small);
   border: 1px solid var(--color-border);
   border-radius: var(--border-radius);
   background-color: var(--color-primary);
@@ -300,6 +310,8 @@ hr {
   margin: 0;
   padding: 0;
 }
+
+.
 
 @media (max-width: 768px) {
   .forecast-day, header, footer, .current-weather, footer {

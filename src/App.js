@@ -66,7 +66,7 @@ const App = () => {
               </svg>
               </div>
             }
-            <Search onSearch={handleSearch} />
+            <Search onSearch={handleSearch} className="onSearch"/>
             {weatherData && forecastData ? (
               <>
                 <CurrentWeather weatherData={weatherData} />
