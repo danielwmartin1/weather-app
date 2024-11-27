@@ -82,7 +82,7 @@ footer {
   z-index: 0;
   padding: 1.25rem;
   position: relative;
-  min-height: 80vh;
+  min-height: 100vh;
 }
 
 .day-forecast {
@@ -257,9 +257,12 @@ hr {
   .forecast-day, header, footer, .current-weather, .dateHeader, .fiveDay, footer {
     font-size: var(--font-size-smaller);
   }
-  
-  .forecast-day, header, footer, .current-weather, .dateHeader, .fiveDay, footer {
-    font-size: var(--font-size-smaller);
+
+  .forecast {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 
   .forecast-day {
