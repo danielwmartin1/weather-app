@@ -393,9 +393,8 @@ hr {
 
 /* Media queries for responsiveness */
 @media (max-width: 1024px) {
-  .forecast, .forecast-day, .details, header, footer, .current-weather {
+  .forecast, .forecast-day, .details, .current-weather {
     font-size: var(--font-size-small);
-    padding: var(--padding-medium);
   }
 
   .forecast-day {
@@ -461,6 +460,7 @@ hr {
   .search-form input, .search-form button {
     width: 100%;
     margin: 5px 0;
+    padding: var(--padding-small);
   }
 
   .forecast-day p {
@@ -495,6 +495,7 @@ hr {
     font-size: 2rem;
   }
 }
+
 
 /* Vendor prefixes for compatibility */
 header, footer, .details, .dateHeader, .fiveDay, .popup-content, .statusMessage, .search-form, .current-weather, .forecast-day {
