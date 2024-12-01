@@ -300,8 +300,8 @@ hr {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   overflow-y: visible;
   border: 1px solid var(--color-border);
-  margin: 0 var(--margin-medium) var(--margin-large) var(--margin-medium);
   width: auto;
+  padding: var(--padding-small);
 }
 
 .small-icon {
