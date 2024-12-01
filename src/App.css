@@ -190,9 +190,25 @@ hr {
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
+  border: 2px solid var(--color-border);
+  border-radius: var(--border-radius);
 }
 
-.locationTime, .fiveDay {
+.locationTime {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: var(--padding-small);
+  font-size: var(--font-size-medium);
+  text-align: center;
+  color: var(--color-text);
+  text-shadow: #016ccf 1px 1px 1px;
+  border-radius: var(--border-radius);
+  margin: var(--margin-medium);
+}
+
+.fiveDay {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -316,8 +332,6 @@ hr {
   align-items: center;
   flex-wrap: wrap;
   padding: var(--padding-small);
-  border: 2px solid var(--color-border);
-  border-radius: var(--border-radius);
 }
 
 
