@@ -4,6 +4,7 @@ import '../index.css';
 import '../App.css';
 import '../utils/api.js'
 import DayForecast from './DateForecast.js';
+import CurrentWeather from './CurrentWeather.js';
 
 const Forecast = ({ forecastData }) => {
     const [selectedDay, setSelectedDay] = useState(null);
@@ -57,6 +58,10 @@ const Forecast = ({ forecastData }) => {
         setSelectedDay(null);
     };
 
+    const capitalizeFirstLetter = (string) => {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    };
+
     return (
         <div className="forecast">
             {selectedDay ? (
@@ -69,11 +74,11 @@ const Forecast = ({ forecastData }) => {
                         <h3 className='dateHeader'>
                             {getDayName(day[0].dt)} - {formatDate(day[0].dt)}
                         </h3>
-                        {day.map((part, partIndex) => (
+                        {day.map((part) => (
                             <div key={part.dt} className="forecast-part">
                                 <p className="part">{new Date(part.dt * 1000).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}</p>
                                 <p className="part">{Math.round(part.main.temp)}°F</p>
-                                <p className="part condition">{part.weather[0].description}</p>
+                                <p className="part condition">{capitalizeFirstLetter(part.weather[0].description)}</p>
                                 <img className='small-icon' src={getWeatherIconUrl(part.weather[0].icon)} alt={part.weather[0].description} />
                             </div>
                         ))}

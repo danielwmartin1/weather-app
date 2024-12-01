@@ -310,6 +310,10 @@ hr {
   height: 50px;
 }
 
+.part {
+  padding-bottom: 0.5rem !important; 
+}
+
 .forecast-day {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
