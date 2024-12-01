@@ -1,10 +1,12 @@
 import '../App.css';
-import '../utils/api.js'
-import stateLabelValues from '../utils/stateLabelValues.js'
+import '../utils/api.js';
+import stateLabelValues from '../utils/stateLabelValues.js';
 import React, { useState, useEffect } from 'react';
+import InitialRenderImage from '../images/initial-render-image.svg'; // Adjust the path as needed
 
 const Search = ({ onSearch }) => {
     const [location, setLocation] = useState('');
+    const [initialRender, setInitialRender] = useState(true);
 
     const handleSearch = (e) => {
         e.preventDefault();
@@ -26,10 +28,10 @@ const Search = ({ onSearch }) => {
                 const locationName = data[0].name;
                 const stateName = data[0].state;
                 const countryName = data[0].country;
-                const zipcode = data[0].zip; // Assuming the API returns a zip field
+                const zipCode = data[0].zip; // Assuming the API returns a zip field
                 const state = stateLabelValues.find(state => state.label === stateName);
                 const stateAbbreviation = state ? state.value : stateName;
-                setLocation(`${locationName}${stateAbbreviation ? `, ${stateAbbreviation}` : ''}, ${countryName}${zipcode ? `, ${zipcode}` : ''}`);
+                setLocation(`${locationName}${stateAbbreviation ? `, ${stateAbbreviation}` : ''}, ${countryName}${zipCode ? `, ${zipCode}` : ''}`);
             }
         };
 
@@ -39,19 +41,27 @@ const Search = ({ onSearch }) => {
                 fetchLocationName(latitude, longitude);
             });
         }
+
+        // Set initialRender to false after the first render
+        setInitialRender(false);
     // eslint-disable-next-line
     }, []);
 
     return (
-        <form onSubmit={handleSearch} className="search-form" style={{ marginBottom: location ? '20%' : '0' }}>
-            <input
-                type="text"
-                placeholder="Enter location"
-                value={location}
-                onChange={(e) => setLocation(e.target.value)}
-            />
-            <button id="submit" type="submit">Search</button>
-        </form>
+        <div className="home-screen">
+            <div className="initial-render-image">
+                <img src={InitialRenderImage} alt="Initial Render" />
+            </div>
+            <form onSubmit={handleSearch} className="search-form" style={{ marginBottom: location ? '20%' : '0' }}>
+                <input
+                    type="text"
+                    placeholder="Enter location"
+                    value={location}
+                    onChange={(e) => setLocation(e.target.value)}
+                />
+                <button id="submit" type="submit">Search</button>
+            </form>
+        </div>
     );
 };
 

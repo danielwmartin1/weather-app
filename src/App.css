@@ -102,6 +102,22 @@ footer {
   text-align: center;
 }
 
+.home-screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: var(--color-text);
+  background-color: rgba(0, 58, 139, 1);
+  text-decoration: underline;
+  text-shadow: #016ccf 1px 1px 1px;
+  border: 2px solid var(--color-border);
+  border-radius: var(--border-radius);
+  margin: var(--margin-large);
+  padding: var(--padding-large);
+}
+
 #submit {
   padding: var(--padding-small);
   border: none;
@@ -110,7 +126,7 @@ footer {
   border-radius: var(--border-radius);
   cursor: pointer;
   transition: background-color 0.3s, transform 0.2s;
-  width: 25%;
+  width: 100px;
 }
 
 .details {
