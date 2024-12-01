@@ -1,3 +1,5 @@
+// src/components/Search.js
+import '../index.css';
 import '../App.css';
 import '../utils/api.js'
 import stateLabelValues from '../utils/stateLabelValues.js'
@@ -16,6 +18,7 @@ const Search = ({ onSearch }) => {
         setLocation('');
     };
 
+
     useEffect(() => {
         const fetchLocationName = async (lat, lon) => {
             const API_KEY = 'd41e3da09b3eaeb051becd162da6e929';
@@ -26,10 +29,9 @@ const Search = ({ onSearch }) => {
                 const locationName = data[0].name;
                 const stateName = data[0].state;
                 const countryName = data[0].country;
-                const zipcode = data[0].zip; // Assuming the API returns a zip field
                 const state = stateLabelValues.find(state => state.label === stateName);
                 const stateAbbreviation = state ? state.value : stateName;
-                setLocation(`${locationName}${stateAbbreviation ? `, ${stateAbbreviation}` : ''}, ${countryName}${zipcode ? `, ${zipcode}` : ''}`);
+                setLocation(`${locationName}${stateAbbreviation ? `, ${stateAbbreviation}` : ''}, ${countryName}`);
             }
         };
 
