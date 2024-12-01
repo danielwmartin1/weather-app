@@ -4,6 +4,18 @@ import '../index.css';
 import '../App.css';
 import '../utils/api.js'
 import DayForecast from './DateForecast.js';
+import CurrentWeather from './CurrentWeather.js';
+
+const getDayName = (timestamp) => {
+    const date = new Date(timestamp * 1000);
+    const options = { weekday: 'short' };
+    return date.toLocaleDateString('en-US', options);
+};
+
+const formatDate = (timestamp) => {
+    const date = new Date(timestamp * 1000);
+    return date.toLocaleDateString('en-US');
+};
 
 const Forecast = ({ forecastData }) => {
     const [selectedDay, setSelectedDay] = useState(null);
@@ -13,8 +25,8 @@ const Forecast = ({ forecastData }) => {
     }
     const getDayParts = (list) => {
         const dayParts = [];
-        for (let i = 0; i < list.length; i += 5) {
-            dayParts.push(list.slice(i, i + 5));
+        for (let i = 0; i < list.length; i += 8) {
+            dayParts.push(list.slice(i, i + 8));
         }
         return dayParts.slice(0, 5); // Get data for 2 days
     };
@@ -22,32 +34,6 @@ const Forecast = ({ forecastData }) => {
         return `http://openweathermap.org/img/wn/${icon}@2x.png`;
     };
     const dayParts = getDayParts(forecastData.list);
-
-    const getDayName = (timestamp) => {
-        const date = new Date(timestamp * 1000);
-        return date.toLocaleDateString('en-US', { weekday: 'long' });
-    };
-
-    const formatDate = (timestamp) => {
-        const date = new Date(timestamp * 1000);
-        const options = { month: 'short', day: 'numeric', year: 'numeric' };
-        const formattedDate = date.toLocaleDateString('en-US', options);
-        const day = date.getDate();
-        let daySuffix;
-
-        if (day === 11 || day === 12 || day === 13) {
-            daySuffix = 'th';
-        } else {
-            switch (day % 10) {
-                case 1: daySuffix = 'st'; break;
-                case 2: daySuffix = 'nd'; break;
-                case 3: daySuffix = 'rd'; break;
-                default: daySuffix = 'th'; break;
-            }
-        }
-
-        return formattedDate.replace(/\d+/, day + daySuffix);
-    };
 
     const handleDayClick = (dayData) => {
         setSelectedDay(dayData);

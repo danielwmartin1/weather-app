@@ -304,10 +304,11 @@ hr {
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  font-size: 1rem;
-  text-align: center;
   padding: var(--padding-small);
+  border: 2px solid var(--color-border);
+  border-radius: var(--border-radius);
 }
+
 
 .current-weather {
   background-color: var(--color-primary);
