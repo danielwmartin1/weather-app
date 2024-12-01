@@ -28,26 +28,6 @@
   --z-index-low: 100;
 }
 
-
-#title {
-  font-size: var(--font-size-large);
-  color: var(--color-text);
-  margin: var(--margin-medium);
-  text-align: center;
-  font-family: 'Roboto', sans-serif;
-  text-shadow: #016ccf 1px 1px 1px;
-  background-color: rgba(0, 58, 139, 1);
-  text-decoration: underline;
-  border-radius: var(--border-radius);
-  padding: var(--padding-medium);
-  border: 2px solid #019fcfd0;
-
-}
-
-.fiveDay .initial-render-image {
-  border: 2px solid #0033ff;
-}
-
 body {
   display: flex;
   flex-direction: column;
@@ -136,8 +116,8 @@ footer {
   margin-bottom: var(--margin-medium);
   padding: var(--padding-medium);
   border-radius: var(--border-radius);
-  border: 1px solid var(--color-accent)
-  }
+  border: 1px solid var(--color-accent);
+}
 
 #submit {
   padding: var(--padding-small);
@@ -192,8 +172,6 @@ footer {
   flex-wrap: wrap;
   padding: var(--padding-small);
   margin-bottom: 1rem;
-  margin-left: var(--margin-small);
-  margin-right: var(--margin-small);
   text-align: center;
 }
 
@@ -371,7 +349,7 @@ hr {
   overflow-y: visible;
   border: 2px solid var(--color-border);
   width: auto;
-  margin: var(--margin-large);
+  margin: var(--margin-small) var(--margin-large);
 }
 
 .small-icon {
@@ -393,7 +371,7 @@ hr {
   color: var(--color-text);
   box-sizing: border-box;
   width: 100%;
-  margin: var(--margin-small);
+  margin: var(--margin-medium)
 }
 
 .forecast-day p {
@@ -410,7 +388,7 @@ hr {
 @media (max-width: 1024px) {
   .forecast-day, header, footer, .current-weather, footer {
     font-size: var(--font-size-small);
-    padding: var(--padding-small);
+    padding: var(--padding-medium);
   }
 
   .locationTime, .dateHeader {
@@ -425,18 +403,19 @@ hr {
 }
 
 @media (max-width: 768px) {
-  .forecast-day, header, footer, .current-weather, footer {
+  .forecast-day {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+    padding: var(--padding-small);
+  }
+
+  header, footer, .current-weather, footer {
     font-size: var(--font-size-small);
   }
 
   .locationTime, .dateHeader {
     font-size: var(--font-size-small);
     padding: var(--padding-small);
-  }
-
-  .forecast-day {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 0;
   }
 
   .search-form input, .search-form button {
@@ -463,10 +442,7 @@ hr {
     align-items: center;
   }
 
-  .forecast-day {
-    grid-template-columns: repeat(2, 1fr);
-    padding: var(--padding-small);
-  }
+
 
   .search-form input, .search-form button {
     width: 100%;
