@@ -45,21 +45,27 @@ const CurrentWeather = ({ weatherData, location }) => {
 
   return (
     <div className="current-weather">
-      <div className="locationTimeContainer">
-        <h2 className="locationTime">{location}</h2>
-        <h3 className='locationTime'>
-          {time.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}
-        </h3>
+      <div className="current-weather-content">
+        <div className="locationTimeContainer">
+          <h2 className="locationTime">{location}</h2>
+          <h3 className='locationTime'>
+            {time.toLocaleDateString([], { weekday: 'short', year: 'numeric', month: 'long', day: 'numeric' })}
+          </h3>
+          <h4 className='locationTime'>
+            {time.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}
+          </h4>
+
+        </div>
+        <div className="weather-detail">
+          {weatherDetails.map((detail, index) => (
+           <p className='details' key={index}>{detail.label}: {detail.value}</p>
+          ))}
+        </div>
+        <img 
+          src={`http://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`} 
+          alt={weatherData.weather[0].description} 
+        />
       </div>
-      <div className="weather-detail">
-        {weatherDetails.map((detail, index) => (
-         <p className='details' key={index}>{detail.label}: {detail.value}</p>
-        ))}
-      </div>
-      <img 
-        src={`http://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`} 
-        alt={weatherData.weather[0].description} 
-      />
     </div>
   );
 };

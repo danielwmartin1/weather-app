@@ -9,7 +9,7 @@ const DayForecast = ({ dayData }) => {
     if (!dayData || !dayData.length) return null;
 
     // Get the overall data for the day
-    const overallData = dayData[0];
+    const overallData = dayData[0] || {};
 
     // Get the weather details for the day
     const weatherDetails = [
