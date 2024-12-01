@@ -4,7 +4,6 @@ import '../index.css';
 import '../App.css';
 import '../utils/api.js'
 import DayForecast from './DateForecast.js';
-import CurrentWeather from './CurrentWeather.js';
 
 const getDayName = (timestamp) => {
     const date = new Date(timestamp * 1000);
