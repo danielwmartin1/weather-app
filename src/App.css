@@ -190,9 +190,7 @@ hr {
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  border: 2px solid var(--color-border);
-  border-radius: var(--border-radius);
-  background-color: rgba(0, 58, 139, 1);
+  border-bottom: 2px solid var(--color-border);
 }
 
 .locationTime {
@@ -344,8 +342,8 @@ hr {
   overflow-y: visible;
   border: 2px solid var(--color-border);
   width: auto;
-  padding: var(--padding-medium);
-  margin: var(--margin-medium);
+  padding: var(--padding-small);
+  margin: var(--margin-large);
 }
 
 .small-icon {
