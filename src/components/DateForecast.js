@@ -16,11 +16,6 @@ const DayForecast = ({ dayData }) => {
         const options = { weekday: 'short' };
         return date.toLocaleDateString('en-US', options);
     };
-    
-    const formatDate = (timestamp) => {
-        return new Date(timestamp * 1000).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-    };
-    
 
     // Get the weather details for the day
     const weatherDetails = [
