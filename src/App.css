@@ -327,6 +327,7 @@ hr {
   color: var(--color-text);
   box-sizing: border-box;
   width: 100%;
+  margin: 0.25rem;
 }
 
 .forecast-day p {
