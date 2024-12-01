@@ -108,7 +108,7 @@ footer {
   border: 2px solid var(--color-accent);
   border-radius: var(--border-radius);
   margin: var(--margin-large);
-  padding: var(--padding-large);
+  padding: 3rem;
 }
 
 .home-screen img {
