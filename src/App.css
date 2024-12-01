@@ -380,7 +380,7 @@ hr {
   color: var(--color-text);
   box-sizing: border-box;
   width: 100%;
-  margin: var(--margin-medium);
+  margin: var(--margin-small) var(--margin-medium);
 }
 
 .weather-detail {
