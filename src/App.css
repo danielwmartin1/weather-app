@@ -370,8 +370,10 @@ hr {
 }
 
 .forecast-day {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
   padding: var(--padding-small);
   border: 2px solid var(--color-border);
   border-radius: var(--border-radius);
@@ -379,12 +381,7 @@ hr {
   color: var(--color-text);
   box-sizing: border-box;
   width: 100%;
-  margin: var(--margin-medium)
-}
-
-.forecast-day p {
-  margin: 0;
-  padding: 0;
+  margin: var(--margin-medium);
 }
 
 .weather-detail {
@@ -396,11 +393,15 @@ hr {
 }
 
 /* Media queries for responsiveness */
-/* Media queries for responsiveness */
 @media (max-width: 1024px) {
-  .forecast-day, header, footer, footer {
+  .forecast, .forecast-day, .details, header, footer, .current-weather {
     font-size: var(--font-size-small);
     padding: var(--padding-medium);
+  }
+
+  .forecast-day {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   }
 
   .locationTime, .dateHeader {
@@ -415,13 +416,12 @@ hr {
 }
 
 @media (max-width: 768px) {
-  .forecast-day {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.5rem;
-    padding: var(--padding-small);
+  .forecast, .forecast-day, .details {
+    flex-direction: column;
+    margin: var(--margin-medium);
   }
 
-  header, footer, .current-weather, footer {
+  header, footer, .current-weather {
     font-size: var(--font-size-small);
   }
 
@@ -437,12 +437,18 @@ hr {
 }
 
 @media (max-width: 480px) {
-  .fiveDay {
+  .forecast, .forecast-day, .details, .fiveDay {
     font-size: var(--font-size-small);
     padding: var(--padding-small);
   }
   
-  .forecast-day, header, footer, footer {
+  .forecast-day {
+    flex-direction: column;
+    margin: var(--margin-small);
+    padding: var(--padding-small);
+  }
+
+  header, footer, .current-weather {
     font-size: var(--font-size-small);
     padding: var(--padding-small);
   }
@@ -465,7 +471,7 @@ hr {
 }
 
 @media (max-width: 352px) {
-  .forecast-day, header, footer, .dateHeader, .search-form input, .search-form button, footer {
+  .forecast, .forecast-day, .details, header, footer, .dateHeader, .search-form input, .search-form button {
     font-size: 0.75rem;
     padding: var(--padding-small);
   }  
