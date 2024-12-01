@@ -33,7 +33,11 @@ const DayForecast = ({ dayData }) => {
     // Return the day forecast
     return (
         <div className="current-weather">
-            <h2 className="dateHeader">Forecast for {new Date(overallData.dt * 1000).toLocaleDateString([], { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' })}</h2>
+            <h2 className="dateHeader">{new Date(overallData.dt * 1000).toLocaleDateString([], { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' }).replace(/(\d+)(?=,)/, (match) => {
+                const suffix = ['th', 'st', 'nd', 'rd'];
+                const v = match % 100;
+                return match + (suffix[(v - 20) % 10] || suffix[v] || suffix[0]);
+            })}</h2>
             <div className="forecast-part">
                 {weatherDetails.map((detail, index) => (
                 <p className='details' key={index}>{detail.label}: {detail.value}</p>

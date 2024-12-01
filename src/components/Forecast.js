@@ -12,11 +12,6 @@ const getDayName = (timestamp) => {
     return date.toLocaleDateString('en-US', options);
 };
 
-const formatDate = (timestamp) => {
-    const date = new Date(timestamp * 1000);
-    return date.toLocaleDateString('en-US');
-};
-
 const Forecast = ({ forecastData }) => {
     const [selectedDay, setSelectedDay] = useState(null);
 
@@ -28,7 +23,7 @@ const Forecast = ({ forecastData }) => {
         for (let i = 0; i < list.length; i += 8) {
             dayParts.push(list.slice(i, i + 8));
         }
-        return dayParts.slice(0, 5); // Get data for 2 days
+        return dayParts.slice(0, 8); // Adjust this line to get 8 days
     };
     const getWeatherIconUrl = (icon) => {
         return `http://openweathermap.org/img/wn/${icon}@2x.png`;
@@ -57,7 +52,7 @@ const Forecast = ({ forecastData }) => {
                 dayParts.map((day, dayIndex) => (
                     <div key={dayIndex} className="forecast-day" onClick={() => handleDayClick(day)}>
                         <h3 className='dateHeader'>
-                            {getDayName(day[0].dt)} - {formatDate(day[0].dt)}
+                            {getDayName(day[0].dt)} - {new Date(day[0].dt * 1000).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
                         </h3>
                         {day.map((part) => (
                             <div key={part.dt} className="forecast-part">
