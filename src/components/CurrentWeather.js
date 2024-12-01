@@ -1,9 +1,9 @@
 import '../index.css';
 import '../App.css';
 import React, { useState, useEffect } from 'react';
-import '../utils/api.js'
-import '../utils/stateLabelValues.js'
-import './Search.js'
+import '../utils/api.js';
+import '../utils/stateLabelValues.js';
+import './Search.js';
 
 const CurrentWeather = ({ weatherData, location }) => {
   const [time, setTime] = useState(new Date());
@@ -26,11 +26,17 @@ const CurrentWeather = ({ weatherData, location }) => {
 
   const capitalizeFirstLetter = (str) => {
     return str
-      .split(' ')              
-      .map(word =>              
-        word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()  
+      .split(' ')
+      .map(word =>
+        word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
       )
-      .join(' ');              
+      .join(' ');
+  };
+
+  const getDayName = (timestamp) => {
+    const date = new Date(timestamp * 1000);
+    const options = { weekday: 'short' };
+    return date.toLocaleDateString('en-US', options);
   };
 
   const weatherDetails = [
@@ -57,7 +63,7 @@ const CurrentWeather = ({ weatherData, location }) => {
         <div className="locationTimeContainer">
           <h2 className="locationTime">{location}</h2>
           <h3 className='locationTime'>
-            {time.toLocaleDateString([], { weekday: 'short', year: 'numeric', month: 'long', day: 'numeric' }).replace(/(\d+)(?=,)/, (match) => {
+            {getDayName(time.getTime() / 1000)} - {time.toLocaleDateString([], { year: 'numeric', month: 'long', day: 'numeric' }).replace(/(\d+)(?=,)/, (match) => {
               const suffix = ['th', 'st', 'nd', 'rd'];
               const v = match % 100;
               return match + (suffix[(v - 20) % 10] || suffix[v] || suffix[0]);

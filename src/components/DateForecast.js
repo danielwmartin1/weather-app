@@ -11,6 +11,17 @@ const DayForecast = ({ dayData }) => {
     // Get the overall data for the day
     const overallData = dayData[0] || {};
 
+    const getDayName = (timestamp) => {
+        const date = new Date(timestamp * 1000);
+        const options = { weekday: 'short' };
+        return date.toLocaleDateString('en-US', options);
+    };
+    
+    const formatDate = (timestamp) => {
+        return new Date(timestamp * 1000).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    };
+    
+
     // Get the weather details for the day
     const weatherDetails = [
         { label: 'Conditions', value: overallData.weather[0].description },
@@ -33,7 +44,7 @@ const DayForecast = ({ dayData }) => {
     // Return the day forecast
     return (
         <div className="current-weather">
-            <h2 className="dateHeader">{new Date(overallData.dt * 1000).toLocaleDateString([], { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' }).replace(/(\d+)(?=,)/, (match) => {
+            <h2 className="dateHeader">{getDayName(overallData.dt)} - {new Date(overallData.dt * 1000).toLocaleDateString([], { year: 'numeric', month: 'short', day: 'numeric' }).replace(/(\d+)(?=,)/, (match) => {
                 const suffix = ['th', 'st', 'nd', 'rd'];
                 const v = match % 100;
                 return match + (suffix[(v - 20) % 10] || suffix[v] || suffix[0]);

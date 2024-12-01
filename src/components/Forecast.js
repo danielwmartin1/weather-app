@@ -41,6 +41,16 @@ const Forecast = ({ forecastData }) => {
         return string.charAt(0).toUpperCase() + string.slice(1);
     };
 
+    const getDaySuffix = (day) => {
+        if (day > 3 && day < 21) return 'th';
+        switch (day % 10) {
+            case 1: return 'st';
+            case 2: return 'nd';
+            case 3: return 'rd';
+            default: return 'th';
+        }
+    };
+
     return (
         <div className="forecast">
             {selectedDay ? (
@@ -51,7 +61,7 @@ const Forecast = ({ forecastData }) => {
                 dayParts.map((day, dayIndex) => (
                     <div key={dayIndex} className="forecast-day" onClick={() => handleDayClick(day)}>
                         <h3 className='dateHeader'>
-                            {getDayName(day[0].dt)} - {new Date(day[0].dt * 1000).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                            {getDayName(day[0].dt)} - {new Date(day[0].dt * 1000).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }).replace(/(\d+)(?=,)/, (match) => `${match}${getDaySuffix(parseInt(match))}`)}
                         </h3>
                         {day.map((part) => (
                             <div key={part.dt} className="forecast-part">
