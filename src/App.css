@@ -54,7 +54,6 @@ header, footer {
   align-items: center;
 }
 
-
 header {
   top: 0;
   border-bottom: 5px ridge var(--color-accent);
@@ -111,13 +110,14 @@ footer {
   border-radius: var(--border-radius);
   cursor: pointer;
   transition: background-color 0.3s, transform 0.2s;
-  width: 25%
+  width: 25%;
 }
 
 .details {
   display: flex;
   align-items: center;
   justify-content: center;
+  text-align: center;
   flex-wrap: wrap;
   color: var(--color-text);
   margin: var(--margin-small);
@@ -148,7 +148,6 @@ footer {
   text-align: center;
 }
 
-
 .forecast {
   display: flex;
   justify-content: center;
@@ -169,7 +168,7 @@ footer {
 }
 
 .large-icon {
-  width: 25 0px;
+  width: 250px;
   height: 250px;
   margin: 0 auto;
   display: block;
@@ -191,6 +190,9 @@ hr {
   align-items: center;
   flex-wrap: wrap;
   border-bottom: 2px solid var(--color-border);
+  margin: 0;
+  background-color: rgba(0, 58, 139, 1);
+  width: 100%;
 }
 
 .locationTime {
@@ -324,16 +326,6 @@ hr {
   text-align: center;
 }
 
-.weather-detail {
-  display: grid;
-  grid-template-columns: repeat(8, 1fr);
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  padding: var(--padding-small);
-}
-
-
 .current-weather {
   background-color: var(--color-primary);
   color: var(--color-text);
@@ -373,6 +365,12 @@ hr {
   padding: 0;
 }
 
+.weather-detail {
+  padding: var(--padding-small);
+  margin: var(--margin-small);
+}
+
+/* Media queries for responsiveness */
 @media (max-width: 1024px) {
   .forecast-day, header, footer, .current-weather, footer {
     font-size: var(--font-size-small);
@@ -380,13 +378,8 @@ hr {
   }
 
   .locationTime, .dateHeader {
-    font-size: var(--font-size-smaller);
+    font-size: var(--font-size-small);
     padding: var(--padding-small);
-  }
-
-  .weather-detail {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
   }
 
   .search-form input, .search-form button {
@@ -401,18 +394,13 @@ hr {
   }
 
   .locationTime, .dateHeader {
-    font-size: var(--font-size-smaller);
+    font-size: var(--font-size-small);
     padding: var(--padding-small);
   }
 
   .forecast-day {
     grid-template-columns: repeat(4, 1fr);
     gap: 0;
-  }
-
-  .weather-detail {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
   }
 
   .search-form input, .search-form button {
@@ -422,7 +410,6 @@ hr {
 }
 
 @media (max-width: 480px) {
-
   .fiveDay {
     font-size: var(--font-size-small);
     padding: var(--padding-small);
@@ -453,13 +440,12 @@ hr {
   .forecast-day p {
     margin: 0.25rem;
   }
-
 }
 
 @media (max-width: 352px) {
   .forecast-day, header, footer, .dateHeader, .search-form input, .search-form button, footer {
     font-size: 0.75rem;
-    padding: var(--padding-smaller);
+    padding: var(--padding-small);
   }  
 
   .locationTime, .fiveDay,  .current-weather, .locationTimeContainer {
@@ -471,9 +457,10 @@ hr {
     font-size: var(--font-size-medium);
   }
 
-  .search-form{
+  .search-form {
     padding: var(--padding-large);
   }
+
   .search-form input, .search-form button {
     padding: 5px;
   }
@@ -481,13 +468,7 @@ hr {
   .statusMessage {
     font-size: 2rem;
   }
-
-  .weather-detail {
-    display: flex;
-    flex-direction: column;
-  }
 }
-
 
 /* Vendor prefixes for compatibility */
 header, footer, .details, .dateHeader, .fiveDay, .popup-content, .statusMessage, .search-form, .current-weather, .forecast-day {
