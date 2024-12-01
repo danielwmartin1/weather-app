@@ -63,7 +63,7 @@ const CurrentWeather = ({ weatherData, location }) => {
         <div className="locationTimeContainer">
           <h2 className="locationTime">{location}</h2>
           <h3 className='locationTime'>
-            {getDayName(time.getTime() / 1000)} - {time.toLocaleDateString([], { year: 'numeric', month: 'long', day: 'numeric' }).replace(/(\d+)(?=,)/, (match) => {
+            {getDayName(time.getTime() / 1000)} - {time.toLocaleDateString([], { year: 'numeric', month: 'short', day: 'numeric' }).replace(/(\d+)(?=,)/, (match) => {
               const suffix = ['th', 'st', 'nd', 'rd'];
               const v = match % 100;
               return match + (suffix[(v - 20) % 10] || suffix[v] || suffix[0]);
