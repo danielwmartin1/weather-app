@@ -145,6 +145,7 @@ footer {
   flex-wrap: wrap;
   color: var(--color-text);
   margin: 0.75rem;
+  padding: 0 4rem;
 }
 
 .dateHeader {
