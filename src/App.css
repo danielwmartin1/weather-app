@@ -32,7 +32,7 @@
 }
 
 #title, .fiveDay {
-  border: 2px solid var(--color-border);
+  border: 2px solid var(--color-border) !important;
 }
 
 body {
@@ -355,7 +355,7 @@ hr {
     padding: var(--padding-small);
   }
 
-  .locationTime, .dateHeader, .fiveDay {
+  .locationTime, .dateHeader {
     font-size: var(--font-size-smaller);
     padding: var(--padding-small);
   }
@@ -376,7 +376,7 @@ hr {
     font-size: var(--font-size-small);
   }
 
-  .locationTime, .dateHeader, .fiveDay {
+  .locationTime, .dateHeader {
     font-size: var(--font-size-smaller);
     padding: var(--padding-small);
   }
@@ -398,6 +398,12 @@ hr {
 }
 
 @media (max-width: 480px) {
+
+  .fiveDay {
+    font-size: var(--font-size-small);
+    padding: var(--padding-small);
+  }
+  
   .forecast-day, header, footer, .current-weather, footer {
     font-size: var(--font-size-small);
     padding: var(--padding-small);
