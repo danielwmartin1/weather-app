@@ -6,6 +6,7 @@ import InitialRenderImage from '../images/initial-render-image.svg'; // Adjust t
 
 const Search = ({ onSearch }) => {
     const [location, setLocation] = useState('');
+    // eslint-disable-next-line
     const [initialRender, setInitialRender] = useState(true);
 
     const handleSearch = (e) => {
