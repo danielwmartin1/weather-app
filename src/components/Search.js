@@ -43,7 +43,7 @@ const Search = ({ onSearch }) => {
     }, []);
 
     return (
-        <form onSubmit={handleSearch} className="search-form">
+        <form onSubmit={handleSearch} className="search-form" style={{ marginBottom: location ? '20%' : '0' }}>
             <input
                 type="text"
                 placeholder="Enter location"
