@@ -69,6 +69,7 @@ const CurrentWeather = ({ weatherData, location }) => {
           ))}
         </div>
         <img 
+          className='large-icon'
           src={`http://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`} 
           alt={weatherData.weather[0].description} 
         />

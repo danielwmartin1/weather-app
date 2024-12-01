@@ -157,6 +157,12 @@ footer {
   padding: var(--padding-small);
 }
 
+.large-icon {
+  width: 200px;
+  height: 200px;
+  margin: 0 auto;
+  display: block;
+}
 
 hr {
   width: 100%;
