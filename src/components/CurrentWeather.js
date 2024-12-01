@@ -4,8 +4,9 @@ import '../App.css';
 import React from 'react';
 import '../utils/api.js'
 import '../utils/stateLabelValues.js'
+import './Search.js'
 
-const CurrentWeather = ({ weatherData }) => {
+const CurrentWeather = ({ weatherData, location }) => {
   const time = new Date();
   if (!weatherData || !weatherData.main || !weatherData.sys || !weatherData.weather || !weatherData.weather.length || !weatherData.wind) return null;
 
@@ -45,7 +46,7 @@ const CurrentWeather = ({ weatherData }) => {
   return (
     <div className="current-weather">
       <div className="locationTimeContainer">
-        <h2 className="locationTime">{weatherData.name}, {weatherData.sys.country}</h2>
+        <h2 className="locationTime">{location}</h2>
         <h3 className='locationTime'>
           {time.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}
         </h3>
