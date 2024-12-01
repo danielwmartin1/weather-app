@@ -130,6 +130,13 @@ footer {
   width: 100px;
 }
 
+#title {
+  border: 2px solid var(--color-accent);
+  border-radius: var(--border-radius);
+  padding: var(--padding-medium);
+  background-color: rgba(0, 58, 139, 1)
+}
+
 .details {
   display: flex;
   align-items: center;
