@@ -164,6 +164,11 @@ footer {
   display: block;
 }
 
+.small-icon {
+  width: 100px !important;
+  height: 100px !important;
+}
+
 hr {
   width: 100%;
   border: 1.5px solid var(--color-border);
@@ -301,6 +306,7 @@ hr {
   flex-wrap: wrap;
   font-size: 1rem;
   text-align: center;
+  padding: var(--padding-small);
 }
 
 .current-weather {

@@ -4,7 +4,6 @@ import '../index.css';
 import '../App.css';
 import '../utils/api.js'
 import DayForecast from './DateForecast.js';
-import CurrentWeather from './CurrentWeather.js';
 
 const Forecast = ({ forecastData }) => {
     const [selectedDay, setSelectedDay] = useState(null);
