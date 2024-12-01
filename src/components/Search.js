@@ -49,11 +49,11 @@ const Search = ({ onSearch }) => {
     }, []);
 
     return (
-        <div className="home-screen">
+        <div className="home-screen" style={{ marginBottom: location ? '20%' : 'var(--margin-medium)' }}>
             <div className="initial-render-image">
                 <img src={InitialRenderImage} alt="Initial Render" />
             </div>
-            <form onSubmit={handleSearch} className="search-form" style={{ marginBottom: location ? '20%' : '0' }}>
+            <form onSubmit={handleSearch} className="search-form">
                 <input
                     type="text"
                     placeholder="Enter location"
