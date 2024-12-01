@@ -50,7 +50,7 @@ const Search = ({ onSearch }) => {
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
             />
-            <button type="submit">Search</button>
+            <button id="submit" type="submit">Search</button>
         </form>
     );
 };

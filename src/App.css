@@ -103,6 +103,17 @@ footer {
   text-align: center;
 }
 
+#submit {
+  padding: var(--padding-small);
+  border: none;
+  background-color: var(--color-secondary);
+  color: var(--color-text);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  width: 25%
+}
+
 .details {
   display: flex;
   align-items: center;
