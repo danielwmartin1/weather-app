@@ -71,9 +71,9 @@ const Forecast = ({ forecastData }) => {
                         </h3>
                         {day.map((part, partIndex) => (
                             <div key={part.dt} className="forecast-part">
-                                <p>{new Date(part.dt * 1000).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}</p>
-                                <p>{Math.round(part.main.temp)}°F</p>
-                                <p>{part.weather[0].description}</p>
+                                <p className="part">{new Date(part.dt * 1000).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}</p>
+                                <p className="part">{Math.round(part.main.temp)}°F</p>
+                                <p className="part condition">{part.weather[0].description}</p>
                                 <img className='small-icon' src={getWeatherIconUrl(part.weather[0].icon)} alt={part.weather[0].description} />
                             </div>
                         ))}
