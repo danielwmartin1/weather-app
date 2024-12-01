@@ -1,13 +1,21 @@
-// src/components/CurrentWeather.js
 import '../index.css';
 import '../App.css';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import '../utils/api.js'
 import '../utils/stateLabelValues.js'
 import './Search.js'
 
 const CurrentWeather = ({ weatherData, location }) => {
-  const time = new Date();
+  const [time, setTime] = useState(new Date());
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTime(new Date());
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   if (!weatherData || !weatherData.main || !weatherData.sys || !weatherData.weather || !weatherData.weather.length || !weatherData.wind) return null;
 
   const getWindDirection = (deg) => {
@@ -18,11 +26,11 @@ const CurrentWeather = ({ weatherData, location }) => {
 
   const capitalizeFirstLetter = (str) => {
     return str
-      .split(' ')              // Split the string into an array of words
-      .map(word =>              // Apply the function to each word
-        word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()  // Capitalize the first letter, and make the rest lowercase
+      .split(' ')              
+      .map(word =>              
+        word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()  
       )
-      .join(' ');              // Join the array back into a single string
+      .join(' ');              
   };
 
   const weatherDetails = [
@@ -52,9 +60,8 @@ const CurrentWeather = ({ weatherData, location }) => {
             {time.toLocaleDateString([], { weekday: 'short', year: 'numeric', month: 'long', day: 'numeric' })}
           </h3>
           <h4 className='locationTime'>
-            {time.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}
+            {time.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', second: '2-digit' })}
           </h4>
-
         </div>
         <div className="weather-detail">
           {weatherDetails.map((detail, index) => (
