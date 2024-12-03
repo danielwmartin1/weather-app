@@ -95,6 +95,20 @@ footer {
   text-align: center;
 }
 
+.locationHeader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: var(--font-size-large);
+  color: var(--color-text);
+  background-color: rgba(0, 58, 139, 1);
+  text-decoration: underline;
+  text-shadow: #016ccf 1px 1px 1px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  padding: var(--padding-medium)!important;
+}
+
 .home-screen {
   display: flex;
   flex-direction: column;
@@ -162,7 +176,7 @@ footer {
   padding: var(--padding-medium)!important;
 }
 
-.fiveDay, .popup-content {
+.popup-content {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -361,7 +375,7 @@ hr {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   overflow-y: visible;
   border: 2px solid var(--color-border);
-  width: auto;
+  width: calc(100% - var(--margin-large) * 2);
   margin: var(--margin-small) var(--margin-large);
 }
 
@@ -385,7 +399,7 @@ hr {
   background-color: var(--color-primary);
   color: var(--color-text);
   box-sizing: border-box;
-  width: 100%;
+  width: calc(100% - var(--margin-medium) * 2);
   margin: var(--margin-small) var(--margin-medium);
 }
 
@@ -417,6 +431,24 @@ hr {
     width: 100%;
     margin: 5px 0;
   }
+
+  .large-icon {
+    width: 200px;
+    height: 200px;
+  }
+
+  .small-icon {
+    width: 80px !important;
+    height: 80px !important;
+  }
+
+  .locationHeader, .day-forecast, .home-screen {
+    font-size: var(--font-size-small);
+  }
+
+  .part {
+    font-size: var(--font-size-small);
+  }
 }
 
 @media (max-width: 768px) {
@@ -437,6 +469,24 @@ hr {
     width: 100%;
     margin: 5px 0;
   }
+
+  .large-icon {
+    width: 150px;
+    height: 150px;
+  }
+
+  .small-icon {
+    width: 60px !important;
+    height: 60px !important;
+  }
+
+  .locationHeader, .day-forecast, .home-screen {
+    font-size: 0.9rem;
+  }
+
+  .part, .details{
+    font-size: 0.9rem;
+  }
 }
 
 @media (max-width: 480px) {
@@ -444,7 +494,6 @@ hr {
     font-size: var(--font-size-small);
     padding: var(--padding-small);
   }
-  
 
   header, footer, .current-weather {
     font-size: var(--font-size-small);
@@ -459,6 +508,24 @@ hr {
 
   .forecast-day p {
     margin: 0.25rem;
+  }
+
+  .large-icon {
+    width: 100px;
+    height: 100px;
+  }
+
+  .small-icon {
+    width: 50px !important;
+    height: 50px !important;
+  }
+
+  .locationHeader, .day-forecast, .home-screen {
+    font-size: 0.8rem;
+  }
+
+  .part {
+    font-size: 0.8rem;
   }
 }
 
@@ -489,7 +556,6 @@ hr {
     font-size: 2rem;
   }
 }
-
 
 /* Vendor prefixes for compatibility */
 header, footer, .details, .dateHeader, .fiveDay, .popup-content, .statusMessage, .search-form, .current-weather, .forecast-day {
