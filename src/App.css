@@ -420,7 +420,7 @@ hr {
 }
 
 @media (max-width: 768px) {
-  .forecast, .forecast-day, .details {
+  .details {
     margin: var(--margin-medium);
   }
 
@@ -440,27 +440,15 @@ hr {
 }
 
 @media (max-width: 480px) {
-  .forecast, .forecast-day, .details, .fiveDay {
+  .forecast, .forecast-day, .details, .forecast-part {
     font-size: var(--font-size-small);
     padding: var(--padding-small);
   }
   
-  .forecast-day {
-    flex-direction: column;
-    margin: var(--margin-small);
-    padding: var(--padding-small);
-  }
 
   header, footer, .current-weather {
     font-size: var(--font-size-small);
     padding: var(--padding-small);
-  }
-
-  .forecast {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
   }
 
   .search-form input, .search-form button {

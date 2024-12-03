@@ -68,7 +68,7 @@ const CurrentWeather = ({ weatherData, location }) => {
               const v = match % 100;
               return match + (suffix[(v - 20) % 10] || suffix[v] || suffix[0]);
             })}
-          </h3>
+          </h3> vc
           <h4 className='locationTime'>
             {time.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', second: '2-digit' })}
           </h4>
