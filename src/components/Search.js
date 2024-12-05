@@ -49,7 +49,7 @@ const Search = ({ onSearch }) => {
     }, []);
 
     return (
-        <div className="home-screen" style={{ marginBottom: location ? '50vh' : 'var(--margin-medium)' }}>
+        <div className="home-screen" style={{ marginBottom: location ? '30vh' : 'var(--margin-medium)' }}>
             <div className="initial-render-image">
                 <img src={InitialRenderImage} alt="Initial Render" />
             </div>
