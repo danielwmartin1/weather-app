@@ -225,6 +225,7 @@ footer {
   background-color: rgba(0, 58, 139, 1);
   border: 2px solid var(--color-border);
   margin: var(--margin-small); /* Optional: Adjust margin if needed */
+  padding: 1rem;
 }
 
 hr {
@@ -405,7 +406,7 @@ hr {
   background-color: var(--color-primary);
   color: var(--color-text);
   box-sizing: border-box;
-  width: calc(100% - var(--margin-medium) * 2);
+  width: 100%;
   margin: var(--margin-small) var(--margin-medium);
 }
 
