@@ -148,7 +148,7 @@ footer {
 #title {
   border: 2px solid var(--color-accent);
   border-radius: var(--border-radius);
-  padding: var(--padding-medium);
+  padding: var(--padding-large);
   background-color: rgba(0, 58, 139, 1); 
   font-size: var(--font-size-large)
 }
@@ -264,8 +264,8 @@ hr {
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  padding: var(--padding-small);
-  font-size: var(--font-size-medium);
+  padding: var(--padding-medium);
+  font-size: calc(var(--font-size-medium) + 0.25rem);
   text-align: center;
   color: var(--color-text);
   background-color: rgba(0, 58, 139, 1);
