@@ -1,6 +1,6 @@
 :root {
   --color-primary: #0056b3;
-  --color-secondary: #007bff;
+  --color-secondary: #007bff95;
   --color-accent: aqua;
   --color-background: #f0f8ff;
   --color-text: white;
@@ -33,6 +33,7 @@ body {
   flex-direction: column;
   height: 100vh;
   margin: 0;
+  font-size: 1rem; /* Base font size */
 }
 
 header, footer {
@@ -206,8 +207,8 @@ footer {
 }
 
 .large-icon {
-  width: 200px;
-  height: 200px;
+  width: 12.5rem;
+  height: 12.5rem;
   text-align: center;
   margin: 1rem auto;
   display: flex;
@@ -215,15 +216,15 @@ footer {
   align-items: center;
   border: 2px solid var(--color-border);
   border-radius: 50%;
-  background-color: rgba(0, 58, 139, 1);
+  background-color: var(--color-secondary);
   padding: 1rem;
 }
 
 .small-icon {
-  width: 100px !important;
-  height: 100px !important;
+  width: 6.25rem !important;
+  height: 6.25rem !important;
   border-radius: 50%;
-  background-color: rgba(0, 58, 139, 1);
+  background-color: var(--color-secondary);
   border: 2px solid var(--color-border);
   margin: var(--margin-small); /* Optional: Adjust margin if needed */
   padding: 1rem;
@@ -427,9 +428,22 @@ hr {
   gap: var(--padding-small); /* Adjust the gap between icons as needed */
 }
 
+.location-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: no;
+  text-align: center;
+  color: var(--color-text);
+  background-color: rgba(0, 58, 139, 1);
+  text-shadow: #016ccf 1px 1px 1px;
+  border-radius: var(--border-radius);
+  margin: var(--margin-small);
+}
+
 /* Media queries for responsiveness */
 @media (max-width: 1024px) {
-  .forecast, .forecast-day, .details, .current-weather {
+  .forecast-day, .details, .current-weather {
     font-size: var(--font-size-small);
   }
 
@@ -449,16 +463,19 @@ hr {
   }
 
   .large-icon {
-    width: 150px;
-    height: 150px;
+    width: 9.375rem;
+    height: 9.375rem;
   }
 
   .small-icon {
-    width: 80px !important;
-    height: 80px !important;
+    width: 5rem !important;
+    height: 5rem !important;
+  }
+  .locationHeader {
+    font-size: var(--font-size-medium);
   }
 
-  .locationHeader, .day-forecast, .home-screen {
+  .day-forecast, .home-screen {
     font-size: var(--font-size-small);
   }
 
@@ -487,13 +504,13 @@ hr {
   }
 
   .large-icon {
-    width: 150px;
-    height: 150px;
+    width: 9.375rem;
+    height: 9.375rem;
   }
 
   .small-icon {
-    width: 60px !important;
-    height: 60px !important;
+    width: 3.75rem !important;
+    height: 3.75rem !important;
   }
 
   .locationHeader, .day-forecast, .home-screen {
@@ -527,13 +544,13 @@ hr {
   }
 
   .large-icon {
-    width: 100px;
-    height: 100px;
+    width: 6.25rem;
+    height: 6.25rem;
   }
 
   .small-icon {
-    width: 50px !important;
-    height: 50px !important;
+    width: 3.125rem !important;
+    height: 3.125rem !important;
   }
 
   .locationHeader, .day-forecast, .home-screen {
