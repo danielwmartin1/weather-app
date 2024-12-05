@@ -102,7 +102,7 @@ footer {
   align-items: center;
   font-size: var(--font-size-medium);
   color: var(--color-text);
-  background-color: rgba(0, 58, 139, 1);
+  background-color: var(--color-secondary);
   text-decoration: underline;
   text-shadow: #016ccf 1px 1px 1px;
   border: 1px solid var(--color-border);
