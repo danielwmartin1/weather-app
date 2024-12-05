@@ -99,7 +99,7 @@ footer {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: var(--font-size-large);
+  font-size: var(--font-size-medium);
   color: var(--color-text);
   background-color: rgba(0, 58, 139, 1);
   text-decoration: underline;
@@ -220,6 +220,10 @@ footer {
 .small-icon {
   width: 100px !important;
   height: 100px !important;
+  background-color: rgba(0, 58, 139, 1);
+  border: 2px solid var(--color-border);
+  border-radius: var(--border-radius);
+  margin: var(--margin-small); /* Optional: Adjust margin if needed */
 }
 
 hr {
@@ -244,7 +248,7 @@ hr {
   align-items: center;
   flex-wrap: wrap;
   padding: var(--padding-small);
-  font-size: var(--font-size-medium);
+  font-size: var(--font-size-small);
   text-align: center;
   color: var(--color-text);
   text-shadow: #016ccf 1px 1px 1px;
@@ -410,6 +414,14 @@ hr {
   gap: var(--padding-small);
   padding: var(--padding-small);
   margin: var(--margin-small);
+}
+
+.small-icons-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: var(--padding-small); /* Adjust the gap between icons as needed */
 }
 
 /* Media queries for responsiveness */
