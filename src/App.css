@@ -213,16 +213,17 @@ footer {
   justify-content: center;
   align-items: center;
   border: 2px solid var(--color-border);
-  border-radius: var(--border-radius);
+  border-radius: 50%;
   background-color: rgba(0, 58, 139, 1);
+  padding: 1rem;
 }
 
 .small-icon {
   width: 100px !important;
   height: 100px !important;
+  border-radius: 50%;
   background-color: rgba(0, 58, 139, 1);
   border: 2px solid var(--color-border);
-  border-radius: var(--border-radius);
   margin: var(--margin-small); /* Optional: Adjust margin if needed */
 }
 
