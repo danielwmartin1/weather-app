@@ -149,7 +149,8 @@ footer {
   border: 2px solid var(--color-accent);
   border-radius: var(--border-radius);
   padding: var(--padding-medium);
-  background-color: rgba(0, 58, 139, 1)
+  background-color: rgba(0, 58, 139, 1); 
+  font-size: var(--font-size-large)
 }
 
 .details {
