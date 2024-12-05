@@ -205,8 +205,8 @@ footer {
 }
 
 .large-icon {
-  width: 250px;
-  height: 250px;
+  width: 200px;
+  height: 200px;
   text-align: center;
   margin: 1rem auto;
   display: flex;
@@ -446,8 +446,8 @@ hr {
   }
 
   .large-icon {
-    width: 200px;
-    height: 200px;
+    width: 150px;
+    height: 150px;
   }
 
   .small-icon {
