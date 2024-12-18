@@ -32,7 +32,9 @@ const Search = ({ onSearch }) => {
                 const zipCode = data[0].zip; // Assuming the API returns a zip field
                 const state = stateLabelValues.find(state => state.label === stateName);
                 const stateAbbreviation = state ? state.value : stateName;
-                setLocation(`${locationName}${stateAbbreviation ? `, ${stateAbbreviation}` : ''}, ${countryName}${zipCode ? `, ${zipCode}` : ''}`);
+                const fullLocation = `${locationName}${stateAbbreviation ? `, ${stateAbbreviation}` : ''}, ${countryName}${zipCode ? `, ${zipCode}` : ''}`;
+                setLocation(fullLocation);
+                onSearch(fullLocation); // Automatically search for the current weather
             }
         };
 
@@ -49,7 +51,7 @@ const Search = ({ onSearch }) => {
     }, []);
 
     return (
-        <div className="home-screen" style={{ marginBottom: location ? '30vh' : 'var(--margin-medium)' }}>
+        <div className="home-screen">
             <div className="initial-render-image">
                 <img src={InitialRenderImage} alt="Initial Render" />
             </div>
