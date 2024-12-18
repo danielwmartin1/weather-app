@@ -124,7 +124,7 @@ footer {
   border-radius: var(--border-radius);
   margin-top: var(--margin-large);
   margin-bottom: var(--margin-large);
-  padding: 4rem;
+  padding: 4rem 6rem;
 }
 
 .home-screen img {

@@ -55,6 +55,9 @@ const CurrentWeather = ({ weatherData, location }) => {
     { label: 'Wind Direction', value: getWindDirection(weatherData.wind.deg) || 'N/A' },
     { label: 'Chance of Precipitation', value: `${weatherData.pop ? weatherData.pop * 100 : 0}%` },
     { label: 'Precipitation', value: `${weatherData.rain && weatherData.rain['1h'] ? weatherData.rain['1h'] : 0} ${weatherData.units === 'metric' ? 'mm' : 'in'}` },
+    { label: 'Snow', value: `${weatherData.snow && weatherData.snow['1h'] ? weatherData.snow['1h'] : 0} ${weatherData.units === 'metric' ? 'mm' : 'in'}` },
+    { label: 'Dew Point', value: `${Math.round(weatherData.main.dew_point)}°${weatherData.units === 'metric' ? 'C' : 'F'}` },
+    { label: 'UV Index', value: weatherData.uvi || 0 },
   ];
 
   return (
