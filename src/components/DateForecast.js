@@ -26,14 +26,12 @@ const DayForecast = ({ dayData }) => {
         { label: 'Humidity', value: `${overallData.main.humidity}%` },
        // { label: 'Wind Speed', value: `${overallData.wind.speed} ${overallData.units === 'metric' ? 'm/s' : 'ft/s'}` },
         { label: 'Cloud Cover', value: `${overallData.clouds.all}%` },
-        //{ label: 'Sunrise', value: new Date(overallData.sys.sunrise * 1000).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }) },
-        //{ label: 'Sunset', value: new Date(overallData.sys.sunset * 1000).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }) },
         { label: 'Visibility', value: `${overallData.visibility / 1000} ${overallData.units === 'metric' ? 'km' : 'mi'}` },
         { label: 'Pressure', value: `${overallData.units === 'metric' ? overallData.main.pressure + ' hPa' : (overallData.main.pressure * 0.750062).toFixed(2) + ' mmHg'}` },
-        //{ label: 'Dew Point', value: `${Math.round(overallData.main.temp - (overallData.main.temp - ((100 - overallData.main.humidity) / 5)))}°${overallData.units === 'metric' ? 'C' : 'F'}` },
         { label: 'Chance of Precipitation', value: `${overallData.pop ? overallData.pop * 100 : 0}%` },
         { label: 'Precipitation', value: `${overallData.rain && overallData.rain['1h'] ? overallData.rain['1h'] : 0} ${overallData.units === 'metric' ? 'mm' : 'in'}` },
-
+        { label: 'Snow', value: `${overallData.snow && overallData.snow['1h'] ? overallData.snow['1h'] : 0} ${overallData.units === 'metric' ? 'mm' : 'in'}` },
+        { label: 'UV Index', value: overallData.uvi || 0 },
     ];
     
     // Return the day forecast
