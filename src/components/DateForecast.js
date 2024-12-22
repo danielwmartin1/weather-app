@@ -20,6 +20,7 @@ const DateForecast = ({ dayData }) => {
         return date.toLocaleDateString('en-US', options);
     };
 
+    
     const formatTime = (timestamp) => {
         const date = new Date(timestamp * 1000);
         return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
