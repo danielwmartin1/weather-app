@@ -384,7 +384,7 @@ hr {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   overflow-y: visible;
   border: 2px solid var(--color-border);
-  width: calc(100% - var(--margin-large) * 2);
+  width: 80vw ;
   margin: var(--margin-small) var(--margin-large);
 }
 
@@ -531,6 +531,7 @@ hr {
   header, footer, .current-weather {
     font-size: var(--font-size-small);
     padding: var(--padding-small);
+    min-width: 100vw!important;
   }
 
   .search-form input, .search-form button {
