@@ -30,14 +30,6 @@ const DateForecast = ({ dayData }) => {
     const maxTemp = Math.max(...temperatures);
     const minTemp = Math.min(...temperatures);
 
-    // Check if sunrise and sunset times are valid
-    const sunrise = overallData.sys && overallData.sys.sunrise ? formatTime(overallData.sys.sunrise) : 'N/A';
-    const sunset = overallData.sys && overallData.sys.sunset ? formatTime(overallData.sys.sunset) : 'N/A';
-
-    // Log the sunrise and sunset times for debugging
-    console.log('Sunrise:', sunrise);
-    console.log('Sunset:', sunset);
-
     const weatherDetails = [
         { label: 'Conditions', value: overallData.weather[0].description },
         { label: 'High Temp', value: `${Math.round(maxTemp)}°${units === 'metric' ? 'C' : 'F'}` },
@@ -49,8 +41,6 @@ const DateForecast = ({ dayData }) => {
         { label: 'Chance of Precipitation', value: `${overallData.pop ? overallData.pop * 100 : 0}%` },
         { label: 'Precipitation', value: `${overallData.rain && overallData.rain['1h'] ? overallData.rain['1h'] : 0} ${units === 'metric' ? 'mm' : 'in'}` },
         { label: 'Snow', value: `${overallData.snow && overallData.snow['1h'] ? overallData.snow['1h'] : 0} ${units === 'metric' ? 'mm' : 'in'}` },
-        { label: 'Sunrise', value: sunrise },
-        { label: 'Sunset', value: sunset },
     ];
 
     // Return the day forecast
