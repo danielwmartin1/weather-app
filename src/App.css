@@ -237,6 +237,7 @@ hr {
 
 .locationTimeContainer {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
@@ -441,6 +442,49 @@ hr {
 }
 
 /* Media queries for responsiveness */
+@media (max-width: 1200px) {
+  .forecast-day, .details, .current-weather {
+    font-size: var(--font-size-small);
+  }
+
+  .forecast-day, .weather-detail {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  }
+
+  .locationTime, .dateHeader {
+    font-size: var(--font-size-small);
+    padding: var(--padding-small);
+  }
+
+  .search-form input, .search-form button {
+    width: 100%;
+    margin: 5px 0;
+  }
+
+  .large-icon {
+    width: 9.375rem;
+    height: 9.375rem;
+  }
+
+  .small-icon {
+    width: 5rem !important;
+    height: 5rem !important;
+  }
+  .locationHeader {
+    font-size: var(--font-size-medium);
+  }
+
+  .day-forecast, .home-screen {
+    font-size: var(--font-size-small);
+  }
+
+  .part {
+    font-size: var(--font-size-small);
+  }
+  
+}
+
 @media (max-width: 1024px) {
   .forecast-day, .details, .current-weather {
     font-size: var(--font-size-small);
