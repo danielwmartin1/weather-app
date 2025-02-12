@@ -407,9 +407,8 @@ hr {
   border-radius: var(--border-radius);
   background-color: var(--color-primary);
   color: var(--color-text);
-  box-sizing: border-box;
   width: 100%;
-  margin: var(--margin-small) var(--margin-medium);
+  margin: var(--margin-small);
 }
 
 .weather-detail {
@@ -528,9 +527,12 @@ hr {
     padding: var(--padding-small);
   }
 
+  .home-screen {
+    padding: var(--padding-large);
+  }
+
   header, footer, .current-weather {
     font-size: var(--font-size-small);
-    padding: var(--padding-small);
     min-width: 100vw!important;
   }
 
@@ -538,6 +540,10 @@ hr {
     width: 100%;
     margin: 5px 0;
     padding: var(--padding-small);
+  }
+
+  .forecast-day {
+    margin: 0 !important;
   }
 
   .forecast-day p {
@@ -604,3 +610,4 @@ header, footer, .details, .dateHeader, .fiveDay, .popup-content, .statusMessage,
        -o-transition: background-color 0.3s, transform 0.2s;
           transition: background-color 0.3s, transform 0.2s;
 }
+
