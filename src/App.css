@@ -409,7 +409,7 @@ hr {
   background-color: var(--color-primary);
   color: var(--color-text);
   width: 100%;
-  margin: var(--margin-small);
+  margin: var(--margin-small) 0;
 }
 
 .weather-detail {
