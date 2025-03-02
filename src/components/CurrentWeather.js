@@ -83,10 +83,10 @@ const CurrentWeather = ({ weatherData, forecastData, location }) => {
     { label: 'Visibility', value: `${weatherData.visibility / 1000} ${weatherData.units === 'metric' ? 'km' : 'mi'}` },
     { label: 'Pressure', value: `${pressureInHg} inHg` },
     { label: 'Chance of Precipitation', value: `${weatherData.pop ? weatherData.pop * 100 : 0}%` },
-    { label: 'Precipitation', value: `${weatherData.rain && weatherData.rain['1h'] ? weatherData.rain['1h'] : 0} ${weatherData.units === 'metric' ? 'mm' : 'in'}` },
-    { label: 'Snow', value: `${weatherData.snow && weatherData.snow['1h'] ? weatherData.snow['1h'] : 0} ${weatherData.units === 'metric' ? 'mm' : 'in'}` },
+    { label: 'Precipitation', value: weatherData.rain && weatherData.rain['1h'] ? `${weatherData.rain['1h']} ${weatherData.units === 'metric' ? 'mm' : 'in'}` : null },
+    { label: 'Snow', value: weatherData.snow && weatherData.snow['1h'] ? `${weatherData.snow['1h']} ${weatherData.units === 'metric' ? 'mm' : 'in'}` : null },
     { label: 'UV Index', value: weatherData.uvi || 0 },
-  ];
+  ].filter(detail => detail.value !== null); // Filter out null values
 
   return (
     <div className="current-weather">

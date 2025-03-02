@@ -46,9 +46,9 @@ const DateForecast = ({ dayData }) => {
         { label: 'Visibility', value: `${overallData.visibility / 1000} ${units === 'metric' ? 'km' : 'mi'}` },
         { label: 'Pressure', value: `${pressureInHg} inHg` },
         { label: 'Chance of Precipitation', value: `${overallData.pop ? overallData.pop * 100 : 0}%` },
-        { label: 'Precipitation', value: `${overallData.rain && overallData.rain['1h'] ? overallData.rain['1h'] : 0} ${units === 'metric' ? 'mm' : 'in'}` },
-        { label: 'Snow', value: `${overallData.snow && overallData.snow['1h'] ? overallData.snow['1h'] : 0} ${units === 'metric' ? 'mm' : 'in'}` },
-    ];
+        { label: 'Precipitation', value: overallData.rain && overallData.rain['1h'] ? `${overallData.rain['1h']} ${units === 'metric' ? 'mm' : 'in'}` : null },
+        { label: 'Snow', value: overallData.snow && overallData.snow['1h'] ? `${overallData.snow['1h']} ${units === 'metric' ? 'mm' : 'in'}` : null },
+    ].filter(detail => detail.value !== null); // Filter out null values
 
     // Return the day forecast
     return (
