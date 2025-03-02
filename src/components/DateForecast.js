@@ -63,6 +63,7 @@ const DateForecast = ({ dayData }) => {
                 ))}
             </div>
             <img 
+                className = "small-icon"
                 src={`http://openweathermap.org/img/wn/${overallData.weather[0].icon}@2x.png`} 
                 alt={overallData.weather[0].description} 
             />

@@ -595,13 +595,13 @@ hr {
   }
 
   .large-icon {
-    width: calc(6.25rem * 1.25);
-    height: calc(6.25rem * 1.25);
+    width: calc(7.5rem * 1.25);
+    height: calc(7.5rem * 1.25);
   }
 
   .small-icon {
-    width: calc(3.125rem * 1.25) !important;
-    height: calc(3.125rem * 1.25) !important;
+    width: 7.5rem !important;
+    height: 7.5rem !important;
   }
 
   .locationHeader, .day-forecast, .home-screen {
