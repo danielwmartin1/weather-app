@@ -292,7 +292,7 @@ hr {
   align-items: center;
   flex-wrap: wrap;
   padding: var(--padding-small);
-  font-size: 1.15rem;
+  font-size: 1.25rem;
   text-align: center;
   color: var(--color-text);
   background-color: rgba(0, 58, 139, 1);
