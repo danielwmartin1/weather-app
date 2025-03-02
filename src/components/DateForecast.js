@@ -28,6 +28,13 @@ const DateForecast = ({ dayData }) => {
         return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     };
 
+    // Function to get the wind direction from degrees
+    const getWindDirection = (deg) => {
+        const directions = ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW'];
+        const index = Math.round(deg / 22.5) % 16;
+        return `${Math.round(deg)}° ${directions[index]}`;
+    };
+
     // Get the weather details for the day
     const temperatures = dayData.map(data => data.main.temp);
     const maxTemp = Math.max(...temperatures);
@@ -35,6 +42,10 @@ const DateForecast = ({ dayData }) => {
 
     // Convert pressure from hPa to inHg
     const pressureInHg = (overallData.main.pressure * 0.02953).toFixed(2);
+
+    // Extract wind speed and direction
+    const windSpeed = overallData.wind.speed;
+    const windDirection = getWindDirection(overallData.wind.deg);
 
     // Array of weather details to display
     const weatherDetails = [
@@ -48,6 +59,9 @@ const DateForecast = ({ dayData }) => {
         { label: 'Chance of Precipitation', value: `${overallData.pop ? overallData.pop * 100 : 0}%` },
         { label: 'Precipitation', value: overallData.rain && overallData.rain['1h'] ? `${overallData.rain['1h']} ${units === 'metric' ? 'mm' : 'in'}` : null },
         { label: 'Snow', value: overallData.snow && overallData.snow['1h'] ? `${overallData.snow['1h']} ${units === 'metric' ? 'mm' : 'in'}` : null },
+        { label: 'Wind Speed', value: `${windSpeed} ${units === 'imperial' ? 'mph': 'm/s'}` },
+        { label: 'Wind Direction', value: windDirection || 'N/A' },
+
     ].filter(detail => detail.value !== null); // Filter out null values
 
     // Return the day forecast

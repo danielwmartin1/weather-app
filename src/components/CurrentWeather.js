@@ -26,6 +26,10 @@ const CurrentWeather = ({ weatherData, forecastData, location }) => {
   // Return null if the weather data is incomplete
   if (!weatherData || !weatherData.main || !weatherData.sys || !weatherData.weather || !weatherData.weather.length || !weatherData.wind || !forecastData || !forecastData.list) return null;
 
+  // Get the overall data for the current weather
+  const overallData = weatherData || {};
+  const units = overallData.units || 'imperial'; // Default to imperial if not specified
+
   // Function to get the wind direction from degrees
   const getWindDirection = (deg) => {
     const directions = ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW'];
@@ -57,11 +61,11 @@ const CurrentWeather = ({ weatherData, forecastData, location }) => {
   const { high, low } = getHighLowTemps(firstDayData);
 
   // Convert pressure from hPa to inHg
-  const pressureInHg = (weatherData.main.pressure * 0.02953).toFixed(2);
+  const pressureInHg = (overallData.main.pressure * 0.02953).toFixed(2);
 
   // Extract wind speed and direction
-  const windSpeed = weatherData.wind.speed;
-  const windDirection = getWindDirection(weatherData.wind.deg);
+  const windSpeed = overallData.wind ? overallData.wind.speed : 0;
+  const windDirection = overallData.wind ? getWindDirection(overallData.wind.deg) : 'N/A';
 
   // Log wind data for debugging
   console.log('Wind Speed:', windSpeed);
@@ -69,23 +73,23 @@ const CurrentWeather = ({ weatherData, forecastData, location }) => {
 
   // Array of weather details to display
   const weatherDetails = [
-    { label: 'Conditions', value: capitalizeFirstLetter(weatherData.weather[0].description) },
-    { label: 'Current Temp', value: `${Math.round(weatherData.main.temp)}°${weatherData.units === 'metric' ? 'C' : 'F'}` },
-    { label: 'Feels like', value: `${Math.round(weatherData.main.feels_like)}°${weatherData.units === 'metric' ? 'C' : 'F'}` },
-    { label: 'High', value: `${Math.round(high)}°${weatherData.units === 'metric' ? 'C' : 'F'}` },
-    { label: 'Low', value: `${Math.round(low)}°${weatherData.units === 'metric' ? 'C' : 'F'}` },
-    { label: 'Humidity', value: `${weatherData.main.humidity}%` },
-    { label: 'Wind Speed', value: `${windSpeed} ${weatherData.units === 'metric' ? 'm/s' : 'ft/s'}` },
+    { label: 'Conditions', value: capitalizeFirstLetter(overallData.weather[0].description) },
+    { label: 'Current Temp', value: `${Math.round(overallData.main.temp)}°${units === 'metric' ? 'C' : 'F'}` },
+    { label: 'Feels like', value: `${Math.round(overallData.main.feels_like)}°${units === 'metric' ? 'C' : 'F'}` },
+    { label: 'High', value: `${Math.round(high)}°${units === 'metric' ? 'C' : 'F'}` },
+    { label: 'Low', value: `${Math.round(low)}°${units === 'metric' ? 'C' : 'F'}` },
+    { label: 'Humidity', value: `${overallData.main.humidity}%` },
+    { label: 'Wind Speed', value: `${windSpeed} ${units === 'imperial' ? 'mph' : 'm/s'}` },
     { label: 'Wind Direction', value: windDirection || 'N/A' },
-    { label: 'Cloud Cover', value: `${weatherData.clouds.all}%` },
-    { label: 'Sunrise', value: new Date(weatherData.sys.sunrise * 1000).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }) },
-    { label: 'Sunset', value: new Date(weatherData.sys.sunset * 1000).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }) },
-    { label: 'Visibility', value: `${weatherData.visibility / 1000} ${weatherData.units === 'metric' ? 'km' : 'mi'}` },
+    { label: 'Cloud Cover', value: `${overallData.clouds.all}%` },
+    { label: 'Sunrise', value: new Date(overallData.sys.sunrise * 1000).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }) },
+    { label: 'Sunset', value: new Date(overallData.sys.sunset * 1000).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }) },
+    { label: 'Visibility', value: `${overallData.visibility / 1000} ${units === 'metric' ? 'km' : 'mi'}` },
     { label: 'Pressure', value: `${pressureInHg} inHg` },
-    { label: 'Chance of Precipitation', value: `${weatherData.pop ? weatherData.pop * 100 : 0}%` },
-    { label: 'Precipitation', value: weatherData.rain && weatherData.rain['1h'] ? `${weatherData.rain['1h']} ${weatherData.units === 'metric' ? 'mm' : 'in'}` : null },
-    { label: 'Snow', value: weatherData.snow && weatherData.snow['1h'] ? `${weatherData.snow['1h']} ${weatherData.units === 'metric' ? 'mm' : 'in'}` : null },
-    { label: 'UV Index', value: weatherData.uvi || 0 },
+    { label: 'Chance of Precipitation', value: `${overallData.pop ? overallData.pop * 100 : 0}%` },
+    { label: 'Precipitation', value: overallData.rain && overallData.rain['1h'] ? `${overallData.rain['1h']} ${units === 'metric' ? 'mm' : 'in'}` : null },
+    { label: 'Snow', value: overallData.snow && overallData.snow['1h'] ? `${overallData.snow['1h']} ${units === 'metric' ? 'mm' : 'in'}` : null },
+    { label: 'UV Index', value: overallData.uvi || 0 },
   ].filter(detail => detail.value !== null); // Filter out null values
 
   return (
@@ -114,8 +118,8 @@ const CurrentWeather = ({ weatherData, forecastData, location }) => {
         <div>
           <img 
             className='large-icon'
-            src={`http://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`} 
-            alt={weatherData.weather[0].description} 
+            src={`http://openweathermap.org/img/wn/${overallData.weather[0].icon}@2x.png`} 
+            alt={overallData.weather[0].description} 
           />
         </div>
       </div>
