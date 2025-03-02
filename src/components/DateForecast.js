@@ -33,6 +33,9 @@ const DateForecast = ({ dayData }) => {
     const maxTemp = Math.max(...temperatures);
     const minTemp = Math.min(...temperatures);
 
+    // Convert pressure from hPa to inHg
+    const pressureInHg = (overallData.main.pressure * 0.02953).toFixed(2);
+
     // Array of weather details to display
     const weatherDetails = [
         { label: 'Conditions', value: overallData.weather[0].description },
@@ -41,7 +44,7 @@ const DateForecast = ({ dayData }) => {
         { label: 'Humidity', value: `${overallData.main.humidity}%` },
         { label: 'Cloud Cover', value: `${overallData.clouds.all}%` },
         { label: 'Visibility', value: `${overallData.visibility / 1000} ${units === 'metric' ? 'km' : 'mi'}` },
-        { label: 'Pressure', value: `${units === 'metric' ? overallData.main.pressure + ' hPa' : (overallData.main.pressure * 0.750062).toFixed(2) + ' mmHg'}` },
+        { label: 'Pressure', value: `${pressureInHg} inHg` },
         { label: 'Chance of Precipitation', value: `${overallData.pop ? overallData.pop * 100 : 0}%` },
         { label: 'Precipitation', value: `${overallData.rain && overallData.rain['1h'] ? overallData.rain['1h'] : 0} ${units === 'metric' ? 'mm' : 'in'}` },
         { label: 'Snow', value: `${overallData.snow && overallData.snow['1h'] ? overallData.snow['1h'] : 0} ${units === 'metric' ? 'mm' : 'in'}` },

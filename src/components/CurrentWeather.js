@@ -20,6 +20,9 @@ const CurrentWeather = ({ weatherData, forecastData, location }) => {
     return () => clearInterval(interval);
   }, []);
 
+  // Log weatherData for debugging
+  console.log('weatherData:', weatherData);
+
   // Return null if the weather data is incomplete
   if (!weatherData || !weatherData.main || !weatherData.sys || !weatherData.weather || !weatherData.weather.length || !weatherData.wind || !forecastData || !forecastData.list) return null;
 
@@ -56,6 +59,14 @@ const CurrentWeather = ({ weatherData, forecastData, location }) => {
   // Convert pressure from hPa to inHg
   const pressureInHg = (weatherData.main.pressure * 0.02953).toFixed(2);
 
+  // Extract wind speed and direction
+  const windSpeed = weatherData.wind.speed;
+  const windDirection = getWindDirection(weatherData.wind.deg);
+
+  // Log wind data for debugging
+  console.log('Wind Speed:', windSpeed);
+  console.log('Wind Direction:', windDirection);
+
   // Array of weather details to display
   const weatherDetails = [
     { label: 'Conditions', value: capitalizeFirstLetter(weatherData.weather[0].description) },
@@ -64,13 +75,13 @@ const CurrentWeather = ({ weatherData, forecastData, location }) => {
     { label: 'High', value: `${Math.round(high)}°${weatherData.units === 'metric' ? 'C' : 'F'}` },
     { label: 'Low', value: `${Math.round(low)}°${weatherData.units === 'metric' ? 'C' : 'F'}` },
     { label: 'Humidity', value: `${weatherData.main.humidity}%` },
-    { label: 'Wind Speed', value: `${weatherData.wind.speed} ${weatherData.units === 'metric' ? 'm/s' : 'ft/s'}` },
+    { label: 'Wind Speed', value: `${windSpeed} ${weatherData.units === 'metric' ? 'm/s' : 'ft/s'}` },
+    { label: 'Wind Direction', value: windDirection || 'N/A' },
     { label: 'Cloud Cover', value: `${weatherData.clouds.all}%` },
     { label: 'Sunrise', value: new Date(weatherData.sys.sunrise * 1000).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }) },
     { label: 'Sunset', value: new Date(weatherData.sys.sunset * 1000).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }) },
     { label: 'Visibility', value: `${weatherData.visibility / 1000} ${weatherData.units === 'metric' ? 'km' : 'mi'}` },
     { label: 'Pressure', value: `${pressureInHg} inHg` },
-    { label: 'Wind Direction', value: getWindDirection(weatherData.wind.deg) || 'N/A' },
     { label: 'Chance of Precipitation', value: `${weatherData.pop ? weatherData.pop * 100 : 0}%` },
     { label: 'Precipitation', value: `${weatherData.rain && weatherData.rain['1h'] ? weatherData.rain['1h'] : 0} ${weatherData.units === 'metric' ? 'mm' : 'in'}` },
     { label: 'Snow', value: `${weatherData.snow && weatherData.snow['1h'] ? weatherData.snow['1h'] : 0} ${weatherData.units === 'metric' ? 'mm' : 'in'}` },
