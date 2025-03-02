@@ -652,6 +652,10 @@ hr {
     padding: var(--padding-small);
   }
 
+  #title {
+    font-size: 2rem !important;
+  }
+
   .locationTime {
     font-size: calc(var(--font-size-small) * 0.9);
   }
