@@ -584,7 +584,7 @@ hr {
   }
 
   .home-screen {
-    padding: calc(var(--padding-large) * 0.75);
+    padding: 3rem 4rem;
   }
 
   header, footer, .current-weather {
