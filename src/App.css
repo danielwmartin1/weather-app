@@ -210,7 +210,6 @@ footer {
   width: 12.5rem;
   height: 12.5rem;
   text-align: center;
-  margin: 1rem auto;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -609,7 +608,11 @@ hr {
   }
 
   .part {
-    font-size: calc(0.8rem * 0.75);
+    font-size: 0.75rem;
+  }
+
+  .high-low {
+    font-size: 0.9rem;
   }
 }
 
