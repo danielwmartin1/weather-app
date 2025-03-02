@@ -64,6 +64,15 @@ const Forecast = ({ forecastData }) => {
         }
     };
 
+    // Function to get the highest and lowest temperatures for a day
+    const getHighLowTemps = (day) => {
+        const temps = day.map(part => part.main.temp);
+        return {
+            high: Math.max(...temps),
+            low: Math.min(...temps)
+        };
+    };
+
     return (
         <div className="forecast">
             {selectedDay ? (
@@ -73,21 +82,25 @@ const Forecast = ({ forecastData }) => {
                 </div>
             ) : (
                 // Display the forecast overview for each day
-                dayParts.map((day, dayIndex) => (
-                    <div key={dayIndex} className="forecast-day" onClick={() => handleDayClick(day)}>
-                        <h3 className='dateHeader'>
-                            {getDayName(day[0].dt)} - {new Date(day[0].dt * 1000).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }).replace(/(\d+)(?=,)/, (match) => `${match}${getDaySuffix(parseInt(match))}`)}
-                        </h3>
-                        {day.map((part) => (
-                            <div key={part.dt} className="forecast-part">
-                                <p className="part">{new Date(part.dt * 1000).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}</p>
-                                <p className="part">{Math.round(part.main.temp)}°F</p>
-                                <p className="part condition">{capitalizeFirstLetter(part.weather[0].description)}</p>
-                                <img className='small-icon' src={getWeatherIconUrl(part.weather[0].icon)} alt={part.weather[0].description} />
-                            </div>
-                        ))}
-                    </div>
-                ))
+                dayParts.map((day, dayIndex) => {
+                    const { high, low } = getHighLowTemps(day);
+                    return (
+                        <div key={dayIndex} className="forecast-day" onClick={() => handleDayClick(day)}>
+                            <h3 className='dateHeader'>
+                                {getDayName(day[0].dt)} - {new Date(day[0].dt * 1000).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }).replace(/(\d+)(?=,)/, (match) => `${match}${getDaySuffix(parseInt(match))}`)}
+                            </h3>
+                            <p className="high-low">High: {Math.round(high)}°F / Low: {Math.round(low)}°F</p>
+                            {day.map((part) => (
+                                <div key={part.dt} className="forecast-part">
+                                    <p className="part">{new Date(part.dt * 1000).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}</p>
+                                    <p className="part">{Math.round(part.main.temp)}°F</p>
+                                    <p className="part condition">{capitalizeFirstLetter(part.weather[0].description)}</p>
+                                    <img className='small-icon' src={getWeatherIconUrl(part.weather[0].icon)} alt={part.weather[0].description} />
+                                </div>
+                            ))}
+                        </div>
+                    );
+                })
             )}
         </div>
     );

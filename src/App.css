@@ -562,7 +562,7 @@ hr {
 }
 
 @media (max-width: 480px) {
-  .forecast, .forecast-day, .details, .forecast-part {
+  .forecast, .forecast-day, .forecast-part {
     font-size: calc(var(--font-size-small) * 1.25);
     padding: calc(var(--padding-small) * 1.25);
   }
