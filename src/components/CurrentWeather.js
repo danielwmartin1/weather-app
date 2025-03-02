@@ -4,8 +4,9 @@ import React, { useState, useEffect } from 'react';
 import '../utils/api.js';
 import '../utils/stateLabelValues.js';
 import './Search.js';
+import { getHighLowTemps } from '../utils/weatherUtils';
 
-const CurrentWeather = ({ weatherData, location }) => {
+const CurrentWeather = ({ weatherData, forecastData, location }) => {
   // State to store the current time
   const [time, setTime] = useState(new Date());
 
@@ -20,7 +21,7 @@ const CurrentWeather = ({ weatherData, location }) => {
   }, []);
 
   // Return null if the weather data is incomplete
-  if (!weatherData || !weatherData.main || !weatherData.sys || !weatherData.weather || !weatherData.weather.length || !weatherData.wind) return null;
+  if (!weatherData || !weatherData.main || !weatherData.sys || !weatherData.weather || !weatherData.weather.length || !weatherData.wind || !forecastData || !forecastData.list) return null;
 
   // Function to get the wind direction from degrees
   const getWindDirection = (deg) => {
@@ -46,13 +47,19 @@ const CurrentWeather = ({ weatherData, location }) => {
     return date.toLocaleDateString('en-US', options);
   };
 
+  // Extract the weather data for the first day in the forecast
+  const firstDayData = forecastData.list.slice(0, 8);
+
+  // Calculate high and low temperatures for the first day in the forecast
+  const { high, low } = getHighLowTemps(firstDayData);
+
   // Array of weather details to display
   const weatherDetails = [
     { label: 'Conditions', value: capitalizeFirstLetter(weatherData.weather[0].description) },
     { label: 'Current Temp', value: `${Math.round(weatherData.main.temp)}°${weatherData.units === 'metric' ? 'C' : 'F'}` },
     { label: 'Feels like', value: `${Math.round(weatherData.main.feels_like)}°${weatherData.units === 'metric' ? 'C' : 'F'}` },
-    { label: 'High', value: `${Math.round(weatherData.main.temp_max)}°${weatherData.units === 'metric' ? 'C' : 'F'}` },
-    { label: 'Low', value: `${Math.round(weatherData.main.temp_min)}°${weatherData.units === 'metric' ? 'C' : 'F'}` },
+    { label: 'High', value: `${Math.round(high)}°${weatherData.units === 'metric' ? 'C' : 'F'}` },
+    { label: 'Low', value: `${Math.round(low)}°${weatherData.units === 'metric' ? 'C' : 'F'}` },
     { label: 'Humidity', value: `${weatherData.main.humidity}%` },
     { label: 'Wind Speed', value: `${weatherData.wind.speed} ${weatherData.units === 'metric' ? 'm/s' : 'ft/s'}` },
     { label: 'Cloud Cover', value: `${weatherData.clouds.all}%` },

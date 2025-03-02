@@ -46,7 +46,7 @@ const App = () => {
             <Search onSearch={handleSearch} className="onSearch"/>
             {weatherData && forecastData ? (
               <>
-                <CurrentWeather weatherData={weatherData} location={location} />
+                <CurrentWeather weatherData={weatherData} forecastData={forecastData} location={location} />
                 <hr />
                 <h2 className='fiveDay'>5-Day Forecast</h2>
                 <Forecast forecastData={forecastData} />
