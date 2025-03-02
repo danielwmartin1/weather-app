@@ -108,7 +108,7 @@ const CurrentWeather = ({ weatherData, forecastData, location }) => {
            <p className='details' key={index}>{detail.label}: {detail.value}</p>
           ))}
         </div>
-        <div>
+        <div className="icon-container">
           <img 
             className='large-icon'
             src={`http://openweathermap.org/img/wn/${overallData.weather[0].icon}@2x.png`} 

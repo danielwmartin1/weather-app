@@ -86,10 +86,12 @@ const Forecast = ({ forecastData }) => {
                     const { high, low } = getHighLowTemps(day);
                     return (
                         <div key={dayIndex} className="forecast-day" onClick={() => handleDayClick(day)}>
-                            <h3 className='dateHeader'>
-                                {getDayName(day[0].dt)} - {new Date(day[0].dt * 1000).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }).replace(/(\d+)(?=,)/, (match) => `${match}${getDaySuffix(parseInt(match))}`)}
-                            </h3>
-                            <h4 className="high-low">High: {Math.round(high)}°F / Low: {Math.round(low)}°F</h4>
+                            <div className="headerContainer">
+                                <h3 className='dateHeader'>
+                                    {getDayName(day[0].dt)} - {new Date(day[0].dt * 1000).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }).replace(/(\d+)(?=,)/, (match) => `${match}${getDaySuffix(parseInt(match))}`)}
+                                </h3>
+                                <h4 className="high-low">High: {Math.round(high)}°F / Low: {Math.round(low)}°F</h4>
+                            </div>
                             {day.map((part) => (
                                 <div key={part.dt} className="forecast-part">
                                     <p className="part">{new Date(part.dt * 1000).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}</p>

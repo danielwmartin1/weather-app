@@ -217,6 +217,15 @@ footer {
   border-radius: 50%;
   background-color: var(--color-secondary);
   padding: 1rem;
+  margin: 2rem;
+}
+
+.icon-container {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 .small-icon {
