@@ -283,7 +283,7 @@ hr {
   align-items: center;
   flex-wrap: wrap;
   padding: var(--padding-small);
-  font-size: var(--font-size-small);
+  font-size: 1.15rem;
   text-align: center;
   color: var(--color-text);
   background-color: rgba(0, 58, 139, 1);
@@ -295,7 +295,8 @@ hr {
 }
 
 .high-low {
-  font-size: 1.25rem;}
+  font-size: 1.1rem;
+}
 
 .popup-content {
   color: black;
