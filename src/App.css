@@ -100,7 +100,7 @@ footer {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: var(--font-size-medium);
+  font-size: 1.5rem !important;
   color: var(--color-text);
   background-color: var(--color-secondary);
   text-decoration: underline;
@@ -631,6 +631,14 @@ hr {
   .high-low {
     font-size: 0.9rem;
   }
+
+  .locationHeader {
+    font-size: 1rem !important;
+  }
+
+  .dateHeader {
+    font-size: 1rem !important;
+  }
 }
 
 @media (max-width: 352px) {
@@ -639,9 +647,13 @@ hr {
     padding: var(--padding-small);
   }  
 
-  .locationTime, .fiveDay {
+  .fiveDay {
     font-size: calc(var(--font-size-small) * 0.7);
     padding: var(--padding-small);
+  }
+
+  .locationTime {
+    font-size: calc(var(--font-size-small) * 0.9);
   }
   
   #title {
