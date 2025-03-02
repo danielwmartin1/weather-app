@@ -7,6 +7,10 @@ import './Search.js';
 import { getHighLowTemps } from '../utils/weatherUtils';
 
 const CurrentWeather = ({ weatherData, forecastData, location }) => {
+  // Log weatherData and forecastData for debugging
+  console.log('weatherData:', weatherData);
+  console.log('forecastData:', forecastData);
+
   // State to store the current time
   const [time, setTime] = useState(new Date());
 

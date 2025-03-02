@@ -4,6 +4,9 @@ import '../App.css';
 import '../utils/api.js';
 
 const DateForecast = ({ dayData }) => {
+    // Log dayData for debugging
+    console.log('dayData:', dayData);
+
     // If there is no data, return null
     if (!dayData || !dayData.length) return null;
 
