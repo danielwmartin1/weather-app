@@ -252,7 +252,7 @@ hr {
   align-items: center;
   flex-wrap: wrap;
   padding: var(--padding-small);
-  font-size: var(--font-size-small);
+  font-size: 1.15rem;
   text-align: center;
   color: var(--color-text);
   text-shadow: #016ccf 1px 1px 1px;
