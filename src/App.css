@@ -556,38 +556,38 @@ hr {
     height: 3.75rem !important;
   }
 
-  .locationHeader, .day-forecast, .home-screen {
-    font-size: 0.9rem;
-  }
-
-  .part, .details{
+  .locationHeader, .home-screen {
     font-size: 0.9rem;
   }
 }
 
 @media (max-width: 480px) {
   .forecast, .forecast-day, .details, .forecast-part {
-    font-size: var(--font-size-small);
-    padding: var(--padding-small);
+    font-size: calc(var(--font-size-small) * 1.25);
+    padding: calc(var(--padding-small) * 1.25);
   }
 
   .home-screen {
-    padding: var(--padding-large);
+    padding: calc(var(--padding-large) * 1.25);
   }
 
   header, footer, .current-weather {
-    font-size: var(--font-size-small);
+    font-size: calc(var(--font-size-small) * 1.25);
     min-width: 100vw!important;
   }
 
   .search-form input, .search-form button {
     width: 100%;
     margin: 5px 0;
-    padding: var(--padding-small);
+    padding: calc(var(--padding-small) * 1.25);
   }
 
   .forecast-day {
     margin: 0 !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 
   .forecast-day p {
@@ -595,21 +595,21 @@ hr {
   }
 
   .large-icon {
-    width: 6.25rem;
-    height: 6.25rem;
+    width: calc(6.25rem * 1.25);
+    height: calc(6.25rem * 1.25);
   }
 
   .small-icon {
-    width: 3.125rem !important;
-    height: 3.125rem !important;
+    width: calc(3.125rem * 1.25) !important;
+    height: calc(3.125rem * 1.25) !important;
   }
 
   .locationHeader, .day-forecast, .home-screen {
-    font-size: 0.8rem;
+    font-size: calc(0.8rem * 1.25);
   }
 
   .part {
-    font-size: 0.8rem;
+    font-size: calc(0.8rem * 1.25);
   }
 }
 
