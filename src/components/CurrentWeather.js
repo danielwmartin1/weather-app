@@ -6,24 +6,30 @@ import '../utils/stateLabelValues.js';
 import './Search.js';
 
 const CurrentWeather = ({ weatherData, location }) => {
+  // State to store the current time
   const [time, setTime] = useState(new Date());
 
   useEffect(() => {
+    // Update the time every second
     const interval = setInterval(() => {
       setTime(new Date());
     }, 1000);
 
+    // Clear the interval when the component is unmounted
     return () => clearInterval(interval);
   }, []);
 
+  // Return null if the weather data is incomplete
   if (!weatherData || !weatherData.main || !weatherData.sys || !weatherData.weather || !weatherData.weather.length || !weatherData.wind) return null;
 
+  // Function to get the wind direction from degrees
   const getWindDirection = (deg) => {
     const directions = ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW'];
     const index = Math.round(deg / 22.5) % 16;
     return `${Math.round(deg)}° ${directions[index]}`;
   };
 
+  // Function to capitalize the first letter of each word in a string
   const capitalizeFirstLetter = (str) => {
     return str
       .split(' ')
@@ -33,12 +39,14 @@ const CurrentWeather = ({ weatherData, location }) => {
       .join(' ');
   };
 
+  // Function to get the day name from a timestamp
   const getDayName = (timestamp) => {
     const date = new Date(timestamp * 1000);
     const options = { weekday: 'short' };
     return date.toLocaleDateString('en-US', options);
   };
 
+  // Array of weather details to display
   const weatherDetails = [
     { label: 'Conditions', value: capitalizeFirstLetter(weatherData.weather[0].description) },
     { label: 'Current Temp', value: `${Math.round(weatherData.main.temp)}°${weatherData.units === 'metric' ? 'C' : 'F'}` },

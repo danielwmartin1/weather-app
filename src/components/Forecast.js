@@ -5,6 +5,7 @@ import '../App.css';
 import '../utils/api.js'
 import DayForecast from './DateForecast.js';
 
+// Function to get the day name from a timestamp
 const getDayName = (timestamp) => {
     const date = new Date(timestamp * 1000);
     const options = { weekday: 'short' };
@@ -12,35 +13,47 @@ const getDayName = (timestamp) => {
 };
 
 const Forecast = ({ forecastData }) => {
+    // State to store the selected day's data
     const [selectedDay, setSelectedDay] = useState(null);
 
+    // Return null if there is no forecast data
     if (!forecastData) {
         return null;        
     }
+
+    // Function to split the forecast data into day parts
     const getDayParts = (list) => {
         const dayParts = [];
+        // Split the list into chunks of 8 (assuming 3-hour intervals, 8 chunks represent a day)
         for (let i = 0; i < list.length; i += 8) {
             dayParts.push(list.slice(i, i + 8));
         }
         return dayParts.slice(0, 8); // Adjust this line to get 8 days
     };
+
+    // Function to get the weather icon URL
     const getWeatherIconUrl = (icon) => {
         return `http://openweathermap.org/img/wn/${icon}@2x.png`;
     };
+
     const dayParts = getDayParts(forecastData.list);
 
+    // Handle the click event to select a day
     const handleDayClick = (dayData) => {
         setSelectedDay(dayData);
     };
 
+    // Handle the click event to go back to the forecast overview
     const handleBackClick = () => {
         setSelectedDay(null);
     };
 
+    // Function to capitalize the first letter of a string
     const capitalizeFirstLetter = (string) => {
         return string.charAt(0).toUpperCase() + string.slice(1);
     };
 
+    // Function to get the suffix for a day (st, nd, rd, th)
     const getDaySuffix = (day) => {
         if (day > 3 && day < 21) return 'th';
         switch (day % 10) {
@@ -54,10 +67,12 @@ const Forecast = ({ forecastData }) => {
     return (
         <div className="forecast">
             {selectedDay ? (
+                // Display the selected day's forecast details
                 <div onClick={handleBackClick}>
                     <DayForecast dayData={selectedDay} />
                 </div>
             ) : (
+                // Display the forecast overview for each day
                 dayParts.map((day, dayIndex) => (
                     <div key={dayIndex} className="forecast-day" onClick={() => handleDayClick(day)}>
                         <h3 className='dateHeader'>

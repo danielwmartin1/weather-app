@@ -5,21 +5,28 @@ import React, { useState, useEffect } from 'react';
 import InitialRenderImage from '../images/initial-render-image.svg'; // Adjust the path as needed
 
 const Search = ({ onSearch }) => {
+    // State to store the location input by the user
     const [location, setLocation] = useState('');
-    // eslint-disable-next-line
+    // State to track if it's the initial render
+    //eslint-disable-next-line
     const [initialRender, setInitialRender] = useState(true);
 
+    // Handle the search form submission
     const handleSearch = (e) => {
         e.preventDefault();
+        // Check if the location input is empty
         if (location.trim() === '') {
             alert('Please enter a location.');
             return;
         }
+        // Call the onSearch function passed as a prop with the location
         onSearch(location);
+        // Clear the location input
         setLocation('');
     };
 
     useEffect(() => {
+        // Function to fetch the location name based on latitude and longitude
         const fetchLocationName = async (lat, lon) => {
             const API_KEY = 'd41e3da09b3eaeb051becd162da6e929';
             const limit = 1;
@@ -33,14 +40,19 @@ const Search = ({ onSearch }) => {
                 const state = stateLabelValues.find(state => state.label === stateName);
                 const stateAbbreviation = state ? state.value : stateName;
                 const fullLocation = `${locationName}${stateAbbreviation ? `, ${stateAbbreviation}` : ''}, ${countryName}${zipCode ? `, ${zipCode}` : ''}`;
+                // Set the location state with the full location name
                 setLocation(fullLocation);
-                onSearch(fullLocation); // Automatically search for the current weather
+                // Automatically search for the current weather with the full location name
+                onSearch(fullLocation);
             }
         };
 
+        // Check if the browser supports geolocation
         if (navigator.geolocation) {
+            // Get the current position of the user
             navigator.geolocation.getCurrentPosition((position) => {
                 const { latitude, longitude } = position.coords;
+                // Fetch the location name based on the user's coordinates
                 fetchLocationName(latitude, longitude);
             });
         }
