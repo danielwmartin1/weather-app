@@ -16,9 +16,6 @@ const Forecast = ({ forecastData }) => {
     // State to store the selected day's data
     const [selectedDay, setSelectedDay] = useState(null);
 
-    // Log forecastData for debugging
-    console.log('forecastData:', forecastData);
-
     // Return null if there is no forecast data
     if (!forecastData) {
         return null;        
@@ -41,18 +38,13 @@ const Forecast = ({ forecastData }) => {
 
     const dayParts = getDayParts(forecastData.list);
 
-    // Log dayParts for debugging
-    console.log('dayParts:', dayParts);
-
     // Handle the click event to select a day
     const handleDayClick = (dayData) => {
-        console.log('Selected day data:', dayData);
         setSelectedDay(dayData);
     };
 
     // Handle the click event to go back to the forecast overview
     const handleBackClick = () => {
-        console.log('Back to forecast overview');
         setSelectedDay(null);
     };
 

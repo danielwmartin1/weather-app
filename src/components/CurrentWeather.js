@@ -7,10 +7,6 @@ import './Search.js';
 import { getHighLowTemps } from '../utils/weatherUtils';
 
 const CurrentWeather = ({ weatherData, forecastData, location }) => {
-  // Log weatherData and forecastData for debugging
-  console.log('weatherData:', weatherData);
-  console.log('forecastData:', forecastData);
-
   // State to store the current time
   const [time, setTime] = useState(new Date());
 
@@ -23,9 +19,6 @@ const CurrentWeather = ({ weatherData, forecastData, location }) => {
     // Clear the interval when the component is unmounted
     return () => clearInterval(interval);
   }, []);
-
-  // Log weatherData for debugging
-  console.log('weatherData:', weatherData);
 
   // Return null if the weather data is incomplete
   if (!weatherData || !weatherData.main || !weatherData.sys || !weatherData.weather || !weatherData.weather.length || !weatherData.wind || !forecastData || !forecastData.list) return null;
@@ -70,10 +63,6 @@ const CurrentWeather = ({ weatherData, forecastData, location }) => {
   // Extract wind speed and direction
   const windSpeed = overallData.wind ? overallData.wind.speed : 0;
   const windDirection = overallData.wind ? getWindDirection(overallData.wind.deg) : 'N/A';
-
-  // Log wind data for debugging
-  console.log('Wind Speed:', windSpeed);
-  console.log('Wind Direction:', windDirection);
 
   // Array of weather details to display
   const weatherDetails = [
