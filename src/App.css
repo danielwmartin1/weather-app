@@ -587,7 +587,7 @@ hr {
     padding: 3rem 4rem;
   }
 
-  header, footer, .current-weather {
+  header, footer {
     font-size: calc(var(--font-size-small) * 0.75);
     min-width: 100vw!important;
   }
