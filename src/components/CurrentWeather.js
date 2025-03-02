@@ -53,6 +53,9 @@ const CurrentWeather = ({ weatherData, forecastData, location }) => {
   // Calculate high and low temperatures for the first day in the forecast
   const { high, low } = getHighLowTemps(firstDayData);
 
+  // Convert pressure from hPa to inHg
+  const pressureInHg = (weatherData.main.pressure * 0.02953).toFixed(2);
+
   // Array of weather details to display
   const weatherDetails = [
     { label: 'Conditions', value: capitalizeFirstLetter(weatherData.weather[0].description) },
@@ -66,7 +69,7 @@ const CurrentWeather = ({ weatherData, forecastData, location }) => {
     { label: 'Sunrise', value: new Date(weatherData.sys.sunrise * 1000).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }) },
     { label: 'Sunset', value: new Date(weatherData.sys.sunset * 1000).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }) },
     { label: 'Visibility', value: `${weatherData.visibility / 1000} ${weatherData.units === 'metric' ? 'km' : 'mi'}` },
-    { label: 'Pressure', value: `${weatherData.units === 'metric' ? weatherData.main.pressure + ' hPa' : (weatherData.main.pressure * 0.750062).toFixed(2) + ' mmHg'}` },
+    { label: 'Pressure', value: `${pressureInHg} inHg` },
     { label: 'Wind Direction', value: getWindDirection(weatherData.wind.deg) || 'N/A' },
     { label: 'Chance of Precipitation', value: `${weatherData.pop ? weatherData.pop * 100 : 0}%` },
     { label: 'Precipitation', value: `${weatherData.rain && weatherData.rain['1h'] ? weatherData.rain['1h'] : 0} ${weatherData.units === 'metric' ? 'mm' : 'in'}` },
