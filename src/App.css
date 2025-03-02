@@ -169,7 +169,7 @@ footer {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: var(--font-size-medium);
+  font-size: var(--font-size-small);
   color: var(--color-text);
   background-color: rgba(0, 58, 139, 1);
   text-decoration: underline;
@@ -453,7 +453,7 @@ hr {
   }
 
   .locationTime, .dateHeader {
-    font-size: calc(var(--font-size-small) * 0.9);
+    font-size: calc(var(--font-size-small) * 1.15);
     padding: var(--padding-small);
   }
 
@@ -496,7 +496,7 @@ hr {
   }
 
   .locationTime, .dateHeader {
-    font-size: calc(var(--font-size-small) * 0.85);
+    font-size: calc(var(--font-size-small) * 1.15);
     padding: var(--padding-small);
   }
 
@@ -537,7 +537,7 @@ hr {
   }
 
   .locationTime, .dateHeader {
-    font-size: calc(var(--font-size-small) * 0.8);
+    font-size: calc(var(--font-size-small) * 1.15);
     padding: var(--padding-small);
   }
 
