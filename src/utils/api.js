@@ -1,7 +1,7 @@
 import axios from "axios";
 import { countries } from "country-data";
 
-const API_KEY = "d41e3da09b3eaeb051becd162da6e929";
+const API_KEY = process.env.REACT_APP_API_KEY; // Use the API key from .env
 const BASE_URL = "https://api.openweathermap.org/data/2.5/";
 
 const getUnitsByCountry = (countryCode) => {
