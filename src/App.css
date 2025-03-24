@@ -453,6 +453,11 @@ hr {
   margin: var(--margin-small);
 }
 
+.locationTime {
+  margin: var(--margin-small);
+  font-size: 1.3rem;  
+  text-align: center;
+}
 /* Media queries for responsiveness */
 @media (max-width: 1200px) {
   .forecast-day, .details, .current-weather {
