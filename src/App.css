@@ -273,7 +273,7 @@ hr {
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  padding: var(--padding-medium);
+  padding: var(--padding-large);
   font-size: calc(var(--font-size-medium) + 0.25rem);
   text-align: center;
   color: var(--color-text);
@@ -623,7 +623,7 @@ hr {
   .forecast-day {
     margin: 0 !important;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
   }
