@@ -401,9 +401,6 @@ hr {
   margin: var(--margin-small) var(--margin-large);
   padding: 0;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
 }
 
 .small-icon {
@@ -627,9 +624,9 @@ hr {
   }
 
   .forecast-day {
-    margin: 0 !important;
     display: flex;
-    flex-direction: row;
+    width: 98.5vw;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
   }
