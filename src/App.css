@@ -206,6 +206,14 @@ footer {
   padding: var(--padding-small);
 }
 
+.icon-container {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
 .large-icon {
   width: 12.5rem;
   height: 12.5rem;
@@ -218,14 +226,6 @@ footer {
   background-color: var(--color-tertiary) !important;
   padding: 1rem;
   margin: 2rem;
-}
-
-.icon-container {
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
 }
 
 .small-icon {
