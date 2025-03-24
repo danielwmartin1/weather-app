@@ -420,7 +420,7 @@ hr {
   background-color: var(--color-primary);
   color: var(--color-text);
   width: 100%;
-  margin: var(--margin-small) 0;
+  margin: var(--margin-small); /* Ensure consistent margin */
 }
 
 .weather-detail {
@@ -458,8 +458,14 @@ hr {
   font-size: 1.3rem;  
   text-align: center;
 }
+
+.forecast-day, .current-weather-content {
+  width: 100%; /* Ensure consistent width */
+  margin: var(--margin-small); /* Ensure consistent margin */
+}
+
 /* Media queries for responsiveness */
-@media (max-width: 1200px) {
+@media (max-width: 1500px) {
   .forecast-day, .details, .current-weather {
     font-size: calc(var(--font-size-small) * 0.9);
   }
@@ -500,6 +506,9 @@ hr {
     font-size: calc(var(--font-size-small) * 0.9);
   }
   
+  .forecast-day {
+    margin: var(--margin-small); /* Consistent margin */
+  }
 }
 
 @media (max-width: 1024px) {
@@ -542,6 +551,10 @@ hr {
   .part {
     font-size: calc(var(--font-size-small) * 0.85);
   }
+  
+  .forecast-day {
+    margin: var(--margin-small); /* Consistent margin */
+  }
 }
 
 @media (max-width: 768px) {
@@ -579,6 +592,10 @@ hr {
 
   .high-low {
     font-size: 1rem;
+  }
+  
+  .forecast-day {
+    margin: var(--margin-small); /* Consistent margin */
   }
 }
 
@@ -644,6 +661,10 @@ hr {
   .dateHeader {
     font-size: 1rem !important;
   }
+  
+  .forecast-day {
+    margin: var(--margin-small); /* Consistent margin */
+  }
 }
 
 @media (max-width: 352px) {
@@ -679,6 +700,10 @@ hr {
 
   .statusMessage {
     font-size: 2rem;
+  }
+  
+  .forecast-day {
+    margin: var(--margin-small); /* Consistent margin */
   }
 }
 
