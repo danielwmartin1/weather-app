@@ -63,7 +63,7 @@ const DateForecast = ({ dayData }) => {
 
     // Return the day forecast
     return (
-        <div className="current-weather">
+        <div className="current-weather" style={{ width: '99vw', margin: "1rem", textAlign: 'center' }}>
             <h2 className="dateHeader">
                 {getDayName(overallData.dt)} - {new Date(overallData.dt * 1000).toLocaleDateString([], { year: 'numeric', month: 'short', day: 'numeric' }).replace(/(\d+)(?=,)/, (match) => {
                     const suffix = ['th', 'st', 'nd', 'rd'];
