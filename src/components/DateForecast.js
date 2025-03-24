@@ -63,21 +63,21 @@ const DateForecast = ({ dayData }) => {
 
     // Return the day forecast
     return (
-        <div className="current-weather" style={{ width: '99vw', margin: "1rem", textAlign: 'center' }}>
-            <h2 className="dateHeader">
+        <div className="current-weather" style={{ width: '99vw', margin: "1rem", display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', textAlign: 'center' }}>
+            <h2 className="dateHeader" style={{ width: '20%', display: "flex", justifyContent: "center", alignItems: "center", textAlign: 'center', fontSize: '1.5rem', marginBottom: '0.5rem' }}>
                 {getDayName(overallData.dt)} - {new Date(overallData.dt * 1000).toLocaleDateString([], { year: 'numeric', month: 'short', day: 'numeric' }).replace(/(\d+)(?=,)/, (match) => {
                     const suffix = ['th', 'st', 'nd', 'rd'];
                     const v = match % 100;
                     return match + (suffix[(v - 20) % 10] || suffix[v] || suffix[0]);
                 })}
             </h2>
-            <div className="forecast-part">
+            <div className="forecast-part" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 {weatherDetails.map((detail, index) => (
                     <p className='details' key={index}>{detail.label}: {detail.value}</p>
                 ))}
             </div>
             <img 
-                className = "small-icon"
+                className="small-icon"
                 src={`http://openweathermap.org/img/wn/${overallData.weather[0].icon}@2x.png`} 
                 alt={overallData.weather[0].description} 
             />
