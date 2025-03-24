@@ -19,7 +19,7 @@ const App = () => {
   const handleSearch = async (location) => {
     const weather = await fetchWeatherData(location);
     const forecast = await fetchForecastData(location);
-  
+
     setWeatherData(weather);
     setForecastData(forecast);
     setShowImage(false);
@@ -31,10 +31,35 @@ const App = () => {
     setShowImage(true);
   }, []);
 
+  const getBackgroundImage = () => {
+    if (!weatherData || !weatherData.weather || !weatherData.weather[0]) {
+      return "url('./images/blue-ribbon.jpg')"; // Default background
+    }
+
+    const weatherCondition = weatherData.weather[0].main.toLowerCase();
+
+    switch (weatherCondition) {
+      case 'rain':
+        return "url('./images/rain.jpg')";
+      case 'clouds':
+        return "url('./images/clouds.jpg')";
+      case 'clear':
+        return "url('./images/clear.jpg')";
+      case 'snow':
+        return "url('./images/snow.jpg')";
+      case 'thunderstorm':
+        return "url('./images/thunderstorm.jpg')";
+      case 'drizzle':
+        return "url('./images/drizzle.jpg')";
+      default:
+        return "url('./images/blue-ribbon.jpg')"; // Default background
+    }
+  };
+
   return (
       <div className="app-container">
         <Header />
-        <div className="app">
+        <div className="app" style={{ backgroundImage: getBackgroundImage() }}>
           <>
             {showImage && 
             <div id="picture">
