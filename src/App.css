@@ -397,7 +397,7 @@ hr {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   overflow-y: visible;
   border: 2px solid var(--color-border);
-  width: 98.5%; ;
+  width: 98.25%; ;
   margin: var(--margin-small) var(--margin-large);
   padding: 0;
   display: flex;
