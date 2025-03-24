@@ -32,34 +32,48 @@ const App = () => {
   }, []);
 
   const getBackgroundImage = () => {
-    if (!weatherData || !weatherData.weather || !weatherData.weather[0]) {
+    if (!forecastData || !forecastData.list) {
       return "url('./images/blue-ribbon.jpg')"; // Default background
     }
-
-    const weatherCondition = weatherData.weather[0].main.toLowerCase();
-
-    switch (weatherCondition) {
-      case 'rain':
-        return "url('./images/rain.jpg')";
-      case 'clouds':
-        return "url('./images/clouds.jpg')";
-      case 'clear':
-        return "url('./images/clear.jpg')";
-      case 'snow':
-        return "url('./images/snow.jpg')";
-      case 'thunderstorm':
-        return "url('./images/thunderstorm.jpg')";
-      case 'drizzle':
-        return "url('./images/drizzle.jpg')";
-      default:
-        return "url('./images/blue-ribbon.jpg')"; // Default background
+  
+    const forecastConditions = forecastData.list.map(item => item.weather[0].main.toLowerCase());
+  
+    if (forecastConditions.some(condition => condition.includes('rain'))) {
+      return "url('./images/rain.jpg')";
     }
+    if (forecastConditions.some(condition => condition.includes('clouds'))) {
+      return "url('./images/clouds.jpg')";
+    }
+    if (forecastConditions.some(condition => condition.includes('clear'))) {
+      return "url('./images/clear.jpg')";
+    }
+    if (forecastConditions.some(condition => condition.includes('snow'))) {
+      return "url('./images/snow.jpg')";
+    }
+    if (forecastConditions.some(condition => condition.includes('thunderstorm'))) {
+      return "url('./images/thunderstorm.jpg')";
+    }
+    if (forecastConditions.some(condition => condition.includes('drizzle'))) {
+      return "url('./images/drizzle.jpg')";
+    }
+  
+    return "url('./images/blue-ribbon.jpg')"; // Default background
   };
 
   return (
       <div className="app-container">
         <Header />
-        <div className="app" style={{ backgroundImage: getBackgroundImage() }}>
+        <div 
+          className="app" 
+          style={{ 
+            backgroundImage: getBackgroundImage(),
+            backgroundSize: 'cover', // Ensures the image covers the screen
+            backgroundRepeat: 'no-repeat', // Prevents tiling
+            backgroundPosition: 'center', // Centers the image
+            height: '100vh', // Makes the container fit the screen height
+            width: '100vw' // Makes the container fit the screen width
+          }}
+        >
           <>
             {showImage && 
             <div id="picture">
