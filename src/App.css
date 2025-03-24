@@ -121,8 +121,8 @@ footer {
   text-shadow: #016ccf 1px 1px 1px;
   border: 3px solid var(--color-accent);
   border-radius: var(--border-radius);
-  margin-top: var(--margin-large);
-  margin-bottom: var(--margin-large);
+  margin-top: var(--margin-small);
+  margin-bottom: var(--margin-small);
   padding: 4rem 6rem;
 }
 
