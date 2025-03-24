@@ -429,7 +429,7 @@ hr {
   gap: var(--padding-small);
   padding: var(--padding-small);
   margin: var(--margin-small);
-  font-size: 1.1rem;
+  font-size: 1rem;
 }
 
 .small-icons-container {
