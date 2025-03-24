@@ -86,6 +86,10 @@ footer {
   min-height: 100vh;
 }
 
+div.app > * {
+    opacity: 0.875;
+}
+
 .day-forecast {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
