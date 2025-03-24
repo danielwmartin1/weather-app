@@ -1,6 +1,7 @@
 :root {
   --color-primary: #0056b3;
   --color-secondary: #007bff95;
+  --color-tertiary: #47afd195;
   --color-accent: aqua;
   --color-background: #f0f8ff;
   --color-text: white;
@@ -214,7 +215,7 @@ footer {
   align-items: center;
   border: 2px solid var(--color-border);
   border-radius: 50%;
-  background-color: var(--color-secondary);
+  background-color: var(--color-tertiary) !important;
   padding: 1rem;
   margin: 2rem;
 }
@@ -231,7 +232,7 @@ footer {
   width: 6.25rem !important;
   height: 6.25rem !important;
   border-radius: 50%;
-  background-color: var(--color-secondary);
+  background-color: var(--color-tertiary);
   border: 2px solid var(--color-border);
   margin: var(--margin-small); /* Optional: Adjust margin if needed */
   padding: 1rem;
