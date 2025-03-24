@@ -636,8 +636,8 @@ hr {
   }
 
   .large-icon {
-    width: calc(7.5rem * 0.75);
-    height: calc(7.5rem * 0.75);
+    width: calc(10rem * 0.75);
+    height: calc(10rem * 0.75);
   }
 
   .small-icon {
