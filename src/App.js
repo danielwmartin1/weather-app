@@ -15,6 +15,7 @@ const App = () => {
   const [forecastData, setForecastData] = useState(null);
   const [showImage, setShowImage] = useState(true);
   const [location, setLocation] = useState('');
+  const [background, setBackground] = useState('');
 
   const handleSearch = async (location) => {
     const weather = await fetchWeatherData(location);
@@ -27,38 +28,35 @@ const App = () => {
   };
 
   useEffect(() => {
+    if (forecastData) {
+      const forecastConditions = forecastData.list.map(item => item.weather[0].main.toLowerCase());
+      console.log('Forecast Conditions:', forecastConditions); // Debugging: Log conditions
+
+      if (forecastConditions.includes('rain')) {
+        setBackground("url('/images/rain.jpg')"); // Updated path
+      } else if (forecastConditions.includes('clouds')) {
+        setBackground("url('/images/clouds.jpg')"); // Updated path
+      } else if (forecastConditions.includes('clear')) {
+        setBackground("url('/images/clear.jpg')"); // Updated path
+      } else if (forecastConditions.includes('snow')) {
+        setBackground("url('/images/snow.jpg')"); // Updated path
+      } else if (forecastConditions.includes('thunderstorm')) {
+        setBackground("url('/images/thunderstorm.jpg')"); // Updated path
+      } else if (forecastConditions.includes('drizzle')) {
+        setBackground("url('/images/drizzle.jpg')"); // Updated path
+      } else {
+        setBackground("url('/images/blue-ribbon.jpg')"); // Updated path
+      }
+    } else {
+      console.log('No forecast data available'); // Debugging: Log when no data
+      setBackground("url('/images/blue-ribbon.jpg')"); // Reset to default if no data
+    }
+  }, [forecastData]);
+
+  useEffect(() => {
     // This effect runs only once on the first render
     setShowImage(true);
   }, []);
-
-  const getBackgroundImage = () => {
-    if (!forecastData || !forecastData.list) {
-      return "url('./images/blue-ribbon.jpg')"; // Default background
-    }
-  
-    const forecastConditions = forecastData.list.map(item => item.weather[0].main.toLowerCase());
-  
-    if (forecastConditions.some(condition => condition.includes('rain'))) {
-      return "url('./images/rain.jpg')";
-    }
-    if (forecastConditions.some(condition => condition.includes('clouds'))) {
-      return "url('./images/clouds.jpg')";
-    }
-    if (forecastConditions.some(condition => condition.includes('clear'))) {
-      return "url('./images/clear.jpg')";
-    }
-    if (forecastConditions.some(condition => condition.includes('snow'))) {
-      return "url('./images/snow.jpg')";
-    }
-    if (forecastConditions.some(condition => condition.includes('thunderstorm'))) {
-      return "url('./images/thunderstorm.jpg')";
-    }
-    if (forecastConditions.some(condition => condition.includes('drizzle'))) {
-      return "url('./images/drizzle.jpg')";
-    }
-  
-    return "url('./images/blue-ribbon.jpg')"; // Default background
-  };
 
   return (
       <div className="app-container">
@@ -66,7 +64,7 @@ const App = () => {
         <div 
           className="app" 
           style={{ 
-            backgroundImage: getBackgroundImage(),
+            backgroundImage: background,
             backgroundSize: 'cover', // Ensures the image covers the screen
             backgroundRepeat: 'no-repeat', // Prevents tiling
             backgroundPosition: 'center', // Centers the image
