@@ -1,5 +1,5 @@
 // src/components/Forecast.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../index.css';
 import '../App.css';
 import '../utils/api.js'
@@ -16,8 +16,13 @@ const Forecast = ({ forecastData }) => {
     // State to store the selected day's data
     const [selectedDay, setSelectedDay] = useState(null);
 
+    useEffect(() => {
+        console.log('Forecast component received updated props:', { forecastData });
+    }, [forecastData]);
+
     // Return null if there is no forecast data
     if (!forecastData) {
+        console.warn('Forecast: Missing forecast data.');
         return null;        
     }
 
