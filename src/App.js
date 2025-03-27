@@ -101,8 +101,14 @@ const App = () => {
     };
 
     if (!state.weatherData && !state.forecastData) {
+      console.log('Fetching default weather data...');
       fetchDefaultWeather();
     }
+
+    return () => {
+      console.log('Cleaning up fetchDefaultWeather effect');
+      // Add any necessary cleanup logic here
+    };
   }, [state.weatherData, state.forecastData]);
 
   // Update background image based on current weather condition
@@ -111,6 +117,8 @@ const App = () => {
       const currentCondition = state.weatherData.weather[0]?.main?.toLowerCase();
       const backgroundImage = getBackgroundImage(currentCondition);
       dispatch({ type: 'SET_BACKGROUND', payload: backgroundImage });
+    } else if (state.weatherData === null) {
+      console.warn('Weather data is not yet available');
     } else {
       console.warn('No valid weather data available');
       dispatch({ type: 'SET_BACKGROUND', payload: getBackgroundImage(null) });

@@ -1,6 +1,9 @@
 import React from 'react';
 import { render, fireEvent, screen } from '@testing-library/react';
-import Search from './Search';
+import Search from '../src/components/Search.js'; // Ensure the file path is correct and matches the actual file location
+import axios from 'axios';
+
+jest.mock('axios'); // Mock axios
 
 test('renders Search component', () => {
   render(<Search onSearch={() => {}} />);

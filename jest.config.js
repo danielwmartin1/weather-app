@@ -1,10 +1,15 @@
 module.exports = {
   transform: {
-    "^.+\\.(js|jsx)$": "babel-jest"
+    '^.+\\.(js|jsx|ts|tsx)$': 'babel-jest', // Use Babel to transform JavaScript files
   },
-  moduleFileExtensions: ["js", "jsx"],
+  transformIgnorePatterns: [
+    '/node_modules/(?!(axios|country-data)/)', // Allow Jest to process `axios` and `country-data` libraries
+  ],
+  moduleFileExtensions: ['js', 'jsx'], // Ensure Jest resolves JS and JSX files
   moduleNameMapper: {
-    "\\.(css|less)$": "identity-obj-proxy"
+    '\\.(css|less|scss|sass)$': 'identity-obj-proxy', // Mock CSS imports
+    '\\.svg$': '<rootDir>/src/__mocks__/svgMock.js', // Mock SVG imports
   },
-  testEnvironment: "jsdom"
+  testEnvironment: 'jsdom', // Use jsdom for testing React components
+  setupFiles: ['<rootDir>/src/setupTests.js'], // Load environment variables
 };

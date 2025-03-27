@@ -41,21 +41,21 @@ const DateForecast = ({ dayData }) => {
     const pressureInHg = (overallData.main.pressure * 0.02953).toFixed(2);
 
     // Extract wind speed and direction
-    const windSpeed = overallData.wind.speed;
-    const windDirection = getWindDirection(overallData.wind.deg);
+    const windSpeed = overallData.wind?.speed || 0;
+    const windDirection = getWindDirection(overallData.wind?.deg || 0);
 
     // Array of weather details to display
     const weatherDetails = [
-        { label: 'Conditions', value: overallData.weather[0].description },
+        { label: 'Conditions', value: overallData.weather?.[0]?.description || 'N/A' },
         { label: 'High Temp', value: `${Math.round(maxTemp)}°${units === 'metric' ? 'C' : 'F'}` },
         { label: 'Low Temp', value: `${Math.round(minTemp)}°${units === 'metric' ? 'C' : 'F'}` },
-        { label: 'Humidity', value: `${overallData.main.humidity}%` },
-        { label: 'Cloud Cover', value: `${overallData.clouds.all}%` },
-        { label: 'Visibility', value: `${overallData.visibility / 1000} ${units === 'metric' ? 'km' : 'mi'}` },
+        { label: 'Humidity', value: `${overallData.main?.humidity || 0}%` },
+        { label: 'Cloud Cover', value: `${overallData.clouds?.all || 0}%` },
+        { label: 'Visibility', value: `${overallData.visibility ? overallData.visibility / 1000 : 0} ${units === 'metric' ? 'km' : 'mi'}` },
         { label: 'Pressure', value: `${pressureInHg} inHg` },
         { label: 'Chance of Precipitation', value: `${overallData.pop ? overallData.pop * 100 : 0}%` },
-        { label: 'Precipitation', value: overallData.rain && overallData.rain['1h'] ? `${overallData.rain['1h']} ${units === 'metric' ? 'mm' : 'in'}` : null },
-        { label: 'Snow', value: overallData.snow && overallData.snow['1h'] ? `${overallData.snow['1h']} ${units === 'metric' ? 'mm' : 'in'}` : null },
+        { label: 'Precipitation', value: overallData.rain?.['1h'] ? `${overallData.rain['1h']} ${units === 'metric' ? 'mm' : 'in'}` : null },
+        { label: 'Snow', value: overallData.snow?.['1h'] ? `${overallData.snow['1h']} ${units === 'metric' ? 'mm' : 'in'}` : null },
         { label: 'Wind Speed', value: `${windSpeed} ${units === 'imperial' ? 'mph': 'm/s'}` },
         { label: 'Wind Direction', value: windDirection || 'N/A' },
 

@@ -1,24 +1,20 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, cleanup } from '@testing-library/react';
 import CurrentWeather from './CurrentWeather';
 
-// Mock weather data for testing
 const mockWeatherData = {
-  main: { temp: 72, feels_like: 70, temp_max: 75, temp_min: 68, humidity: 50, pressure: 1012 },
-  sys: { sunrise: 1600000000, sunset: 1600040000 },
-  weather: [{ description: 'clear sky', icon: '01d' }],
-  wind: { speed: 5, deg: 180 },
-  clouds: { all: 0 },
-  visibility: 10000,
-  units: 'metric'
+  weather: [{ main: 'Clear', description: 'clear sky' }],
+  main: { temp: 72 },
+  wind: { speed: 5, deg: 200 },
 };
 
-// Test to render the CurrentWeather component
+afterEach(() => {
+  cleanup(); // Ensure the DOM is cleaned up after each test
+});
+
 test('renders CurrentWeather component', () => {
-  // Render the CurrentWeather component with mock data
   render(<CurrentWeather weatherData={mockWeatherData} location="New York" />);
-  // Check if the location is displayed
-  expect(screen.getByText('New York')).toBeInTheDocument();
-  // Check if the weather conditions are displayed
-  expect(screen.getByText('Conditions: Clear Sky')).toBeInTheDocument();
+  expect(screen.getByRole('heading', { level: 2, name: /New York/i })).toBeInTheDocument();
+  expect(screen.getByText(/Conditions: clear sky/i)).toBeInTheDocument();
+  expect(screen.getByText(/Temperature: 72°F/i)).toBeInTheDocument();
 });

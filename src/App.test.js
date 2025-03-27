@@ -1,8 +1,12 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, cleanup } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
+afterEach(() => {
+  cleanup(); // Ensure the DOM is cleaned up after each test
+});
+
+test('renders Weather App title', () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  const titleElement = screen.getByText(/Weather App/i);
+  expect(titleElement).toBeInTheDocument();
 });
