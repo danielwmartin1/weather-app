@@ -109,11 +109,13 @@ const CurrentWeather = ({ weatherData, forecastData, location }) => {
           ))}
         </div>
         <div className="icon-container">
-          <img 
-            className='large-icon'
-            src={`http://openweathermap.org/img/wn/${overallData.weather[0].icon}@2x.png`} 
-            alt={overallData.weather[0].description} 
-          />
+          {overallData.weather && overallData.weather[0] && (
+            <img 
+              className='large-icon'
+              src={`http://openweathermap.org/img/wn/${overallData.weather[0].icon}@2x.png`} 
+              alt={overallData.weather[0].description} 
+            />
+          )}
         </div>
       </div>
     </div>

@@ -28,7 +28,7 @@ const Search = ({ onSearch }) => {
     useEffect(() => {
         // Function to fetch the location name based on latitude and longitude
         const fetchLocationName = async (lat, lon) => {
-            const API_KEY = 'd41e3da09b3eaeb051becd162da6e929';
+            const API_KEY = process.env.REACT_APP_API_KEY;
             const limit = 1;
             const response = await fetch(`https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=${limit}&appid=${API_KEY}`);
             const data = await response.json();
