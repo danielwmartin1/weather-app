@@ -51,10 +51,15 @@ export const AppProvider = ({ children }) => {
 
       if (weather && forecast) {
         const formattedLocation = `${weather.name}, ${weather.sys.country}`;
-        dispatch({ type: 'SET_WEATHER_DATA', payload: weather });
-        dispatch({ type: 'SET_FORECAST_DATA', payload: forecast });
-        dispatch({ type: 'SET_LOCATION', payload: formattedLocation });
-        dispatch({ type: 'SET_SHOW_IMAGE', payload: false });
+
+        // Avoid redundant dispatch calls by checking if the state already matches
+        if (state.weatherData !== weather || state.forecastData !== forecast || state.location !== formattedLocation || state.showImage) {
+          console.info('Updating state with fetched weather and forecast data.');
+          dispatch({ type: 'SET_WEATHER_DATA', payload: weather });
+          dispatch({ type: 'SET_FORECAST_DATA', payload: forecast });
+          dispatch({ type: 'SET_LOCATION', payload: formattedLocation });
+          dispatch({ type: 'SET_SHOW_IMAGE', payload: false });
+        }
       } else {
         console.error('Failed to fetch weather or forecast data');
       }

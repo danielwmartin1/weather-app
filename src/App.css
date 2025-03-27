@@ -259,7 +259,7 @@ hr {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-wrap: wrap;
+  flex-wrap: nowrap; /* Prevent wrapping */
   padding: var(--padding-small);
   font-size: 1.15rem;
   text-align: center;
@@ -267,6 +267,7 @@ hr {
   text-shadow: #016ccf 1px 1px 1px;
   border-radius: var(--border-radius);
   margin: var(--margin-medium);
+  white-space: nowrap; /* Ensure text stays on one line */
 }
 
 .fiveDay {

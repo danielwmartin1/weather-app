@@ -12,12 +12,13 @@ const getDayName = (timestamp) => {
     return date.toLocaleDateString('en-US', options);
 };
 
-const Forecast = ({ forecastData }) => {
+const Forecast = React.memo(({ forecastData }) => {
     // State to store the selected day's data
     const [selectedDay, setSelectedDay] = useState(null);
 
+    // Removed the unnecessary console.log statement
     useEffect(() => {
-        console.log('Forecast component received updated props:', { forecastData });
+        // No need to log when forecastData updates
     }, [forecastData]);
 
     // Return null if there is no forecast data
@@ -111,6 +112,6 @@ const Forecast = ({ forecastData }) => {
             )}
         </div>
     );
-};
+});
 
 export default Forecast;

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useAppContext } from './context/AppContext';
 import CurrentWeather from './components/CurrentWeather';
 import Forecast from './components/Forecast';
@@ -9,8 +9,9 @@ import Footer from './components/Footer';
 import Header from './components/Header';
 
 const App = () => {
-  const { state, dispatch, fetchWeatherAndForecast } = useAppContext(); // Access dispatch directly
-  const { weatherData, forecastData, background, showImage } = state; // Destructure required properties
+  const { state, dispatch, fetchWeatherAndForecast } = useAppContext();
+  const { weatherData, forecastData, background, showImage } = state;
+  const hasFetched = useRef(false); // Track if the fetch has already been executed
 
   // Fetch weather data based on user's location or default to New York
   useEffect(() => {
@@ -18,7 +19,7 @@ const App = () => {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
           async ({ coords: { latitude, longitude } }) => {
-            console.log(`Fetching weather for user location: ${latitude}, ${longitude}`);
+            console.info(`Fetching weather for user location: ${latitude}, ${longitude}`);
             const location = `${latitude},${longitude}`;
             await fetchWeatherAndForecast(location);
           },
@@ -33,19 +34,24 @@ const App = () => {
       }
     };
 
-    if (!weatherData && !forecastData) {
+    if (!hasFetched.current) {
+      console.info('Initializing weather data fetch...');
       fetchUserLocationWeather();
+      hasFetched.current = true; // Mark fetch as completed
     }
-  }, [weatherData, forecastData, fetchWeatherAndForecast]); // Include only necessary dependencies
+  }, [fetchWeatherAndForecast]); // Remove `weatherData` and `forecastData` from dependencies
 
   // Update background image based on current weather condition
   useEffect(() => {
     if (weatherData && weatherData.weather) {
       const currentCondition = weatherData.weather[0]?.main?.toLowerCase();
       const backgroundImage = `url('/images/${currentCondition || 'blue-ribbon'}.jpg')`;
-      dispatch({ type: 'SET_BACKGROUND', payload: backgroundImage }); // Use dispatch directly
+      if (background !== backgroundImage) {
+        console.info(`Background updated to reflect weather condition: ${currentCondition}`);
+        dispatch({ type: 'SET_BACKGROUND', payload: backgroundImage });
+      }
     }
-  }, [weatherData, dispatch]); // Include only necessary dependencies
+  }, [weatherData, background, dispatch]);
 
   return (
     <div className="app-container">
