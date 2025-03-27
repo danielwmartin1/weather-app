@@ -12,9 +12,9 @@ afterEach(() => {
   cleanup(); // Ensure the DOM is cleaned up after each test
 });
 
-test('renders CurrentWeather component', () => {
-  render(<CurrentWeather weatherData={mockWeatherData} location="New York" />);
-  expect(screen.getByRole('heading', { level: 2, name: /New York/i })).toBeInTheDocument();
+test('renders CurrentWeather component with location from API', () => {
+  render(<CurrentWeather weatherData={mockWeatherData} location="Los Angeles, US" />);
+  expect(screen.getByRole('heading', { level: 2, name: /Los Angeles, US/i })).toBeInTheDocument();
   expect(screen.getByText(/Conditions: clear sky/i)).toBeInTheDocument();
   expect(screen.getByText(/Temperature: 72°F/i)).toBeInTheDocument();
 });

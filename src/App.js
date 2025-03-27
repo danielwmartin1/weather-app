@@ -67,9 +67,10 @@ const App = () => {
       const forecast = await fetchForecastData(location);
 
       if (weather && forecast) {
+        const formattedLocation = `${weather.name}, ${weather.sys.country}`; // Use city and country from API response
         dispatch({ type: 'SET_WEATHER_DATA', payload: weather });
         dispatch({ type: 'SET_FORECAST_DATA', payload: forecast });
-        dispatch({ type: 'SET_LOCATION', payload: location });
+        dispatch({ type: 'SET_LOCATION', payload: formattedLocation }); // Update location with API result
         dispatch({ type: 'SET_SHOW_IMAGE', payload: false });
       } else {
         console.error('Failed to fetch weather or forecast data');

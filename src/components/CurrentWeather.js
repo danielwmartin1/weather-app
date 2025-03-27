@@ -89,7 +89,7 @@ const CurrentWeather = ({ weatherData, forecastData, location }) => {
     <div className="current-weather">
       <div className="current-weather-content">
         <div className="locationTimeContainer">
-          <h2 className="locationHeader">{location}</h2>
+          <h2 className="locationHeader">{location}</h2> {/* Display the location from API results */}
           <div className="location-container">
             <h3 className='locationTime'>
               {getDayName(time.getTime() / 1000)} - {time.toLocaleDateString([], { year: 'numeric', month: 'short', day: 'numeric' }).replace(/(\d+)(?=,)/, (match) => {
