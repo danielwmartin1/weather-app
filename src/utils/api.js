@@ -45,14 +45,34 @@ const getUnitsByCountry = (countryCode) => {
 // Fetches weather data from the OpenWeatherMap API
 export const fetchWeatherData = async (location, countryCode) => {
   const units = getUnitsByCountry(countryCode);
-  const url = `${BASE_URL}weather?q=${location}&units=${units}`;
+  let url;
+
+  if (location.includes(',')) {
+    // If location is latitude and longitude
+    const [lat, lon] = location.split(',');
+    url = `${BASE_URL}weather?lat=${lat}&lon=${lon}&units=${units}`;
+  } else {
+    // If location is a city name
+    url = `${BASE_URL}weather?q=${location}&units=${units}`;
+  }
+
   return await makeApiRequest(url);
 };
 
 // Fetches forecast data from the OpenWeatherMap API
 export const fetchForecastData = async (location, countryCode) => {
   const units = getUnitsByCountry(countryCode);
-  const url = `${BASE_URL}forecast?q=${location}&units=${units}`;
+  let url;
+
+  if (location.includes(',')) {
+    // If location is latitude and longitude
+    const [lat, lon] = location.split(',');
+    url = `${BASE_URL}forecast?lat=${lat}&lon=${lon}&units=${units}`;
+  } else {
+    // If location is a city name
+    url = `${BASE_URL}forecast?q=${location}&units=${units}`;
+  }
+
   return await makeApiRequest(url);
 };
 
