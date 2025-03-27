@@ -1,5 +1,3 @@
-// src/App.js
-
 import React, { useReducer, useEffect } from 'react';
 import { fetchWeatherData, fetchForecastData } from './utils/api';
 import CurrentWeather from './components/CurrentWeather';
@@ -10,6 +8,7 @@ import './App.css';
 import Footer from './components/Footer';
 import Header from './components/Header';
 
+// Initial state for the reducer
 const initialState = {
   weatherData: null,
   forecastData: null,
@@ -18,6 +17,7 @@ const initialState = {
   showImage: true,
 };
 
+// Reducer function to manage state
 const reducer = (state, action) => {
   switch (action.type) {
     case 'SET_WEATHER_DATA':
@@ -35,16 +35,34 @@ const reducer = (state, action) => {
   }
 };
 
+// Utility function to determine the background image
+const getBackgroundImage = (condition) => {
+  switch (condition) {
+    case 'rain':
+      return "url('/images/rain.jpg')";
+    case 'clouds':
+      return "url('/images/clouds.jpg')";
+    case 'clear':
+      return "url('/images/clear.jpg')";
+    case 'snow':
+      return "url('/images/snow.jpg')";
+    case 'thunderstorm':
+      return "url('/images/thunderstorm.jpg')";
+    case 'drizzle':
+      return "url('/images/drizzle.jpg')";
+    default:
+      return "url('/images/blue-ribbon.jpg')";
+  }
+};
+
 const App = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
+  // Function to handle user search
   const handleSearch = async (location) => {
-    try {
-      if (!location || location === state.location) {
-        // Prevent duplicate or unnecessary API calls
-        return;
-      }
+    if (!location || location === state.location) return; // Prevent duplicate API calls
 
+    try {
       const weather = await fetchWeatherData(location);
       const forecast = await fetchForecastData(location);
 
@@ -61,66 +79,10 @@ const App = () => {
     }
   };
 
-  useEffect(() => {
-    if (state.weatherData && state.weatherData.weather) {
-      // Use the current weather condition as the primary determinant
-      const currentCondition = state.weatherData.weather[0]?.main?.toLowerCase();
-
-      if (currentCondition === 'rain') {
-        dispatch({ type: 'SET_BACKGROUND', payload: "url('/images/rain.jpg')" });
-      } else if (currentCondition === 'clouds') {
-        dispatch({ type: 'SET_BACKGROUND', payload: "url('/images/clouds.jpg')" });
-      } else if (currentCondition === 'clear') {
-        dispatch({ type: 'SET_BACKGROUND', payload: "url('/images/clear.jpg')" });
-      } else if (currentCondition === 'snow') {
-        dispatch({ type: 'SET_BACKGROUND', payload: "url('/images/snow.jpg')" });
-      } else if (currentCondition === 'thunderstorm') {
-        dispatch({ type: 'SET_BACKGROUND', payload: "url('/images/thunderstorm.jpg')" });
-      } else if (currentCondition === 'drizzle') {
-        dispatch({ type: 'SET_BACKGROUND', payload: "url('/images/drizzle.jpg')" });
-      } else {
-        dispatch({ type: 'SET_BACKGROUND', payload: "url('/images/blue-ribbon.jpg')" });
-      }
-    } else if (state.forecastData && state.forecastData.list) {
-      // Fallback to the most frequent condition in the forecast
-      const forecastConditions = state.forecastData.list.map(item => item.weather[0]?.main?.toLowerCase());
-      const conditionCounts = forecastConditions.reduce((acc, condition) => {
-        acc[condition] = (acc[condition] || 0) + 1;
-        return acc;
-      }, {});
-
-      const sortedConditions = Object.keys(conditionCounts).sort((a, b) => conditionCounts[b] - conditionCounts[a]);
-      const dominantCondition = sortedConditions[0];
-
-      if (dominantCondition === 'rain') {
-        dispatch({ type: 'SET_BACKGROUND', payload: "url('/images/rain.jpg')" });
-      } else if (dominantCondition === 'clouds') {
-        dispatch({ type: 'SET_BACKGROUND', payload: "url('/images/clouds.jpg')" });
-      } else if (dominantCondition === 'clear') {
-        dispatch({ type: 'SET_BACKGROUND', payload: "url('/images/clear.jpg')" });
-      } else if (dominantCondition === 'snow') {
-        dispatch({ type: 'SET_BACKGROUND', payload: "url('/images/snow.jpg')" });
-      } else if (dominantCondition === 'thunderstorm') {
-        dispatch({ type: 'SET_BACKGROUND', payload: "url('/images/thunderstorm.jpg')" });
-      } else if (dominantCondition === 'drizzle') {
-        dispatch({ type: 'SET_BACKGROUND', payload: "url('/images/drizzle.jpg')" });
-      } else {
-        dispatch({ type: 'SET_BACKGROUND', payload: "url('/images/blue-ribbon.jpg')" });
-      }
-    } else {
-      console.warn('No valid weather or forecast data available');
-      dispatch({ type: 'SET_BACKGROUND', payload: "url('/images/blue-ribbon.jpg')" });
-    }
-  }, [state.weatherData, state.forecastData]);
-
-  useEffect(() => {
-    // This effect runs only once on the first render
-    dispatch({ type: 'SET_SHOW_IMAGE', payload: true });
-  }, []);
-
+  // Fetch default weather data on initial render
   useEffect(() => {
     const fetchDefaultWeather = async () => {
-      const defaultLocation = 'New York'; // Set your default location here
+      const defaultLocation = 'New York';
       try {
         const weather = await fetchWeatherData(defaultLocation);
         const forecast = await fetchForecastData(defaultLocation);
@@ -143,12 +105,24 @@ const App = () => {
     }
   }, [state.weatherData, state.forecastData]);
 
+  // Update background image based on current weather condition
+  useEffect(() => {
+    if (state.weatherData && state.weatherData.weather) {
+      const currentCondition = state.weatherData.weather[0]?.main?.toLowerCase();
+      const backgroundImage = getBackgroundImage(currentCondition);
+      dispatch({ type: 'SET_BACKGROUND', payload: backgroundImage });
+    } else {
+      console.warn('No valid weather data available');
+      dispatch({ type: 'SET_BACKGROUND', payload: getBackgroundImage(null) });
+    }
+  }, [state.weatherData]);
+
   return (
     <div className="app-container">
       <Header />
-      <div 
-        className="app" 
-        style={{ 
+      <div
+        className="app"
+        style={{
           backgroundImage: state.background,
           backgroundSize: 'cover',
           backgroundRepeat: 'no-repeat',
@@ -158,19 +132,19 @@ const App = () => {
         }}
       >
         <>
-          {state.showImage && 
-          <div id="picture">
-            <svg width="176" height="79" viewBox="0 0 176 79" fill="none" xmlns="http://www.w3.org/2000/svg">
-              {/* SVG content */}
-            </svg>
-          </div>
-          }
+          {state.showImage && (
+            <div id="picture">
+              <svg width="176" height="79" viewBox="0 0 176 79" fill="none" xmlns="http://www.w3.org/2000/svg">
+                {/* SVG content */}
+              </svg>
+            </div>
+          )}
           <Search onSearch={handleSearch} className="onSearch" />
           {state.weatherData && state.forecastData ? (
             <>
               <CurrentWeather weatherData={state.weatherData} forecastData={state.forecastData} location={state.location} />
               <hr />
-              <h2 className='fiveDay'>5-Day Forecast</h2>
+              <h2 className="fiveDay">5-Day Forecast</h2>
               <Forecast forecastData={state.forecastData} />
             </>
           ) : null}
