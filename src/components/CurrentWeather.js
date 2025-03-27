@@ -1,39 +1,25 @@
+import React from 'react';
+import { useAppContext } from '../context/AppContext';
 import '../index.css';
 import '../App.css';
-import React, { useState, useEffect } from 'react';
-// Removed unused imports
 import './Search.js';
 import { getHighLowTemps } from '../utils/weatherUtils';
 
-const CurrentWeather = ({ weatherData, forecastData, location }) => {
-  // State to store the current time
-  const [time, setTime] = useState(new Date());
+const CurrentWeather = () => {
+  const { state } = useAppContext();
+  const { weatherData, forecastData, location } = state;
 
-  useEffect(() => {
-    // Update the time every second
-    const interval = setInterval(() => {
-      setTime(new Date());
-    }, 1000);
-
-    // Clear the interval when the component is unmounted
-    return () => clearInterval(interval);
-  }, []);
-
-  // Return null if the weather data is incomplete
   if (!weatherData || !weatherData.main || !weatherData.sys || !weatherData.weather || !weatherData.weather.length || !weatherData.wind || !forecastData || !forecastData.list) return null;
 
-  // Get the overall data for the current weather
   const overallData = weatherData || {};
-  const units = overallData.units || 'imperial'; // Default to imperial if not specified
+  const units = overallData.units || 'imperial';
 
-  // Function to get the wind direction from degrees
   const getWindDirection = (deg) => {
     const directions = ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW'];
     const index = Math.round(deg / 22.5) % 16;
     return `${Math.round(deg)}° ${directions[index]}`;
   };
 
-  // Function to capitalize the first letter of each word in a string
   const capitalizeFirstLetter = (str) => {
     return str
       .split(' ')
@@ -43,27 +29,18 @@ const CurrentWeather = ({ weatherData, forecastData, location }) => {
       .join(' ');
   };
 
-  // Function to get the day name from a timestamp
   const getDayName = (timestamp) => {
     const date = new Date(timestamp * 1000);
     const options = { weekday: 'short' };
     return date.toLocaleDateString('en-US', options);
   };
 
-  // Extract the weather data for the first day in the forecast
   const firstDayData = forecastData.list.slice(0, 8);
-
-  // Calculate high and low temperatures for the first day in the forecast
   const { high, low } = getHighLowTemps(firstDayData);
-
-  // Convert pressure from hPa to inHg
   const pressureInHg = (overallData.main.pressure * 0.02953).toFixed(2);
-
-  // Extract wind speed and direction
   const windSpeed = overallData.wind ? overallData.wind.speed : 0;
   const windDirection = overallData.wind ? getWindDirection(overallData.wind.deg) : 'N/A';
 
-  // Array of weather details to display
   const weatherDetails = [
     { label: 'Overall Conditions', value: capitalizeFirstLetter(overallData.weather[0].description) },
     { label: 'Current Temp', value: `${Math.round(overallData.main.temp)}°${units === 'metric' ? 'C' : 'F'}` },
@@ -82,23 +59,23 @@ const CurrentWeather = ({ weatherData, forecastData, location }) => {
     { label: 'Precipitation', value: overallData.rain && overallData.rain['1h'] ? `${overallData.rain['1h']} ${units === 'metric' ? 'mm' : 'in'}` : null },
     { label: 'Snow', value: overallData.snow && overallData.snow['1h'] ? `${overallData.snow['1h']} ${units === 'metric' ? 'mm' : 'in'}` : null },
     { label: 'UV Index', value: overallData.uvi || 0 },
-  ].filter(detail => detail.value !== null); // Filter out null values
+  ].filter(detail => detail.value !== null);
 
   return (
     <div className="current-weather">
       <div className="current-weather-content">
         <div className="locationTimeContainer">
-          <h2 className="locationHeader">{location}</h2> {/* Display the location from API results */}
+          <h2 className="locationHeader">{location}</h2>
           <div className="location-container">
             <h3 className='locationTime'>
-              {getDayName(time.getTime() / 1000)} - {time.toLocaleDateString([], { year: 'numeric', month: 'short', day: 'numeric' }).replace(/(\d+)(?=,)/, (match) => {
+              {getDayName(new Date().getTime() / 1000)} - {new Date().toLocaleDateString([], { year: 'numeric', month: 'short', day: 'numeric' }).replace(/(\d+)(?=,)/, (match) => {
                 const suffix = ['th', 'st', 'nd', 'rd'];
                 const v = match % 100;
                 return match + (suffix[(v - 20) % 10] || suffix[v] || suffix[0]);
               })}
             </h3>
             <h4 className='locationTime'>
-              {time.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', second: '2-digit' })}
+              {new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', second: '2-digit' })}
             </h4>
           </div>
         </div>
@@ -121,6 +98,6 @@ const CurrentWeather = ({ weatherData, forecastData, location }) => {
       </div>
     </div>
   );
-}; // Ensure the function ends properly here
+};
 
-export default CurrentWeather; // Move this to the top level of the file
+export default CurrentWeather;
