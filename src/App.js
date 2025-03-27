@@ -39,40 +39,79 @@ const App = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const handleSearch = async (location) => {
-    const weather = await fetchWeatherData(location);
-    const forecast = await fetchForecastData(location);
+    try {
+      if (!location || location === state.location) {
+        // Prevent duplicate or unnecessary API calls
+        return;
+      }
 
-    dispatch({ type: 'SET_WEATHER_DATA', payload: weather });
-    dispatch({ type: 'SET_FORECAST_DATA', payload: forecast });
-    dispatch({ type: 'SET_LOCATION', payload: location });
-    dispatch({ type: 'SET_SHOW_IMAGE', payload: false });
+      const weather = await fetchWeatherData(location);
+      const forecast = await fetchForecastData(location);
+
+      if (weather && forecast) {
+        dispatch({ type: 'SET_WEATHER_DATA', payload: weather });
+        dispatch({ type: 'SET_FORECAST_DATA', payload: forecast });
+        dispatch({ type: 'SET_LOCATION', payload: location });
+        dispatch({ type: 'SET_SHOW_IMAGE', payload: false });
+      } else {
+        console.error('Failed to fetch weather or forecast data');
+      }
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
   };
 
   useEffect(() => {
-    if (state.forecastData) {
-      const forecastConditions = state.forecastData.list.map(item => item.weather[0].main.toLowerCase());
-      console.log('Forecast Conditions:', forecastConditions); // Debugging: Log conditions
+    if (state.weatherData && state.weatherData.weather) {
+      // Use the current weather condition as the primary determinant
+      const currentCondition = state.weatherData.weather[0]?.main?.toLowerCase();
 
-      if (forecastConditions.includes('rain')) {
+      if (currentCondition === 'rain') {
         dispatch({ type: 'SET_BACKGROUND', payload: "url('/images/rain.jpg')" });
-      } else if (forecastConditions.includes('clouds')) {
+      } else if (currentCondition === 'clouds') {
         dispatch({ type: 'SET_BACKGROUND', payload: "url('/images/clouds.jpg')" });
-      } else if (forecastConditions.includes('clear')) {
+      } else if (currentCondition === 'clear') {
         dispatch({ type: 'SET_BACKGROUND', payload: "url('/images/clear.jpg')" });
-      } else if (forecastConditions.includes('snow')) {
+      } else if (currentCondition === 'snow') {
         dispatch({ type: 'SET_BACKGROUND', payload: "url('/images/snow.jpg')" });
-      } else if (forecastConditions.includes('thunderstorm')) {
+      } else if (currentCondition === 'thunderstorm') {
         dispatch({ type: 'SET_BACKGROUND', payload: "url('/images/thunderstorm.jpg')" });
-      } else if (forecastConditions.includes('drizzle')) {
+      } else if (currentCondition === 'drizzle') {
+        dispatch({ type: 'SET_BACKGROUND', payload: "url('/images/drizzle.jpg')" });
+      } else {
+        dispatch({ type: 'SET_BACKGROUND', payload: "url('/images/blue-ribbon.jpg')" });
+      }
+    } else if (state.forecastData && state.forecastData.list) {
+      // Fallback to the most frequent condition in the forecast
+      const forecastConditions = state.forecastData.list.map(item => item.weather[0]?.main?.toLowerCase());
+      const conditionCounts = forecastConditions.reduce((acc, condition) => {
+        acc[condition] = (acc[condition] || 0) + 1;
+        return acc;
+      }, {});
+
+      const sortedConditions = Object.keys(conditionCounts).sort((a, b) => conditionCounts[b] - conditionCounts[a]);
+      const dominantCondition = sortedConditions[0];
+
+      if (dominantCondition === 'rain') {
+        dispatch({ type: 'SET_BACKGROUND', payload: "url('/images/rain.jpg')" });
+      } else if (dominantCondition === 'clouds') {
+        dispatch({ type: 'SET_BACKGROUND', payload: "url('/images/clouds.jpg')" });
+      } else if (dominantCondition === 'clear') {
+        dispatch({ type: 'SET_BACKGROUND', payload: "url('/images/clear.jpg')" });
+      } else if (dominantCondition === 'snow') {
+        dispatch({ type: 'SET_BACKGROUND', payload: "url('/images/snow.jpg')" });
+      } else if (dominantCondition === 'thunderstorm') {
+        dispatch({ type: 'SET_BACKGROUND', payload: "url('/images/thunderstorm.jpg')" });
+      } else if (dominantCondition === 'drizzle') {
         dispatch({ type: 'SET_BACKGROUND', payload: "url('/images/drizzle.jpg')" });
       } else {
         dispatch({ type: 'SET_BACKGROUND', payload: "url('/images/blue-ribbon.jpg')" });
       }
     } else {
-      console.log('No forecast data available'); // Debugging: Log when no data
+      console.warn('No valid weather or forecast data available');
       dispatch({ type: 'SET_BACKGROUND', payload: "url('/images/blue-ribbon.jpg')" });
     }
-  }, [state.forecastData]);
+  }, [state.weatherData, state.forecastData]);
 
   useEffect(() => {
     // This effect runs only once on the first render
