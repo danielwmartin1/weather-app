@@ -1,8 +1,7 @@
 import '../index.css';
 import '../App.css';
 import React, { useState, useEffect } from 'react';
-import '../utils/api.js';
-import '../utils/stateLabelValues.js';
+// Removed unused imports
 import './Search.js';
 import { getHighLowTemps } from '../utils/weatherUtils';
 
@@ -66,7 +65,7 @@ const CurrentWeather = ({ weatherData, forecastData, location }) => {
 
   // Array of weather details to display
   const weatherDetails = [
-    { label: 'Conditions', value: capitalizeFirstLetter(overallData.weather[0].description) },
+    { label: 'Overall Conditions', value: capitalizeFirstLetter(overallData.weather[0].description) },
     { label: 'Current Temp', value: `${Math.round(overallData.main.temp)}°${units === 'metric' ? 'C' : 'F'}` },
     { label: 'Feels like', value: `${Math.round(overallData.main.feels_like)}°${units === 'metric' ? 'C' : 'F'}` },
     { label: 'High', value: `${Math.round(high)}°${units === 'metric' ? 'C' : 'F'}` },
@@ -105,7 +104,9 @@ const CurrentWeather = ({ weatherData, forecastData, location }) => {
         </div>
         <div className="weather-detail">
           {weatherDetails.map((detail, index) => (
-           <p className='details' key={index}>{detail.label}: {detail.value}</p>
+            <p className='details' key={index}>
+              <strong>{detail.label}:&nbsp;</strong> {detail.value}
+            </p>
           ))}
         </div>
         <div className="icon-container">
@@ -120,6 +121,6 @@ const CurrentWeather = ({ weatherData, forecastData, location }) => {
       </div>
     </div>
   );
-};
+}; // Ensure the function ends properly here
 
-export default CurrentWeather;
+export default CurrentWeather; // Move this to the top level of the file

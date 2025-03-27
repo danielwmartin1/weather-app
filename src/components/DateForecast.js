@@ -73,7 +73,12 @@ const DateForecast = ({ dayData }) => {
             </h2>
             <div className="forecast-part" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 {weatherDetails.map((detail, index) => (
-                    <p className='details' key={index}>{detail.label}: {detail.value}</p>
+                    <p className='details' key={index}>
+                        <strong>{detail.label}:&nbsp;</strong> 
+                        {typeof detail.value === 'string' 
+                            ? detail.value.replace(/\b\w/g, char => char.toUpperCase()) 
+                            : detail.value}
+                    </p>
                 ))}
             </div>
             <img 
