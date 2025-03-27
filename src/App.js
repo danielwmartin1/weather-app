@@ -118,6 +118,31 @@ const App = () => {
     dispatch({ type: 'SET_SHOW_IMAGE', payload: true });
   }, []);
 
+  useEffect(() => {
+    const fetchDefaultWeather = async () => {
+      const defaultLocation = 'New York'; // Set your default location here
+      try {
+        const weather = await fetchWeatherData(defaultLocation);
+        const forecast = await fetchForecastData(defaultLocation);
+
+        if (weather && forecast) {
+          dispatch({ type: 'SET_WEATHER_DATA', payload: weather });
+          dispatch({ type: 'SET_FORECAST_DATA', payload: forecast });
+          dispatch({ type: 'SET_LOCATION', payload: defaultLocation });
+          dispatch({ type: 'SET_SHOW_IMAGE', payload: false });
+        } else {
+          console.error('Failed to fetch default weather or forecast data');
+        }
+      } catch (error) {
+        console.error('Error fetching default weather data:', error);
+      }
+    };
+
+    if (!state.weatherData && !state.forecastData) {
+      fetchDefaultWeather();
+    }
+  }, [state.weatherData, state.forecastData]);
+
   return (
     <div className="app-container">
       <Header />
