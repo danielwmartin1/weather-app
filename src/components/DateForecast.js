@@ -46,7 +46,7 @@ const DateForecast = ({ dayData }) => {
 
     // Array of weather details to display
     const weatherDetails = [
-        { label: 'Conditions', value: overallData.weather?.[0]?.description || 'N/A' },
+        { label: 'Overall Conditions', value: overallData.weather?.[0]?.description || 'N/A' },
         { label: 'High Temp', value: `${Math.round(maxTemp)}°${units === 'metric' ? 'C' : 'F'}` },
         { label: 'Low Temp', value: `${Math.round(minTemp)}°${units === 'metric' ? 'C' : 'F'}` },
         { label: 'Humidity', value: `${overallData.main?.humidity || 0}%` },

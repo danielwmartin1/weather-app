@@ -16,9 +16,9 @@ const Forecast = ({ forecastData }) => {
     // State to store the selected day's data
     const [selectedDay, setSelectedDay] = useState(null);
 
-    // Return a message if there is no forecast data
-    if (!forecastData || !forecastData.list || forecastData.list.length === 0) {
-        return <p>No forecast data available.</p>;
+    // Return null if there is no forecast data
+    if (!forecastData) {
+        return null;        
     }
 
     // Function to split the forecast data into day parts
@@ -28,7 +28,7 @@ const Forecast = ({ forecastData }) => {
         for (let i = 0; i < list.length; i += 8) {
             dayParts.push(list.slice(i, i + 8));
         }
-        return dayParts;
+        return dayParts.slice(0, 8); // Adjust this line to get 8 days
     };
 
     // Function to get the weather icon URL
