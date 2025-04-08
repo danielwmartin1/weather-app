@@ -307,7 +307,7 @@ hr {
   text-shadow: #016ccf 1px 1px 1px;
   border: 1px solid var(--color-border);
   border-radius: var(--border-radius);
-  margin: var(--margin-medium) var(--margin-small) var(--margin-small) calc(var(--margin-small));
+  margin: var(--margin-medium) var(--margin-small);
   padding: var(--padding-medium);
 }
 
