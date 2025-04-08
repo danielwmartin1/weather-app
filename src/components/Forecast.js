@@ -1,8 +1,8 @@
 // src/components/Forecast.js
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../index.css';
 import '../App.css';
-import '../utils/api.js'
+import '../utils/api.js';
 import DayForecast from './DateForecast.js';
 
 // Function to get the day name from a timestamp
@@ -15,7 +15,6 @@ const getDayName = (timestamp) => {
 const Forecast = React.memo(({ forecastData }) => {
     // State to store the selected day's data
     const [selectedDay, setSelectedDay] = useState(null);
-    const locationTimeContainerRef = useRef(null); // Reference to the locationTimeContainer
 
     // Removed the unnecessary console.log statement
     useEffect(() => {
@@ -46,11 +45,8 @@ const Forecast = React.memo(({ forecastData }) => {
     const dayParts = getDayParts(forecastData.list);
 
     // Handle the click event to select a day
-    const handleDayClick = (dayData, dayIndex) => {
+    const handleDayClick = (dayData) => {
         setSelectedDay(dayData);
-        if (dayIndex === 0 && locationTimeContainerRef.current) {
-            locationTimeContainerRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
     };
 
     // Handle the click event to go back to the forecast overview
@@ -85,7 +81,6 @@ const Forecast = React.memo(({ forecastData }) => {
 
     return (
         <div className="forecast">
-            <div ref={locationTimeContainerRef} className="locationTimeContainer"></div> {/* Reference for scrolling */}
             {selectedDay ? (
                 // Display the selected day's forecast details
                 <div onClick={handleBackClick}>
@@ -96,7 +91,7 @@ const Forecast = React.memo(({ forecastData }) => {
                 dayParts.map((day, dayIndex) => {
                     const { high, low } = getHighLowTemps(day);
                     return (
-                        <div key={dayIndex} className="forecast-day" onClick={() => handleDayClick(day, dayIndex)}>
+                        <div key={dayIndex} className="forecast-day" onClick={() => handleDayClick(day)}>
                             <div className="headerContainer">
                                 <h3 className='dateHeader'>
                                     {getDayName(day[0].dt)} - {new Date(day[0].dt * 1000).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }).replace(/(\d+)(?=,)/, (match) => `${match}${getDaySuffix(parseInt(match))}`)}
