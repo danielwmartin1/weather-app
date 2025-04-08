@@ -413,7 +413,6 @@ input {
   gap: var(--padding-small); /* Add spacing between grid items */
   justify-items: center; /* Center items horizontally */
   align-items: center; /* Center items vertically */
-  padding: var(--padding-medium); /* Add padding around the grid */
   font-size: 1rem; /* Adjust font size for better readability */
 }
 
@@ -423,7 +422,12 @@ input {
 }
 
 .part {
-  padding-bottom: 0.5rem !important; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  margin: var(--margin-small);
 }
 
 .forecast-day {
@@ -497,14 +501,23 @@ h2, h3, .dateHeader {
   border-radius: var(--border-radius); /* Optional: Add rounded corners */
 }
 
+.time {
+  font-size: 1.25rem;
+  color: var(--color-text);
+}
+
 * {
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Add a black text shadow */
 }
 
 /* Media queries for responsiveness */
-@media (max-width: 1500px) {
+@media (max-width: 1440px) {
   .forecast-day, .details, .current-weather, .locationTimeContainer {
     font-size: calc(var(--font-size-small) * 0.9);
+  }
+
+  .time {
+    font-size: 1.1rem !important; /* Slightly smaller font size for medium screens */
   }
 
   .forecast-day, .weather-detail {
@@ -653,6 +666,10 @@ h2, h3, .dateHeader {
   .forecast, .forecast-day, .forecast-part {
     font-size: calc(var(--font-size-small) * 0.75);
     padding: calc(var(--padding-small) * 0.75);
+  }
+
+  .time {
+    font-size: 1rem !important; /* Smaller font size for smaller screens */
   }
 
   .home-screen {

@@ -105,8 +105,8 @@ const Forecast = React.memo(({ forecastData }) => {
                             </div>
                             {day.map((part) => (
                                 <div key={part.dt} className="forecast-part">
-                                    <p className="part">{new Date(part.dt * 1000).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}</p>
-                                    <p className="part">{Math.round(part.main.temp)}°F</p>
+                                    <p className="part time">{new Date(part.dt * 1000).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}</p>
+                                    <p className="part temp">{Math.round(part.main.temp)}°F</p>
                                     <p className="part condition">{capitalizeFirstLetter(part.weather[0].description)}</p>
                                     <img className='small-icon' src={getWeatherIconUrl(part.weather[0].icon)} alt={part.weather[0].description} />
                                 </div>
