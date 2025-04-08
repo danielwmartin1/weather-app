@@ -223,11 +223,13 @@ input, #submit {
   text-align: center;
 }
 
-.forecast-part {
+.current-weather .forecast-part {
   justify-content: center;
   align-items: center;
   text-align: center;
   padding: var(--padding-small);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr) !important; /* Responsive grid */;
 }
 
 .icon-container {
@@ -583,6 +585,15 @@ h2, h3, .locationHeader {
 }
 
 @media (max-width: 1024px) {
+
+  .current-weather .forecast-part {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: var(--padding-small);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr) !important; /* Responsive grid */;
+  }
   .forecast-day, .details, .current-weather {
     font-size: calc(var(--font-size-small) * 0.85);
   }
@@ -629,6 +640,7 @@ h2, h3, .locationHeader {
 }
 
 @media (max-width: 768px) {
+  
   .details {
     margin: var(--margin-medium);
   }
@@ -671,8 +683,13 @@ h2, h3, .locationHeader {
 }
 
 @media (max-width: 600px) {
-  .forecast-part {
-    grid-template-columns: repeat(2, 1fr) !important; /* Adjust to two columns */
+  .current-weather .forecast-part {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: var(--padding-small);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr) !important; /* Responsive grid */;
   }
   .current-weather .forecast-parts {
     grid-template-columns: 1fr 1fr !important; /* Stack items vertically on smaller screens */
@@ -753,6 +770,14 @@ h2, h3, .locationHeader {
 }
 
 @media (max-width: 352px) {
+  .current-weather .forecast-part {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: var(--padding-small);
+    display: flex !important;
+    flex-direction: column !important;
+  }
   .forecast, .forecast-day, .details, header, footer, .dateHeader, .search-form input, .search-form button {
     font-size: calc(var(--font-size-small) * 0.7);
     padding: var(--padding-small);
