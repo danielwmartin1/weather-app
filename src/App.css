@@ -133,8 +133,7 @@ footer {
   border: 2px solid var(--color-accent);
   border-radius: var(--border-radius);
   margin-top: var(--margin-small);
-  margin-bottom: var(--margin-small);
-  padding: 4rem 6rem;
+  padding: 2rem 3rem;
 }
 
 .home-screen img {
