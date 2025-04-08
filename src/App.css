@@ -84,6 +84,22 @@ footer {
   z-index: 0;
   position: relative;
   min-height: 100vh;
+  position: relative; /* Ensure the pseudo-element is positioned relative to the app container */
+}
+
+.app::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: inherit; /* Use the same background image as the app */
+  background-size: inherit;
+  background-repeat: inherit;
+  background-position: inherit;
+  opacity: 0.8; /* Set the opacity for the background image */
+  z-index: -1; /* Place the pseudo-element behind the content */
 }
 
 .day-forecast {
@@ -268,6 +284,7 @@ hr {
   border-radius: var(--border-radius);
   margin: var(--margin-medium);
   white-space: nowrap; /* Ensure text stays on one line */
+  background-color: rgba(0, 0, 0, 0); /* Set background color to transparent */
 }
 
 .fiveDay {
@@ -461,6 +478,7 @@ hr {
   margin: var(--margin-small);
   font-size: 1.3rem;  
   text-align: center;
+  background-color: rgba(0, 58, 139, 0) !important; /* Set background color to transparent */
 }
 
 .forecast-day, .current-weather-content {
@@ -476,7 +494,7 @@ div {
   background-color: rgba(0, 125, 255, 0) !important;
 }
 
-h2, .dateHeader {
+h2, h3, .dateHeader {
   background-color: var(--color-secondary)!important; /* Set a consistent background color for all h2 elements */
   color: var(--color-text); /* Ensure text color contrasts with the background */
   padding: var(--padding-small); /* Optional: Add padding for better spacing */
