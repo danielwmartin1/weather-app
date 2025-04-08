@@ -264,7 +264,7 @@ input, #submit {
 
 hr {
   width: 100%;
-  border: 1.5px solid var(--color-border);
+  border: 2px ridge var(--color-border);
 }
 
 .locationTimeContainer {
