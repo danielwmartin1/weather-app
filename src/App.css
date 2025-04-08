@@ -185,14 +185,17 @@ footer {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: var(--font-size-small);
+  flex-wrap: wrap;
+  padding: var(--padding-small);
+  font-size: calc(var(--font-size-small) * 1.25) !important; /* Default responsive font size */
+  text-align: center;
   color: var(--color-text);
   background-color: rgba(0, 58, 139, 1);
-  text-decoration: underline;
   text-shadow: #016ccf 1px 1px 1px;
   border: 1px solid var(--color-border);
   border-radius: var(--border-radius);
-  padding: var(--padding-medium)!important;
+  margin: var(--margin-medium);
+  text-decoration: none !important;
 }
 
 .popup-content {
@@ -303,23 +306,6 @@ hr {
   margin: var(--margin-medium);
 }
 
-.dateHeader {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  padding: var(--padding-small);
-  font-size: 1.25rem;
-  text-align: center;
-  color: var(--color-text);
-  background-color: rgba(0, 58, 139, 1);
-  text-shadow: #016ccf 1px 1px 1px;
-  border: 1px solid var(--color-border);
-  border-radius: var(--border-radius);
-  margin: var(--margin-medium);
-  text-decoration: none !important;
-}
-
 .high-low {
   font-size: 1.1rem;
 }
@@ -428,6 +414,15 @@ input {
   display: flex;
 }
 
+.current-weather .forecast-part {
+  display: grid !important; /* Use grid layout */
+  grid-template-columns: repeat(3, 1fr); /* Responsive grid */
+  gap: var(--padding-small); /* Add spacing between grid items */
+  justify-items: center; /* Center items horizontally */
+  align-items: center; /* Center items vertically */
+  padding: var(--padding-medium); /* Add padding around the grid */
+}
+
 .small-icon {
   width: 50px;
   height: 50px;
@@ -523,10 +518,6 @@ h2, h3, .dateHeader {
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   }
 
-  .locationTime, .dateHeader {
-    font-size: calc(var(--font-size-small) * 1.15);
-    padding: var(--padding-small);
-  }
 
   .search-form input, .search-form button {
     width: 100%;
@@ -570,7 +561,7 @@ h2, h3, .dateHeader {
   }
 
   .locationTime, .dateHeader {
-    font-size: calc(var(--font-size-small) * 1.15);
+    font-size: calc(var(--font-size-small) * 1.1); /* Slightly smaller font size for medium screens */
     padding: var(--padding-small);
   }
 
@@ -615,7 +606,7 @@ h2, h3, .dateHeader {
   }
 
   .locationTime, .dateHeader {
-    font-size: calc(var(--font-size-small) * 1.15);
+    font-size: calc(var(--font-size-small) * 1); /* Smaller font size for smaller screens */
     padding: var(--padding-small);
   }
 
@@ -644,6 +635,23 @@ h2, h3, .dateHeader {
   
   .forecast-day {
     margin: var(--margin-small); /* Consistent margin */
+  }
+
+
+
+
+}
+
+@media (max-width: 600px) {
+  .forecast-part {
+    grid-template-columns: repeat(2, 1fr) !important; /* Adjust to two columns */
+  }
+  .current-weather .forecast-parts {
+    grid-template-columns: 1fr 1fr !important; /* Stack items vertically on smaller screens */
+  }
+  .forecast-day, .weather-detail {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(1fr, 1fr)) !important; /* Responsive grid */
   }
 }
 
@@ -707,7 +715,7 @@ h2, h3, .dateHeader {
   }
 
   .dateHeader {
-    font-size: 1rem !important;
+    font-size: calc(var(--font-size-small) * 0.9) !important; /* Even smaller font size for very small screens */
   }
   
   .forecast-day {
