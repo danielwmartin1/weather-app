@@ -135,6 +135,8 @@ footer {
   margin-top: var(--margin-small);
   margin-bottom: var(--margin-small);
   padding: 4rem 6rem;
+  opacity: 0.8;
+
 }
 
 .home-screen img {
@@ -143,6 +145,7 @@ footer {
   padding: var(--padding-medium);
   border-radius: var(--border-radius);
   border: 2px solid var(--color-accent);
+  opacity: 0.8;
 }
 
 #submit {
@@ -154,6 +157,8 @@ footer {
   cursor: pointer;
   transition: background-color 0.3s, transform 0.2s;
   width: 100px;
+  text-decoration: none!important;
+
 }
 
 #title {
@@ -190,6 +195,13 @@ footer {
   border: 1px solid var(--color-border);
   border-radius: var(--border-radius);
   margin: var(--margin-medium);
+}
+
+input, #submit {
+  text-shadow: none;
+  text-decoration: none!important;
+  opacity: 1;
+  background-color: #008cff;
 }
 
 .popup-content {
