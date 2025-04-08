@@ -273,7 +273,6 @@ hr {
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  border-bottom: 2px solid var(--color-border);
   margin: 0;
   background-color: rgba(0, 58, 139, 1);
   width: 100%;
@@ -307,7 +306,7 @@ hr {
   text-shadow: #016ccf 1px 1px 1px;
   border: 1px solid var(--color-border);
   border-radius: var(--border-radius);
-  margin: var(--margin-medium) var(--margin-small);
+  margin: var(--margin-medium) var(--margin-small) var(--margin-small) var(--margin-small);
   padding: var(--padding-medium);
 }
 
