@@ -418,6 +418,7 @@ input {
   justify-items: center; /* Center items horizontally */
   align-items: center; /* Center items vertically */
   padding: var(--padding-medium); /* Add padding around the grid */
+  font-size: 1rem; /* Adjust font size for better readability */
 }
 
 .small-icon {
