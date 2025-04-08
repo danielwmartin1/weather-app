@@ -118,8 +118,7 @@ footer {
   align-items: center;
   font-size: 1.5rem !important;
   color: var(--color-text);
-  background-color: var(--color-secondary);
-  text-decoration: underline;
+  background-color: #003a8b !important;
   text-shadow: #016ccf 1px 1px 1px;
   border: 1px solid var(--color-border);
   border-radius: var(--border-radius);
@@ -187,7 +186,7 @@ footer {
   align-items: center;
   flex-wrap: wrap;
   padding: var(--padding-small);
-  font-size: calc(var(--font-size-small) * 1.25) !important; /* Default responsive font size */
+  font-size: calc(var(--font-size-small) * 1.25); /* Default responsive font size */
   text-align: center;
   color: var(--color-text);
   background-color: rgba(0, 58, 139, 1);
@@ -195,7 +194,6 @@ footer {
   border: 1px solid var(--color-border);
   border-radius: var(--border-radius);
   margin: var(--margin-medium);
-  text-decoration: none !important;
 }
 
 .popup-content {
@@ -299,7 +297,6 @@ hr {
   text-align: center;
   color: var(--color-text);
   background-color: #003a8b;
-  text-decoration: underline;
   text-shadow: #016ccf 1px 1px 1px;
   border: 1px solid var(--color-border);
   border-radius: var(--border-radius);
@@ -408,7 +405,7 @@ input {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   overflow-y: visible;
   border: 2px solid var(--color-border);
-  width: 98vw; ;
+  width: 98.5vw; ;
   margin: var(--margin-small) var(--margin-large);
   padding: 0;
   display: flex;
@@ -442,7 +439,7 @@ input {
   border-radius: var(--border-radius);
   background-color: var(--color-primary);
   color: var(--color-text);
-  width: 100%;
+  width: 98.5vw !important; /* Ensure consistent width */
   margin: var(--margin-small); /* Ensure consistent margin */
 }
 
@@ -497,7 +494,7 @@ div {
 }
 
 h2, h3, .dateHeader {
-  background-color: var(--color-secondary)!important; /* Set a consistent background color for all h2 elements */
+  background-color: var(--color-secondary); /* Set a consistent background color for all h2 elements */
   color: var(--color-text); /* Ensure text color contrasts with the background */
   padding: var(--padding-small); /* Optional: Add padding for better spacing */
   border-radius: var(--border-radius); /* Optional: Add rounded corners */
@@ -677,11 +674,8 @@ h2, h3, .dateHeader {
   }
 
   .forecast-day {
-    display: flex;
+
     width: 98.5vw;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
   }
 
   .forecast-day p {
@@ -694,8 +688,8 @@ h2, h3, .dateHeader {
   }
 
   .small-icon {
-    width: 7.5rem !important;
-    height: 7.5rem !important;
+    width: 30px !important;
+    height: 30px !important;
   }
 
   .day-forecast, .home-screen {
