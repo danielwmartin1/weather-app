@@ -355,6 +355,12 @@ hr {
   text-align: center;
 }
 
+input {
+  color: black !important;
+  text-shadow: none;
+  background-color: rgb(255, 255, 255);
+}
+
 #picture {
   width: 100%;
   height: auto;
@@ -381,6 +387,8 @@ hr {
 .search-form input, .search-form button {
   width: 100%;
   margin: 5px 0;
+  color: var(--color-text);
+  background-color: rgba(0 0 0 1);
 }
 
 .search-form button:hover {
@@ -499,6 +507,10 @@ h2, h3, .dateHeader {
   color: var(--color-text); /* Ensure text color contrasts with the background */
   padding: var(--padding-small); /* Optional: Add padding for better spacing */
   border-radius: var(--border-radius); /* Optional: Add rounded corners */
+}
+
+* {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Add a black text shadow */
 }
 
 /* Media queries for responsiveness */
