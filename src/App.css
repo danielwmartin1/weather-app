@@ -288,7 +288,6 @@ hr {
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  padding: var(--padding-large);
   font-size: calc(var(--font-size-medium) + 0.25rem);
   text-align: center;
   color: var(--color-text);
@@ -296,7 +295,8 @@ hr {
   text-shadow: #016ccf 1px 1px 1px;
   border: 1px solid var(--color-border);
   border-radius: var(--border-radius);
-  margin: var(--margin-medium);
+  margin: var(--margin-medium) var(--margin-small) var(--margin-small) calc(var(--margin-small));
+  padding: var(--padding-medium);
 }
 
 .high-low {
@@ -494,7 +494,19 @@ div {
   background-color: rgba(0, 125, 255, 0) !important;
 }
 
-h2, h3, .dateHeader {
+
+h1, h2 {
+  color: var(--color-text); /* Ensure text color contrasts with the background */
+  text-shadow: #016ccf 1px 1px 1px;
+  font-weight: var(--font-weight-bold);
+  margin: var(--margin-small);
+  padding: var(--padding-small);
+  background-color: #003a8b;
+  text-shadow: #016ccf 1px 1px 1px;
+}
+
+
+h3{
   background-color: var(--color-secondary); /* Set a consistent background color for all h2 elements */
   color: var(--color-text); /* Ensure text color contrasts with the background */
   padding: var(--padding-small); /* Optional: Add padding for better spacing */
@@ -643,10 +655,6 @@ h2, h3, .dateHeader {
   .forecast-day {
     margin: var(--margin-small); /* Consistent margin */
   }
-
-
-
-
 }
 
 @media (max-width: 600px) {
