@@ -117,7 +117,7 @@ footer {
   align-items: center;
   text-align: center;
   color: var(--color-text);
-  background-color: rgba(0, 58, 139, 1);
+  background-color: rgba(0, 58, 139, 0.5);
   text-decoration: underline;
   text-shadow: #016ccf 1px 1px 1px;
   border: 3px solid var(--color-accent);
@@ -468,9 +468,24 @@ hr {
   margin: var(--margin-small); /* Ensure consistent margin */
 }
 
+.home-screen, .current-weather {
+  background-color: rgba(0, 125, 255, 0.25);
+}
+
+div {
+  background-color: rgba(0, 125, 255, 0) !important;
+}
+
+h2, .dateHeader {
+  background-color: var(--color-secondary)!important; /* Set a consistent background color for all h2 elements */
+  color: var(--color-text); /* Ensure text color contrasts with the background */
+  padding: var(--padding-small); /* Optional: Add padding for better spacing */
+  border-radius: var(--border-radius); /* Optional: Add rounded corners */
+}
+
 /* Media queries for responsiveness */
 @media (max-width: 1500px) {
-  .forecast-day, .details, .current-weather {
+  .forecast-day, .details, .current-weather, .locationTimeContainer {
     font-size: calc(var(--font-size-small) * 0.9);
   }
 
