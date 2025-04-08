@@ -51,11 +51,11 @@ header, footer {
 
 header {
   top: 0;
-  border-bottom: 5px ridge var(--color-accent);
+  border-bottom: 3.5px ridge var(--color-accent);
 }
 
 footer {
-  border-top: 5px ridge var(--color-accent);
+  border-top: 3.5px ridge var(--color-accent);
   position: relative;
   bottom: 0;
   width: 100%;
@@ -130,13 +130,11 @@ footer {
   background-color: rgba(0, 58, 139, 0.5);
   text-decoration: underline;
   text-shadow: #016ccf 1px 1px 1px;
-  border: 3px solid var(--color-accent);
+  border: 2px solid var(--color-accent);
   border-radius: var(--border-radius);
   margin-top: var(--margin-small);
   margin-bottom: var(--margin-small);
   padding: 4rem 6rem;
-  opacity: 0.8;
-
 }
 
 .home-screen img {
@@ -145,7 +143,7 @@ footer {
   padding: var(--padding-medium);
   border-radius: var(--border-radius);
   border: 2px solid var(--color-accent);
-  opacity: 0.8;
+  opacity: 0.7;
 }
 
 #submit {
@@ -347,8 +345,9 @@ hr {
 
 input {
   color: black !important;
-  text-shadow: none;
-  background-color: rgb(255, 255, 255);
+  text-shadow: none !important;
+  background-color: rgb(255, 255, 255) !important;
+  border: 2px solid var(--color-border);
 }
 
 #picture {
@@ -509,21 +508,23 @@ div {
 
 h1, h2 {
   color: var(--color-text); /* Ensure text color contrasts with the background */
-  text-shadow: #016ccf 1px 1px 1px;
   font-weight: var(--font-weight-bold);
   margin: var(--margin-small);
   padding: var(--padding-small);
-  background-color: #003a8b;
   text-shadow: #016ccf 1px 1px 1px;
 }
 
 
 h3{
-  background-color: var(--color-secondary); /* Set a consistent background color for all h2 elements */
   color: var(--color-text); /* Ensure text color contrasts with the background */
   padding: var(--padding-small); /* Optional: Add padding for better spacing */
   border-radius: var(--border-radius); /* Optional: Add rounded corners */
 }
+
+h2, h3, .locationHeader {
+  background-color: var(--color-tertiary) !important; /* Set background color to transparent */
+}
+
 
 .time {
   font-size: 1.25rem;
