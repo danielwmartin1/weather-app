@@ -415,7 +415,7 @@ input {
   border: 2px solid var(--color-border);
   width: 98.5vw; ;
   margin: var(--margin-small) var(--margin-large);
-  padding: 0;
+  padding: var(--padding-medium);
   display: flex;
 }
 
