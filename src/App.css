@@ -132,7 +132,8 @@ footer {
   text-shadow: #016ccf 1px 1px 1px;
   border: 2px solid var(--color-accent);
   border-radius: var(--border-radius);
-  margin-top: var(--margin-small);
+  margin: var(--margin-medium);
+  padding: var(--padding-small);
   padding: 2rem 3rem;
 }
 
@@ -155,6 +156,7 @@ footer {
   transition: background-color 0.3s, transform 0.2s;
   width: 100px;
   text-decoration: none!important;
+  margin-top: var(--margin-medium);
 
 }
 
