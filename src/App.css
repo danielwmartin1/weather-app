@@ -513,6 +513,7 @@ input {
 
 .home-screen, .current-weather {
   background-color: rgba(0, 125, 255, 0.25);
+  margin: var(--margin-medium);
 }
 
 div {
