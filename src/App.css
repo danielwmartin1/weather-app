@@ -1,6 +1,6 @@
 :root {
   --color-primary: #0056b3;
-  --color-secondary: #007bff95;
+  --color-secondary: #007bff;
   --color-tertiary: #47afd173;
   --color-accent: aqua;
   --color-background: #f0f8ff;
@@ -185,8 +185,8 @@ footer {
   font-size: calc(var(--font-size-small) * 1.25); /* Default responsive font size */
   text-align: center;
   color: var(--color-text);
-  background-color: rgba(0, 58, 139, 1);
-  text-shadow: #016ccf 1px 1px 1px;
+  background-color: #003a8b !important;
+  text-shadow: #0067c7 1px 1px 1px;
   border: 1px solid var(--color-border);
   border-radius: var(--border-radius);
   margin: var(--margin-medium);
@@ -228,7 +228,8 @@ footer {
   transition: background-color 0.3s, transform 0.2s;
   margin: var(--margin-medium);
   padding: var(--padding-small);
-  width: 100px;
+  width: 135px;
+  height: 35px;
   border: none;
 }
 
@@ -425,9 +426,9 @@ input {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   overflow-y: visible;
   border: 2px solid var(--color-border);
-  width: 98.5vw; ;
+  width: 98.5vw;
   margin: 0 var(--margin-large) !important;
-  padding: 0;
+  padding: 0; /* Remove padding */
   display: flex;
 }
 
@@ -508,7 +509,6 @@ input {
 
 .forecast-day, .current-weather-content {
   width: 100%; /* Ensure consistent width */
-  margin: var(--margin-small); /* Ensure consistent margin */
 }
 
 .home-screen, .current-weather {

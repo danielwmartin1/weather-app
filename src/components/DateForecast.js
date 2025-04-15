@@ -64,7 +64,7 @@ const DateForecast = ({ dayData }) => {
     // Return the day forecast
     return (
         <div className="current-weather" style={{ width: '98.5vw', margin: "1rem", display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', textAlign: 'center' }}>
-            <h2 className="dateHeader" style={{ display: "flex", justifyContent: "center", alignItems: "center", textAlign: 'center', marginBottom: '0.5rem' }}>
+            <h2 className="dateHeader" style={{ display: "flex", justifyContent: "center", alignItems: "center", textAlign: 'center', marginBottom: '0rem' }}>
                 {getDayName(overallData.dt)} - {new Date(overallData.dt * 1000).toLocaleDateString([], { year: 'numeric', month: 'short', day: 'numeric' }).replace(/(\d+)(?=,)/, (match) => {
                     const suffix = ['th', 'st', 'nd', 'rd'];
                     const v = match % 100;
