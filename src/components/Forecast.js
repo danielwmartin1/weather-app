@@ -84,7 +84,7 @@ const Forecast = React.memo(({ forecastData }) => {
         <div className="forecast">
             {selectedDay ? (
                 // Render only the selected day's forecast and hide everything else
-                <div className="selected-day-forecast" style={{ width: '100vw', height: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                <div className="selected-day-forecast" style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                     <DayForecast dayData={selectedDay} />
                     <button class="backButton" onClick={handleBackClick} style={{ margin: '1rem' }}>
                         Back to Overview

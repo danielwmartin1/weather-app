@@ -426,7 +426,7 @@ input {
   overflow-y: visible;
   border: 2px solid var(--color-border);
   width: 98.5vw; ;
-  margin: var(--margin-small) var(--margin-large);
+  margin: 0 var(--margin-large) !important;
   padding: 0;
   display: flex;
 }
