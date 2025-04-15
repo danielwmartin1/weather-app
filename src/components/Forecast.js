@@ -15,7 +15,6 @@ const getDayName = (timestamp) => {
 const Forecast = React.memo(({ forecastData }) => {
     // State to store the selected day's data
     const [selectedDay, setSelectedDay] = useState(null);
-    const locationTimeContainerRef = useRef(null); // Reference to the locationTimeContainer
 
     // Removed the unnecessary console.log statement
     useEffect(() => {
@@ -83,35 +82,44 @@ const Forecast = React.memo(({ forecastData }) => {
 
     return (
         <div className="forecast">
-            <div ref={locationTimeContainerRef} className="locationTimeContainer"></div> {/* Reference for scrolling */}
             {selectedDay ? (
-                // Display the selected day's forecast details
-                <div onClick={handleBackClick}>
+                // Render only the selected day's forecast and hide everything else
+                <div className="selected-day-forecast" style={{ width: '100vw', height: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                     <DayForecast dayData={selectedDay} />
+                    <button class="backButton" onClick={handleBackClick} style={{ margin: '1rem' }}>
+                        Back to Overview
+                    </button>
                 </div>
             ) : (
-                // Display the forecast overview for each day
-                dayParts.map((day, dayIndex) => {
-                    const { high, low } = getHighLowTemps(day);
-                    return (
-                        <div key={dayIndex} className="forecast-day" onClick={() => handleDayClick(day, dayIndex)}>
+                // Render the forecast overview for all days
+                <div className="forecast-overview">
+                    {dayParts.map((day, dayIndex) => (
+                        <div
+                            key={dayIndex}
+                            className="forecast-day"
+                            onClick={() => handleDayClick(day, dayIndex)}
+                        >
                             <div className="headerContainer">
-                                <h3 className='dateHeader'>
-                                    {getDayName(day[0].dt)} - {new Date(day[0].dt * 1000).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }).replace(/(\d+)(?=,)/, (match) => `${match}${getDaySuffix(parseInt(match))}`)}
+                                <h3 className="dateHeader">
+                                    {getDayName(day[0].dt)} - {new Date(day[0].dt * 1000).toLocaleDateString('en-US', {
+                                        month: 'short',
+                                        day: 'numeric',
+                                        year: 'numeric',
+                                    }).replace(/(\d+)(?=,)/, (match) => `${match}${getDaySuffix(parseInt(match))}`)}
                                 </h3>
-                                <h4 className="high-low">High: {Math.round(high)}°F / Low: {Math.round(low)}°F</h4>
+                                <h4 className="high-low">High: {Math.round(getHighLowTemps(day).high)}°F / Low: {Math.round(getHighLowTemps(day).low)}°F</h4>
                             </div>
                             {day.map((part) => (
                                 <div key={part.dt} className="forecast-part">
                                     <p className="part">{new Date(part.dt * 1000).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}</p>
                                     <p className="part">{Math.round(part.main.temp)}°F</p>
                                     <p className="part condition">{capitalizeFirstLetter(part.weather[0].description)}</p>
-                                    <img className='small-icon' src={getWeatherIconUrl(part.weather[0].icon)} alt={part.weather[0].description} />
+                                    <img className="small-icon" src={getWeatherIconUrl(part.weather[0].icon)} alt={part.weather[0].description} />
                                 </div>
                             ))}
                         </div>
-                    );
-                })
+                    ))}
+                </div>
             )}
         </div>
     );

@@ -15,7 +15,7 @@
   --margin-small: 0.5rem;
   --margin-medium: 1rem;
   --margin-large: 1.5rem;
-  --border-radius: 5px;
+  --border-radius: 8px;
   --line-height: 1.5;
   --font-weight-normal: 400;
   --font-weight-bold: 700;
@@ -220,6 +220,27 @@ footer {
   padding: var(--padding-small);
 }
 
+.backButton {
+  background-color: var(--color-secondary);
+  color: var(--color-text);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  margin: var(--margin-medium);
+  padding: var(--padding-small);
+  width: 100px;
+  border: none;
+}
+
+.backButton:hover {
+  background-color: var(--color-primary);
+  transform: scale(1.05);
+}
+
+.backButton:active {
+  background-color: #003f7f;
+  transform: scale(0.95);
+}
 
 .icon-container {
   text-align: center;
