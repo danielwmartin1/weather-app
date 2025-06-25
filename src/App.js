@@ -42,6 +42,11 @@ const App = () => {
     }
   }, [fetchWeatherAndForecast]); // Remove `weatherData` and `forecastData` from dependencies
 
+  const conditions = [
+    'clear', 'clouds', 'cloudy', 'cloud', 'snow', 'rain', 'drizzle', 'thunderstorm', 'overcast',
+    'night-clear', 'night-clouds', 'night-cloudy', 'night-cloud', 'night-snow', 'night-rain', 'night-drizzle', 'night-thunderstorm', 'night-overcast', 'night'
+  ];
+
   const getBackgroundMedia = (condition, isNight) => {
     // Priority: mp4 > gif > jpg > png
     if (isNight && condition === 'clear') {
@@ -135,27 +140,23 @@ const App = () => {
       >
         {backgroundMedia.type === 'video' && (
           <video
-            ref={videoRef}
+            key={backgroundMedia.src}
+            src={backgroundMedia.src}
             autoPlay
             loop
             muted
             playsInline
             style={{
-              position: 'absolute',
+              position: 'fixed',
               top: 0,
               left: 0,
-              width: '100%',
-              height: '100%',
+              width: '100vw',
+              height: '100vh',
               objectFit: 'cover',
               zIndex: 0,
             }}
-            src={backgroundMedia.src}
-            onError={e => {
-              if (e.target.src !== window.location.origin + '/images/clear.jpg') {
-                e.target.style.display = 'none';
-                // fallback: set background image
-                document.querySelector('.app').style.backgroundImage = `url('/images/clear.jpg')`;
-              }
+            ref={videoRef => {
+              if (videoRef) videoRef.playbackRate = 0.25;
             }}
           />
         )}
