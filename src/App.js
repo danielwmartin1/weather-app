@@ -12,6 +12,7 @@ const App = () => {
   const { state, dispatch, fetchWeatherAndForecast } = useAppContext();
   const { weatherData, forecastData, background, showImage } = state;
   const hasFetched = useRef(false); // Track if the fetch has already been executed
+  const videoRef = useRef(null);
 
   // Fetch weather data based on user's location or default to New York
   useEffect(() => {
@@ -42,24 +43,19 @@ const App = () => {
   }, [fetchWeatherAndForecast]); // Remove `weatherData` and `forecastData` from dependencies
 
   const getBackgroundMedia = (condition) => {
-    // Supported extensions in order of preference
-    const extensions = ['mp4', 'gif', 'jpg'];
-    for (const ext of extensions) {
-      const path = `/images/${condition}.${ext}`;
-      // For public assets, we can try to load the image/video to check if it exists
-      // But since we can't check synchronously, we'll just return the first match for now
-      // In a real app, you might want to preload or check existence asynchronously
-      if (ext === 'mp4') {
-        if (condition === 'snow') return { type: 'video', src: path };
-      } else if (ext === 'gif') {
-        // Add gif support if you have gifs for any condition
-        // Example: if (condition === 'rain') return { type: 'gif', src: path };
-      } else {
-        return { type: 'image', src: path };
-      }
+    if (condition === 'clear') {
+      // Use mp4 for clear skies
+      return { type: 'video', src: '/images/clear.mp4' };
     }
-    // Default fallback
-    return { type: 'image', src: '/images/blue-ribbon.jpg' };
+    if (condition && /(cloud|clouds|cloudy)/.test(condition)) {
+      // Use mp4 for any condition containing 'cloud', 'clouds', or 'cloudy'
+      return { type: 'video', src: '/images/clouds.mp4' };
+    }
+    if (condition === 'snow') {
+      return { type: 'video', src: '/images/snow.mp4' };
+    }
+    // Default order: jpg
+    return { type: 'image', src: `/images/${condition || 'blue-ribbon'}.jpg` };
   };
 
   // Update background image based on current weather condition
@@ -84,6 +80,19 @@ const App = () => {
   const currentCondition = weatherData?.weather?.[0]?.main?.toLowerCase();
   const backgroundMedia = getBackgroundMedia(currentCondition);
 
+  useEffect(() => {
+    if (backgroundMedia.type === 'video' && videoRef.current) {
+      if (
+        (currentCondition === 'clear' && backgroundMedia.src.includes('clear.mp4')) ||
+        (/(cloud|clouds|cloudy)/.test(currentCondition) && backgroundMedia.src.includes('clouds.mp4'))
+      ) {
+        videoRef.current.playbackRate = 0.25;
+      } else if (currentCondition === 'snow' && backgroundMedia.src.includes('snow.mp4')) {
+        videoRef.current.playbackRate = 1;
+      }
+    }
+  }, [backgroundMedia, currentCondition]);
+
   return (
     <div className="app-container">
       <Header />
@@ -102,6 +111,7 @@ const App = () => {
       >
         {backgroundMedia.type === 'video' && (
           <video
+            ref={videoRef}
             autoPlay
             loop
             muted
@@ -116,6 +126,13 @@ const App = () => {
               zIndex: 0,
             }}
             src={backgroundMedia.src}
+            onError={e => {
+              if (e.target.src !== window.location.origin + '/images/clear.jpg') {
+                e.target.style.display = 'none';
+                // fallback: set background image
+                document.querySelector('.app').style.backgroundImage = `url('/images/clear.jpg')`;
+              }
+            }}
           />
         )}
         {backgroundMedia.type === 'gif' && (
@@ -130,6 +147,11 @@ const App = () => {
               height: '100%',
               objectFit: 'cover',
               zIndex: 0,
+            }}
+            onError={e => {
+              if (e.target.src !== window.location.origin + '/images/clear.jpg') {
+                e.target.src = '/images/clear.jpg';
+              }
             }}
           />
         )}
