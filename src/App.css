@@ -631,7 +631,7 @@ h2, h3, .dateHeader {
 
   .locationTime, .dateHeader {
     font-size: calc(var(--font-size-small) * 1); /* Smaller font size for smaller screens */
-    padding: var(--padding-small);
+    padding: var(--padding-small) !important;
   }
 
   .search-form input, .search-form button {

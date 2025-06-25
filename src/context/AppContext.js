@@ -38,6 +38,7 @@ export const AppProvider = ({ children }) => {
   // Function to fetch weather and forecast data
   const fetchWeatherAndForecast = async (location) => {
     try {
+      console.info('Fetching weather and forecast for location:', location);
       let weather, forecast;
       if (location.includes(',')) {
         // If location is latitude and longitude
@@ -48,6 +49,9 @@ export const AppProvider = ({ children }) => {
         weather = await fetchWeatherData(location);
         forecast = await fetchForecastData(location);
       }
+
+      console.info('Weather data:', weather);
+      console.info('Forecast data:', forecast);
 
       if (weather && forecast) {
         const formattedLocation = `${weather.name}, ${weather.sys.country}`;
@@ -61,10 +65,13 @@ export const AppProvider = ({ children }) => {
           dispatch({ type: 'SET_SHOW_IMAGE', payload: false });
         }
       } else {
-        console.error('Failed to fetch weather or forecast data');
+        console.error('Failed to fetch weather or forecast data', { weather, forecast });
       }
     } catch (error) {
       console.error('Error fetching weather and forecast data:', error);
+      if (error.response) {
+        console.error('API error response:', error.response);
+      }
     }
   };
 

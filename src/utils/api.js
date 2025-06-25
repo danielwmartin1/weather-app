@@ -56,7 +56,15 @@ export const fetchWeatherData = async (location, countryCode) => {
     url = `${BASE_URL}weather?q=${location}&units=${units}`;
   }
 
-  return await makeApiRequest(url);
+  try {
+    console.info('fetchWeatherData url:', url);
+    const data = await makeApiRequest(url);
+    console.info('fetchWeatherData result:', data);
+    return data;
+  } catch (error) {
+    console.error('fetchWeatherData error:', error);
+    return undefined;
+  }
 };
 
 // Fetches forecast data from the OpenWeatherMap API
@@ -73,7 +81,15 @@ export const fetchForecastData = async (location, countryCode) => {
     url = `${BASE_URL}forecast?q=${location}&units=${units}`;
   }
 
-  return await makeApiRequest(url);
+  try {
+    console.info('fetchForecastData url:', url);
+    const data = await makeApiRequest(url);
+    console.info('fetchForecastData result:', data);
+    return data;
+  } catch (error) {
+    console.error('fetchForecastData error:', error);
+    return undefined;
+  }
 };
 
 // Fetches location data from the OpenWeatherMap API
