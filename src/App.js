@@ -42,11 +42,6 @@ const App = () => {
     }
   }, [fetchWeatherAndForecast]); // Remove `weatherData` and `forecastData` from dependencies
 
-  const conditions = [
-    'clear', 'clouds', 'cloudy', 'cloud', 'snow', 'rain', 'drizzle', 'thunderstorm', 'overcast',
-    'night-clear', 'night-clouds', 'night-cloudy', 'night-cloud', 'night-snow', 'night-rain', 'night-drizzle', 'night-thunderstorm', 'night-overcast', 'night'
-  ];
-
   const getBackgroundMedia = (condition, isNight) => {
     // Priority: mp4 > gif > jpg > png
     if (isNight && condition === 'clear') {
