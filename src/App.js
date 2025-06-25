@@ -41,17 +41,48 @@ const App = () => {
     }
   }, [fetchWeatherAndForecast]); // Remove `weatherData` and `forecastData` from dependencies
 
+  const getBackgroundMedia = (condition) => {
+    // Supported extensions in order of preference
+    const extensions = ['mp4', 'gif', 'jpg'];
+    for (const ext of extensions) {
+      const path = `/images/${condition}.${ext}`;
+      // For public assets, we can try to load the image/video to check if it exists
+      // But since we can't check synchronously, we'll just return the first match for now
+      // In a real app, you might want to preload or check existence asynchronously
+      if (ext === 'mp4') {
+        if (condition === 'snow') return { type: 'video', src: path };
+      } else if (ext === 'gif') {
+        // Add gif support if you have gifs for any condition
+        // Example: if (condition === 'rain') return { type: 'gif', src: path };
+      } else {
+        return { type: 'image', src: path };
+      }
+    }
+    // Default fallback
+    return { type: 'image', src: '/images/blue-ribbon.jpg' };
+  };
+
   // Update background image based on current weather condition
   useEffect(() => {
     if (weatherData && weatherData.weather) {
       const currentCondition = weatherData.weather[0]?.main?.toLowerCase();
-      const backgroundImage = `url('/images/${currentCondition || 'blue-ribbon'}.jpg')`;
-      if (background !== backgroundImage) {
-        console.info(`Background updated to reflect weather condition: ${currentCondition}`);
-        dispatch({ type: 'SET_BACKGROUND', payload: backgroundImage });
+      const media = getBackgroundMedia(currentCondition);
+      if (media.type === 'image') {
+        const backgroundImage = `url('${media.src}')`;
+        if (background !== backgroundImage) {
+          dispatch({ type: 'SET_BACKGROUND', payload: backgroundImage });
+        }
+      } else {
+        // For video/gif, clear background image
+        if (background !== '') {
+          dispatch({ type: 'SET_BACKGROUND', payload: '' });
+        }
       }
     }
   }, [weatherData, background, dispatch]);
+
+  const currentCondition = weatherData?.weather?.[0]?.main?.toLowerCase();
+  const backgroundMedia = getBackgroundMedia(currentCondition);
 
   return (
     <div className="app-container">
@@ -59,34 +90,71 @@ const App = () => {
       <div
         className="app"
         style={{
-          backgroundImage: background,
+          backgroundImage: backgroundMedia.type === 'image' ? background : undefined,
           backgroundSize: 'cover',
           backgroundRepeat: 'no-repeat',
           backgroundPosition: 'center',
           height: '100vh',
           width: '100vw',
+          position: 'relative',
+          overflow: 'hidden',
         }}
       >
-        {showImage && (
-          <div id="picture">
-            <svg width="176" height="79" viewBox="0 0 176 79" fill="none" xmlns="http://www.w3.org/2000/svg">
-              {/* SVG content */}
-            </svg>
-          </div>
+        {backgroundMedia.type === 'video' && (
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              zIndex: 0,
+            }}
+            src={backgroundMedia.src}
+          />
         )}
-        <Search onSearch={fetchWeatherAndForecast} />
-        {weatherData && forecastData && (
-          <>
-            <CurrentWeather
-              weatherData={weatherData}
-              forecastData={forecastData}
-              location={state.location}
-            />
-            <hr />
-            <h2 className="fiveDay">5-Day Forecast</h2>
-            <Forecast forecastData={forecastData} />
-          </>
+        {backgroundMedia.type === 'gif' && (
+          <img
+            src={backgroundMedia.src}
+            alt="background gif"
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              zIndex: 0,
+            }}
+          />
         )}
+        <div style={{ position: 'relative', zIndex: 1 }}>
+          {showImage && (
+            <div id="picture">
+              <svg width="176" height="79" viewBox="0 0 176 79" fill="none" xmlns="http://www.w3.org/2000/svg">
+                {/* SVG content */}
+              </svg>
+            </div>
+          )}
+          <Search onSearch={fetchWeatherAndForecast} />
+          {weatherData && forecastData && (
+            <>
+              <CurrentWeather
+                weatherData={weatherData}
+                forecastData={forecastData}
+                location={state.location}
+              />
+              <hr />
+              <h2 className="fiveDay">5-Day Forecast</h2>
+              <Forecast forecastData={forecastData} />
+            </>
+          )}
+        </div>
       </div>
       <Footer />
     </div>
