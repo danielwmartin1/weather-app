@@ -42,19 +42,32 @@ const App = () => {
     }
   }, [fetchWeatherAndForecast]); // Remove `weatherData` and `forecastData` from dependencies
 
-  const getBackgroundMedia = (condition) => {
+  const getBackgroundMedia = (condition, isNight) => {
+    // Priority: mp4 > gif > jpg > png
+    if (isNight && condition === 'clear') {
+      return { type: 'video', src: '/images/night-clear.mp4' };
+    }
+    if (isNight && /(cloud|clouds|cloudy)/.test(condition)) {
+      return { type: 'video', src: '/images/night-cloudy.mp4' };
+    }
+    if (isNight && /(rain|rainy|drizzle)/.test(condition)) {
+      return { type: 'video', src: '/images/night-rain.mp4' };
+    }
+    if (isNight && /snow/.test(condition)) {
+      return { type: 'video', src: '/images/night-snow.mp4' };
+    }
     if (condition === 'clear') {
-      // Use mp4 for clear skies
       return { type: 'video', src: '/images/clear.mp4' };
     }
-    if (condition && /(cloud|clouds|cloudy)/.test(condition)) {
-      // Use mp4 for any condition containing 'cloud', 'clouds', or 'cloudy'
+    if (/(cloud|clouds|cloudy)/.test(condition)) {
       return { type: 'video', src: '/images/clouds.mp4' };
     }
-    if (condition === 'snow') {
+    if (/(rain|rainy|drizzle)/.test(condition)) {
+      return { type: 'video', src: '/images/rain.mp4' };
+    }
+    if (/snow/.test(condition)) {
       return { type: 'video', src: '/images/snow.mp4' };
     }
-    // Default order: jpg
     return { type: 'image', src: `/images/${condition || 'blue-ribbon'}.jpg` };
   };
 
@@ -78,7 +91,18 @@ const App = () => {
   }, [weatherData, background, dispatch]);
 
   const currentCondition = weatherData?.weather?.[0]?.main?.toLowerCase();
-  const backgroundMedia = getBackgroundMedia(currentCondition);
+
+  // Calculate if it's night at the location
+  let isNight = false;
+  if (weatherData?.sys?.sunrise && weatherData?.sys?.sunset && weatherData?.dt) {
+    const now = weatherData.dt; // UTC seconds
+    const sunrise = weatherData.sys.sunrise;
+    const sunset = weatherData.sys.sunset;
+    // Night if now is after sunset or before sunrise
+    isNight = now < sunrise || now > sunset;
+  }
+
+  const backgroundMedia = getBackgroundMedia(currentCondition, isNight);
 
   useEffect(() => {
     if (backgroundMedia.type === 'video' && videoRef.current) {
