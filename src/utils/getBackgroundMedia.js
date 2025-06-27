@@ -1,5 +1,17 @@
 export function getBackgroundMedia(condition, isNightTime) {
   if (isNightTime) {
+    // Show night-cloudy.mp4 for any cloud-related condition at night
+    if (/clouds?|cloudy/.test(condition)) {
+      if (window && window.__MEDIA_EXISTS__) {
+        if (window.__MEDIA_EXISTS__['night-cloudy.mp4']) {
+          return { type: 'video', src: '/images/night-cloudy.mp4', ext: 'mp4' };
+        }
+        if (window.__MEDIA_EXISTS__['night-cloudy.jpg']) {
+          return { type: 'image', src: '/images/night-cloudy.jpg', ext: 'jpg' };
+        }
+      }
+      return { type: 'image', src: '/images/night-cloudy.jpg', ext: 'jpg' };
+    }
     if (condition === 'clear') {
       if (window && window.__MEDIA_EXISTS__) {
         if (window.__MEDIA_EXISTS__['night-clear.mp4']) {
