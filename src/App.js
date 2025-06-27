@@ -103,6 +103,14 @@ const App = () => {
   const currentCondition = weatherData?.weather?.[0]?.main?.toLowerCase();
   const backgroundMedia = getBackgroundMedia(currentCondition, isNightTime);
 
+  // Debugging output for background media selection
+  console.log('Background Media Debug:', {
+    currentCondition,
+    isNightTime,
+    backgroundMedia,
+    mediaExists: window?.__MEDIA_EXISTS__,
+  });
+
   useEffect(() => {
     if (backgroundMedia.type === 'video' && videoRef.current) {
       videoRef.current.playbackRate = 0.25;
