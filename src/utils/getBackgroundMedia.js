@@ -22,6 +22,11 @@ export function getBackgroundMedia(condition, isNightTime) {
     return getMedia('thunderstorm', ['mp4', 'jpg']);
   }
 
+  // --- Night overcast condition ---
+  if (isNightTime && /overcast/i.test(condition)) {
+    return getMedia('night-overcast', ['mp4', 'jpg']);
+  }
+
   // Handle night time backgrounds
   if (isNightTime) {
     if (/clouds?|cloudy/.test(condition)) {

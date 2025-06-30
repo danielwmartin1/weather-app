@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import '../App.css';
-import InitialRenderImage from '../images/initial-render-image.svg';
+const InitialRenderImage = (process.env.PUBLIC_URL || '') + '/images/initial-render-image.svg';
 
 const Search = ({ onSearch }) => {
   const [location, setLocation] = useState('');
