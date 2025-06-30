@@ -5,68 +5,50 @@ import InitialRenderImage from '../images/initial-render-image.svg';
 
 const Search = ({ onSearch }) => {
   const [location, setLocation] = useState('');
-  const [suggestions, setSuggestions] = useState([]);
 
-  // Fetch suggestions as user types
-  const handleInputChange = async (e) => {
-    const value = e.target.value;
-    setLocation(value);
-    if (value.length > 2) {
-      // Example using OpenWeatherMap Geocoding API
-      const res = await axios.get(
-        `https://api.openweathermap.org/geo/1.0/direct?q=${value}&limit=5&appid=${process.env.REACT_APP_API_KEY}`
-      );
-      setSuggestions(res.data || []);
-    } else {
-      setSuggestions([]);
-    }
+  const handleInputChange = (e) => {
+    setLocation(e.target.value);
   };
 
-  const handleSuggestionClick = (suggestion) => {
-    const locationString = suggestion.state
-      ? `${suggestion.name},${suggestion.state},${suggestion.country}`
-      : `${suggestion.name},${suggestion.country}`;
-    setLocation(locationString);
-    setSuggestions([]);
-    // Pass the full suggestion object to onSearch
-    onSearch({
-      name: suggestion.name,
-      state: suggestion.state,
-      country: suggestion.country,
-      lat: suggestion.lat,
-      lon: suggestion.lon,
-      display: locationString
-    });
-  };
-
-  const handleSearch = (e) => {
+  const handleSearch = async (e) => {
     e.preventDefault();
-    if (location.trim() === '') {
+    const value = location.trim();
+    if (value === '') {
       alert('Please enter a location.');
       return;
     }
-    // If suggestions exist and input matches a suggestion, use its lat/lon
-    const match = suggestions.find(s => {
-      const str = s.state
-        ? `${s.name},${s.state},${s.country}`
-        : `${s.name},${s.country}`;
-      return str === location.trim();
-    });
-    if (match) {
-      onSearch({
-        name: match.name,
-        state: match.state,
-        country: match.country,
-        lat: match.lat,
-        lon: match.lon,
-        display: location.trim()
-      });
-    } else {
-      // Otherwise, fallback to string search (your app should handle this)
-      onSearch(location.trim());
+    // If input is a 5-digit zip code, search by zip
+    if (/^\d{5}$/.test(value)) {
+      onSearch(value);
+      setLocation('');
+      return;
+    }
+    // Otherwise, try to get location data from API
+    try {
+      const res = await axios.get(
+        `https://api.openweathermap.org/geo/1.0/direct?q=${value}&limit=1&appid=${process.env.REACT_APP_API_KEY}`
+      );
+      if (res.data && res.data.length > 0) {
+        const suggestion = res.data[0];
+        const locationString = suggestion.state
+          ? `${suggestion.name},${suggestion.state},${suggestion.country}`
+          : `${suggestion.name},${suggestion.country}`;
+        onSearch({
+          name: suggestion.name,
+          state: suggestion.state,
+          country: suggestion.country,
+          lat: suggestion.lat,
+          lon: suggestion.lon,
+          display: locationString
+        });
+      } else {
+        // Fallback: just pass the string
+        onSearch(value);
+      }
+    } catch (error) {
+      onSearch(value);
     }
     setLocation('');
-    setSuggestions([]);
   };
 
   return (
@@ -83,21 +65,11 @@ const Search = ({ onSearch }) => {
       <form onSubmit={handleSearch} className="search-form">
         <input
           type="text"
-          placeholder="Enter location"
+          placeholder="Enter location or 5-digit zipcode"
           value={location}
           onChange={handleInputChange}
           aria-label="Location search"
         />
-        {/* Suggestions dropdown */}
-        {suggestions.length > 0 && (
-          <ul className="suggestions-list">
-            {suggestions.map((s, i) => (
-              <li key={i} onClick={() => handleSuggestionClick(s)}>
-                {s.name}, {s.state ? `${s.state}, ` : ''}{s.country}
-              </li>
-            ))}
-          </ul>
-        )}
         <button id="submit" type="submit">Search</button>
       </form>
     </div>
