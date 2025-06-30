@@ -11,31 +11,38 @@ const Search = ({ onSearch }) => {
   const handleInputChange = async (e) => {
     const value = e.target.value;
     setLocation(value);
+
     if (value.length > 2) {
-      // Example using OpenWeatherMap Geocoding API
-      const res = await axios.get(
-        `https://api.openweathermap.org/geo/1.0/direct?q=${value}&limit=5&appid=${process.env.REACT_APP_API_KEY}`
-      );
-      setSuggestions(res.data || []);
+      try {
+        const res = await axios.get(
+          `https://api.openweathermap.org/geo/1.0/direct?q=${value}&limit=5&appid=${process.env.REACT_APP_API_KEY}`
+        );
+        setSuggestions(res.data || []);
+      } catch (error) {
+        setSuggestions([]);
+      }
     } else {
       setSuggestions([]);
     }
   };
 
-  const handleSuggestionClick = (suggestion) => {
-    const locationString = suggestion.state
+  const formatLocationString = (suggestion) => {
+    return suggestion.state
       ? `${suggestion.name},${suggestion.state},${suggestion.country}`
       : `${suggestion.name},${suggestion.country}`;
+  };
+
+  const handleSuggestionClick = (suggestion) => {
+    const locationString = formatLocationString(suggestion);
     setLocation(locationString);
     setSuggestions([]);
-    // Pass the full suggestion object to onSearch
     onSearch({
       name: suggestion.name,
       state: suggestion.state,
       country: suggestion.country,
       lat: suggestion.lat,
       lon: suggestion.lon,
-      display: locationString
+      display: locationString,
     });
   };
 
@@ -45,13 +52,11 @@ const Search = ({ onSearch }) => {
       alert('Please enter a location.');
       return;
     }
-    // If suggestions exist and input matches a suggestion, use its lat/lon
-    const match = suggestions.find(s => {
-      const str = s.state
-        ? `${s.name},${s.state},${s.country}`
-        : `${s.name},${s.country}`;
-      return str === location.trim();
-    });
+
+    const match = suggestions.find(
+      (s) => formatLocationString(s) === location.trim()
+    );
+
     if (match) {
       onSearch({
         name: match.name,
@@ -59,12 +64,12 @@ const Search = ({ onSearch }) => {
         country: match.country,
         lat: match.lat,
         lon: match.lon,
-        display: location.trim()
+        display: location.trim(),
       });
     } else {
-      // Otherwise, fallback to string search (your app should handle this)
       onSearch(location.trim());
     }
+
     setLocation('');
     setSuggestions([]);
   };
@@ -88,17 +93,22 @@ const Search = ({ onSearch }) => {
           onChange={handleInputChange}
           aria-label="Location search"
         />
-        {/* Suggestions dropdown */}
         {suggestions.length > 0 && (
           <ul className="suggestions-list">
             {suggestions.map((s, i) => (
-              <li className="suggestion-item" key={i} onClick={() => handleSuggestionClick(s)}>
-                {s.name}, {s.state ? `${s.state}, ` : ''}{s.country}
+              <li
+                className="suggestion-item"
+                key={i}
+                onClick={() => handleSuggestionClick(s)}
+              >
+                {formatLocationString(s)}
               </li>
             ))}
           </ul>
         )}
-        <button id="submit" type="submit">Search</button>
+        <button id="submit" type="submit">
+          Search
+        </button>
       </form>
     </div>
   );
