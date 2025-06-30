@@ -17,6 +17,8 @@ export function getBackgroundMedia(condition, isNightTime) {
     return { type: 'image', src: `${basePath}.jpg`, ext: 'jpg' };
   }
 
+  // Example: you could add more condition handling here if needed.
+
   // Handle night time backgrounds
   if (isNightTime) {
     if (/clouds?|cloudy/.test(condition)) {
