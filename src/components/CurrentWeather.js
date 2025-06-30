@@ -1,8 +1,58 @@
+import React, { useState, useEffect } from 'react';
 import '../index.css';
 import '../App.css';
-import React, { useState, useEffect } from 'react';
 import './Search.js';
 import { getHighLowTemps } from '../utils/weatherUtils';
+
+// --- Helper Functions ---
+
+const getWindDirection = (deg) => {
+  const directions = [
+    'N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE',
+    'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW'
+  ];
+  const index = Math.round(deg / 22.5) % 16;
+  return `${Math.round(deg)}° ${directions[index]}`;
+};
+
+const capitalizeFirstLetter = (str) =>
+  str
+    .split(' ')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .join(' ');
+
+const getDayName = (timestamp) =>
+  new Date(timestamp * 1000).toLocaleDateString('en-US', { weekday: 'short' });
+
+const getDayWithSuffix = (date) => {
+  const day = date.getDate();
+  const suffixes = ['th', 'st', 'nd', 'rd'];
+  const v = day % 100;
+  const suffix = suffixes[(v - 20) % 10] || suffixes[v] || suffixes[0];
+  return `${day}${suffix}`;
+};
+
+
+const getLocationHeader = (location, weatherData) => {
+  if (typeof location === 'object' && location !== null) {
+    const city = location.name;
+    const state = location.state && location.country === 'US' ? location.state : (location.state || '');
+    const country = location.country || '';
+    return `${city}${state ? `, ${state}` : ''}${country ? `, ${country}` : ''}`;
+  }
+
+  if (typeof location === 'string' && location.includes(',')) {
+    const [city, country] = location.split(',').map(s => s.trim());
+    let state = '';
+    if (weatherData?.sys?.country === 'US' && city === 'Huntertown') state = 'IN';
+    return `${city}${state ? `, ${state}` : ''}${country ? `, ${country}` : ''}`;
+  }
+
+  return location || '';
+};
+
+
+// --- Main Component ---
 
 const CurrentWeather = ({ weatherData, forecastData, location }) => {
   const [time, setTime] = useState(new Date());
@@ -22,48 +72,29 @@ const CurrentWeather = ({ weatherData, forecastData, location }) => {
     !forecastData?.list
   ) return null;
 
-  const overallData = weatherData;
-  const units = overallData.units || 'imperial';
-
-  // Helpers
-  const getWindDirection = (deg) => {
-    const directions = [
-      'N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE',
-      'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW'
-    ];
-    const index = Math.round(deg / 22.5) % 16;
-    return `${Math.round(deg)}° ${directions[index]}`;
-  };
-
-  const capitalizeFirstLetter = (str) =>
-    str.split(' ')
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-      .join(' ');
-
-  const getDayName = (timestamp) =>
-    new Date(timestamp * 1000).toLocaleDateString('en-US', { weekday: 'short' });
+  const units = weatherData.units || 'imperial';
 
   // Forecast high/low
   const firstDayData = forecastData.list.slice(0, 8);
   const { high, low } = getHighLowTemps(firstDayData);
 
   // Weather details
-  const pressureInHg = (overallData.main.pressure * 0.02953).toFixed(2);
-  const windSpeed = overallData.wind.speed;
-  const windDirection = getWindDirection(overallData.wind.deg);
+  const pressureInHg = (weatherData.main.pressure * 0.02953).toFixed(2);
+  const windSpeed = weatherData.wind.speed;
+  const windDirection = getWindDirection(weatherData.wind.deg);
 
   const weatherDetails = [
     {
       label: 'Overall Conditions',
-      value: capitalizeFirstLetter(overallData.weather[0].description)
+      value: capitalizeFirstLetter(weatherData.weather[0].description)
     },
     {
       label: 'Current Temp',
-      value: `${Math.round(overallData.main.temp)}°${units === 'metric' ? 'C' : 'F'}`
+      value: `${Math.round(weatherData.main.temp)}°${units === 'metric' ? 'C' : 'F'}`
     },
     {
       label: 'Feels like',
-      value: `${Math.round(overallData.main.feels_like)}°${units === 'metric' ? 'C' : 'F'}`
+      value: `${Math.round(weatherData.main.feels_like)}°${units === 'metric' ? 'C' : 'F'}`
     },
     {
       label: 'High',
@@ -75,7 +106,7 @@ const CurrentWeather = ({ weatherData, forecastData, location }) => {
     },
     {
       label: 'Humidity',
-      value: `${overallData.main.humidity}%`
+      value: `${weatherData.main.humidity}%`
     },
     {
       label: 'Wind Speed',
@@ -87,19 +118,19 @@ const CurrentWeather = ({ weatherData, forecastData, location }) => {
     },
     {
       label: 'Cloud Cover',
-      value: `${overallData.clouds.all}%`
+      value: `${weatherData.clouds.all}%`
     },
     {
       label: 'Sunrise',
-      value: new Date(overallData.sys.sunrise * 1000).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })
+      value: new Date(weatherData.sys.sunrise * 1000).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })
     },
     {
       label: 'Sunset',
-      value: new Date(overallData.sys.sunset * 1000).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })
+      value: new Date(weatherData.sys.sunset * 1000).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })
     },
     {
       label: 'Visibility',
-      value: `${overallData.visibility / 1000} ${units === 'metric' ? 'km' : 'mi'}`
+      value: `${weatherData.visibility / 1000} ${units === 'metric' ? 'km' : 'mi'}`
     },
     {
       label: 'Pressure',
@@ -107,36 +138,31 @@ const CurrentWeather = ({ weatherData, forecastData, location }) => {
     },
     {
       label: 'Chance of Precipitation',
-      value: `${overallData.pop ? overallData.pop * 100 : 0}%`
+      value: `${weatherData.pop ? weatherData.pop * 100 : 0}%`
     },
     {
       label: 'Precipitation',
-      value: overallData.rain?.['1h'] ? `${overallData.rain['1h']} ${units === 'metric' ? 'mm' : 'in'}` : null
+      value: weatherData.rain?.['1h'] ? `${weatherData.rain['1h']} ${units === 'metric' ? 'mm' : 'in'}` : null
     },
     {
       label: 'Snow',
-      value: overallData.snow?.['1h'] ? `${overallData.snow['1h']} ${units === 'metric' ? 'mm' : 'in'}` : null
+      value: weatherData.snow?.['1h'] ? `${weatherData.snow['1h']} ${units === 'metric' ? 'mm' : 'in'}` : null
     },
     {
       label: 'UV Index',
-      value: overallData.uvi || 0
+      value: weatherData.uvi || 0
     }
   ].filter(detail => detail.value !== null);
 
-  // Date formatting helpers
-  const getDayWithSuffix = (date) => {
-    const day = date.getDate();
-    const suffixes = ['th', 'st', 'nd', 'rd'];
-    const v = day % 100;
-    const suffix = suffixes[(v - 20) % 10] || suffixes[v] || suffixes[0];
-    return `${day}${suffix}`;
-  };
+  // --- Render ---
 
   return (
     <div className="current-weather">
       <div className="current-weather-content">
         <div className="locationTimeContainer">
-          <h2 className="locationHeader">{location}</h2>
+          <h2 className="locationHeader">
+            {getLocationHeader(location, weatherData)}
+          </h2>
           <div className="location-container">
             <h3 className='locationTime'>
               {getDayName(time.getTime() / 1000)} - {time.toLocaleDateString([], {
@@ -157,11 +183,11 @@ const CurrentWeather = ({ weatherData, forecastData, location }) => {
           ))}
         </div>
         <div className="icon-container">
-          {overallData.weather[0] && (
+          {weatherData.weather[0] && (
             <img
               className='large-icon'
-              src={`http://openweathermap.org/img/wn/${overallData.weather[0].icon}@2x.png`}
-              alt={overallData.weather[0].description}
+              src={`http://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`}
+              alt={weatherData.weather[0].description}
             />
           )}
         </div>

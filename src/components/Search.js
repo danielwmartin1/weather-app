@@ -28,8 +28,8 @@ const Search = ({ onSearch }) => {
 
   const formatLocationString = (suggestion) => {
     return suggestion.state
-      ? `${suggestion.name},${suggestion.state},${suggestion.country}`
-      : `${suggestion.name},${suggestion.country}`;
+      ? `${suggestion.name}, ${suggestion.state}, ${suggestion.country}`
+      : `${suggestion.name}, ${suggestion.country}`;
   };
 
   const handleSuggestionClick = (suggestion) => {
