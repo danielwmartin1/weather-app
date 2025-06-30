@@ -15,6 +15,7 @@ afterEach(() => {
 test('renders CurrentWeather component with location from API', () => {
   render(<CurrentWeather weatherData={mockWeatherData} location="Los Angeles, US" />);
   expect(screen.getByRole('heading', { level: 2, name: /Los Angeles, US/i })).toBeInTheDocument();
+  // Update the expected text to match the actual rendered output if necessary
   expect(screen.getByText(/Conditions: clear sky/i)).toBeInTheDocument();
   expect(screen.getByText(/Temperature: 72°F/i)).toBeInTheDocument();
 });

@@ -779,6 +779,44 @@ h2, h3, .dateHeader {
   }
 }
 
+.suggestions-list {
+  position: absolute;
+  background: #a2a2a2;
+  border: 1px solid #ccc;
+  border-radius: var(--border-radius);
+  width: 90%;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 1000;
+  margin-top: 2px;
+  padding-left: 0;
+  list-style: none;
+  padding: 0.5rem;
+}
+
+.suggestion-item {
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  border-radius: 4px;
+}
+
+.suggestion-item:hover,
+.suggestion-item:focus {
+  background: #0056b3;
+  color: #fff;
+}
+
+.suggestion-item:active {
+  background: #003366;
+  color: #fff;
+}
+
+/* Ensure the parent form is positioned relative for absolute dropdown */
+.search-form {
+  position: relative;
+}
+
 /* Vendor prefixes for compatibility */
 header, footer, .details, .dateHeader, .fiveDay, .popup-content, .statusMessage, .search-form, .current-weather, .forecast-day {
   -webkit-box-sizing: border-box;

@@ -36,18 +36,26 @@ export const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(appReducer, initialState);
 
   // Function to fetch weather and forecast data
-  const fetchWeatherAndForecast = async (location) => {
+  const fetchWeatherAndForecast = async (locationOrLat, maybeLon) => {
     try {
-      console.info('Fetching weather and forecast for location:', location);
+      console.info('Fetching weather and forecast for:', locationOrLat, maybeLon);
       let weather, forecast;
-      if (location.includes(',')) {
-        // If location is latitude and longitude
-        weather = await fetchWeatherData(location);
-        forecast = await fetchForecastData(location);
-      } else {
-        // If location is a city name
-        weather = await fetchWeatherData(location);
-        forecast = await fetchForecastData(location);
+
+      if (typeof locationOrLat === 'number' && typeof maybeLon === 'number') {
+        // Called with lat/lon
+        const latLon = `${locationOrLat},${maybeLon}`;
+        weather = await fetchWeatherData(latLon);
+        forecast = await fetchForecastData(latLon);
+      } else if (typeof locationOrLat === 'object' && locationOrLat.lat && locationOrLat.lon) {
+        // Called with suggestion object
+        const { lat, lon } = locationOrLat;
+        const latLon = `${lat},${lon}`;
+        weather = await fetchWeatherData(latLon);
+        forecast = await fetchForecastData(latLon);
+      } else if (typeof locationOrLat === 'string') {
+        // Called with string (geocode first)
+        weather = await fetchWeatherData(locationOrLat);
+        forecast = await fetchForecastData(locationOrLat);
       }
 
       console.info('Weather data:', weather);
