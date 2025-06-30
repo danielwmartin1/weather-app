@@ -3,48 +3,54 @@ import '../index.css';
 import '../App.css';
 import '../utils/api.js';
 
+const getDayName = (timestamp) => {
+    const date = new Date(timestamp * 1000);
+    return date.toLocaleDateString('en-US', { weekday: 'short' });
+};
+
+// const formatTime = (timestamp) => {
+//     const date = new Date(timestamp * 1000);
+//     return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+// };
+
+const getWindDirection = (deg) => {
+    const directions = [
+        'N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE',
+        'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW'
+    ];
+    const index = Math.round(deg / 22.5) % 16;
+    return `${Math.round(deg)}° ${directions[index]}`;
+};
+
+const getDateWithSuffix = (timestamp) => {
+    const date = new Date(timestamp * 1000);
+    const day = date.getDate();
+    const suffixes = ['th', 'st', 'nd', 'rd'];
+    const v = day % 100;
+    const suffix = suffixes[(v - 20) % 10] || suffixes[v] || suffixes[0];
+    return date.toLocaleDateString([], { year: 'numeric', month: 'short', day: 'numeric' })
+        .replace(day, day + suffix);
+};
+
 const DateForecast = ({ dayData }) => {
-    // If there is no data, return null
     if (!dayData || !dayData.length) return null;
 
-    // Get the overall data for the day
     const overallData = dayData[0] || {};
-    const units = overallData.units || 'imperial'; // Default to imperial if not specified
+    const units = overallData.units || 'imperial';
 
-    // Function to get the day name from a timestamp
-    const getDayName = (timestamp) => {
-        const date = new Date(timestamp * 1000);
-        const options = { weekday: 'short' };
-        return date.toLocaleDateString('en-US', options);
-    };
-
-    // Function to format the time from a timestamp
-    // eslint-disable-next-line    
-    const formatTime = (timestamp) => {
-        const date = new Date(timestamp * 1000);
-        return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-    };
-
-    // Function to get the wind direction from degrees
-    const getWindDirection = (deg) => {
-        const directions = ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW'];
-        const index = Math.round(deg / 22.5) % 16;
-        return `${Math.round(deg)}° ${directions[index]}`;
-    };
-
-    // Get the weather details for the day
+    // Temperatures
     const temperatures = dayData.map(data => data.main.temp);
     const maxTemp = Math.max(...temperatures);
     const minTemp = Math.min(...temperatures);
 
-    // Convert pressure from hPa to inHg
+    // Pressure
     const pressureInHg = (overallData.main.pressure * 0.02953).toFixed(2);
 
-    // Extract wind speed and direction
+    // Wind
     const windSpeed = overallData.wind?.speed || 0;
     const windDirection = getWindDirection(overallData.wind?.deg || 0);
 
-    // Array of weather details to display
+    // Weather details
     const weatherDetails = [
         { label: 'Overall Conditions', value: overallData.weather?.[0]?.description || 'N/A' },
         { label: 'High Temp', value: `${Math.round(maxTemp)}°${units === 'metric' ? 'C' : 'F'}` },
@@ -56,35 +62,49 @@ const DateForecast = ({ dayData }) => {
         { label: 'Chance of Precipitation', value: `${overallData.pop ? overallData.pop * 100 : 0}%` },
         { label: 'Precipitation', value: overallData.rain?.['1h'] ? `${overallData.rain['1h']} ${units === 'metric' ? 'mm' : 'in'}` : null },
         { label: 'Snow', value: overallData.snow?.['1h'] ? `${overallData.snow['1h']} ${units === 'metric' ? 'mm' : 'in'}` : null },
-        { label: 'Wind Speed', value: `${windSpeed} ${units === 'imperial' ? 'mph': 'm/s'}` },
+        { label: 'Wind Speed', value: `${windSpeed} ${units === 'imperial' ? 'mph' : 'm/s'}` },
         { label: 'Wind Direction', value: windDirection || 'N/A' },
+    ].filter(detail => detail.value !== null);
 
-    ].filter(detail => detail.value !== null); // Filter out null values
-
-    // Return the day forecast
     return (
-        <div className="current-weather" style={{ width: '98.5vw', margin: "1rem", display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', textAlign: 'center' }}>
-            <h2 className="dateHeader" style={{ display: "flex", justifyContent: "center", alignItems: "center", textAlign: 'center', marginBottom: '0rem' }}>
-                {getDayName(overallData.dt)} - {new Date(overallData.dt * 1000).toLocaleDateString([], { year: 'numeric', month: 'short', day: 'numeric' }).replace(/(\d+)(?=,)/, (match) => {
-                    const suffix = ['th', 'st', 'nd', 'rd'];
-                    const v = match % 100;
-                    return match + (suffix[(v - 20) % 10] || suffix[v] || suffix[0]);
-                })}
+        <div
+            className="current-weather"
+            style={{
+                width: '98.5vw',
+                margin: "1rem",
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+                textAlign: 'center'
+            }}
+        >
+            <h2
+                className="dateHeader"
+                style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    textAlign: 'center',
+                    marginBottom: '0rem'
+                }}
+            >
+                {getDayName(overallData.dt)} - {getDateWithSuffix(overallData.dt)}
             </h2>
             <div className="forecast-part" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 {weatherDetails.map((detail, index) => (
                     <p className='details' key={index}>
-                        <strong>{detail.label}:&nbsp;</strong> 
-                        {typeof detail.value === 'string' 
-                            ? detail.value.replace(/\b\w/g, char => char.toUpperCase()) 
+                        <strong>{detail.label}:&nbsp;</strong>
+                        {typeof detail.value === 'string'
+                            ? detail.value.replace(/\b\w/g, char => char.toUpperCase())
                             : detail.value}
                     </p>
                 ))}
             </div>
-            <img 
+            <img
                 className="small-icon date-icon"
-                src={`http://openweathermap.org/img/wn/${overallData.weather[0].icon}@2x.png`} 
-                alt={overallData.weather[0].description} 
+                src={`http://openweathermap.org/img/wn/${overallData.weather[0].icon}@2x.png`}
+                alt={overallData.weather[0].description}
             />
         </div>
     );
