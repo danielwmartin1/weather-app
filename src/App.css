@@ -795,7 +795,7 @@ h2, h3, .dateHeader {
 }
 
 .suggestion-item {
-  padding: 8px 12px;
+  margin: 0.5rem;
   cursor: pointer;
   transition: background 0.2s, color 0.2s;
   border-radius: 4px;
