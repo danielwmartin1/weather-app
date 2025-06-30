@@ -4,11 +4,46 @@ import { useAppContext } from './context/AppContext';
 import CurrentWeather from './components/CurrentWeather';
 import Forecast from './components/Forecast';
 import Search from './components/Search';
-import './index.css';
-import './App.css';
 import Footer from './components/Footer';
 import Header from './components/Header';
 import { getBackgroundMedia } from './utils/getBackgroundMedia';
+import './index.css';
+import './App.css';
+
+// --- Helper: Check if it's Night ---
+function isNight(weatherData) {
+  if (!weatherData || !weatherData.sys) return false;
+  const { dt: now, sys: { sunrise, sunset } } = weatherData;
+  return now < sunrise || now > sunset;
+}
+
+// --- Preload Media Files (runs once, client-side) ---
+function preloadMedia() {
+  if (typeof window === 'undefined' || window.__MEDIA_EXISTS__) return;
+  window.__MEDIA_EXISTS__ = {};
+  const conditions = [
+    'clear', 'clouds', 'cloudy', 'cloud', 'snow', 'rain', 'drizzle', 'thunderstorm', 'overcast', 'mist',
+    'night-clear', 'night-clouds', 'night-cloudy', 'night-cloud', 'night-snow', 'night-rain', 'night-drizzle',
+    'night-thunderstorm', 'night-overcast', 'night-mist', 'night'
+  ];
+  const exts = ['mp4', 'gif', 'jpg', 'png'];
+  conditions.forEach(cond => {
+    exts.forEach(ext => {
+      const url = `/images/${cond}.${ext}`;
+      if (ext === 'mp4') {
+        const v = document.createElement('video');
+        v.src = url;
+        v.onloadeddata = () => { window.__MEDIA_EXISTS__[`${cond}.mp4`] = true; };
+        v.onerror = () => { window.__MEDIA_EXISTS__[`${cond}.mp4`] = false; };
+      } else {
+        const img = new window.Image();
+        img.onload = () => { window.__MEDIA_EXISTS__[`${cond}.${ext}`] = true; };
+        img.onerror = () => { window.__MEDIA_EXISTS__[`${cond}.${ext}`] = false; };
+        img.src = url;
+      }
+    });
+  });
+}
 
 // --- Main App Component ---
 const App = () => {
@@ -21,23 +56,22 @@ const App = () => {
   const videoRef = useRef(null);
   const gifVideoRef = useRef(null);
 
+  // --- Preload Media on First Render ---
+  preloadMedia();
+
   // --- Fetch Weather Data on Mount ---
   useEffect(() => {
     const fetchUserLocationWeather = async () => {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
           async ({ coords: { latitude, longitude } }) => {
-            // Fetch weather for user's location
-            const location = `${latitude},${longitude}`;
-            await fetchWeatherAndForecast(location);
+            await fetchWeatherAndForecast(`${latitude},${longitude}`);
           },
           async () => {
-            // Fallback: Fetch weather for New York
             await fetchWeatherAndForecast('New York');
           }
         );
       } else {
-        // Fallback: Geolocation not supported
         await fetchWeatherAndForecast('New York');
       }
     };
@@ -47,41 +81,6 @@ const App = () => {
       hasFetched.current = true;
     }
   }, [fetchWeatherAndForecast]);
-
-  // --- Helper: Check if it's Night ---
-  function isNight(weatherData) {
-    if (!weatherData || !weatherData.sys) return false;
-    const now = weatherData.dt;
-    const sunrise = weatherData.sys.sunrise;
-    const sunset = weatherData.sys.sunset;
-    return now < sunrise || now > sunset;
-  }
-
-  // --- Preload Media Files (runs once, client-side) ---
-  if (typeof window !== 'undefined' && !window.__MEDIA_EXISTS__) {
-    window.__MEDIA_EXISTS__ = {};
-    const conditions = [
-      'clear', 'clouds', 'cloudy', 'cloud', 'snow', 'rain', 'drizzle', 'thunderstorm', 'overcast', 'mist',
-      'night-clear', 'night-clouds', 'night-cloudy', 'night-cloud', 'night-snow', 'night-rain', 'night-drizzle', 'night-thunderstorm', 'night-overcast', 'night-mist', 'night'
-    ];
-    const exts = ['mp4', 'gif', 'jpg', 'png'];
-    conditions.forEach(cond => {
-      exts.forEach(ext => {
-        const url = `/images/${cond}.${ext}`;
-        if (ext === 'mp4') {
-          const v = document.createElement('video');
-          v.src = url;
-          v.onloadeddata = () => { window.__MEDIA_EXISTS__[`${cond}.mp4`] = true; };
-          v.onerror = () => { window.__MEDIA_EXISTS__[`${cond}.mp4`] = false; };
-        } else {
-          const img = new window.Image();
-          img.onload = () => { window.__MEDIA_EXISTS__[`${cond}.${ext}`] = true; };
-          img.onerror = () => { window.__MEDIA_EXISTS__[`${cond}.${ext}`] = false; };
-          img.src = url;
-        }
-      });
-    });
-  }
 
   // --- Set Background Image/Video based on Weather ---
   useEffect(() => {
@@ -93,23 +92,19 @@ const App = () => {
         if (background !== backgroundImage) {
           dispatch({ type: 'SET_BACKGROUND', payload: backgroundImage });
         }
-      } else {
-        // For video/gif, clear background image
-        if (background !== '') {
-          dispatch({ type: 'SET_BACKGROUND', payload: '' });
-        }
+      } else if (background !== '') {
+        dispatch({ type: 'SET_BACKGROUND', payload: '' });
       }
     }
   }, [weatherData, background, dispatch]);
 
-  // --- After fetching weatherData for initial location ---
+  // --- Set US Location Flag ---
   useEffect(() => {
     if (weatherData) {
-      if (weatherData.sys?.country === 'US') {
-        dispatch({ type: 'SET_IS_US_LOCATION', payload: true });
-      } else {
-        dispatch({ type: 'SET_IS_US_LOCATION', payload: false });
-      }
+      dispatch({
+        type: 'SET_IS_US_LOCATION',
+        payload: weatherData.sys?.country === 'US'
+      });
     }
   }, [weatherData, dispatch]);
 
@@ -117,14 +112,6 @@ const App = () => {
   const isNightTime = isNight(weatherData);
   const currentCondition = weatherData?.weather?.[0]?.main?.toLowerCase();
   const backgroundMedia = getBackgroundMedia(currentCondition, isNightTime);
-
-  // --- Debug Output ---
-  console.log('Background Media Debug:', {
-    currentCondition,
-    isNightTime,
-    backgroundMedia,
-    mediaExists: window?.__MEDIA_EXISTS__,
-  });
 
   // --- Adjust Playback Rate for Video/GIF ---
   useEffect(() => {
@@ -234,6 +221,7 @@ const App = () => {
             }}
           />
         )}
+
         {/* Main Content */}
         <div style={{ position: 'relative', zIndex: 1 }}>
           {showImage && (
