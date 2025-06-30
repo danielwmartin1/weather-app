@@ -31,42 +31,54 @@ const appReducer = (state, action) => {
 // Create Context
 const AppContext = createContext();
 
+// Helper to format location string
+const formatLocation = (weather) =>
+  weather && weather.name && weather.sys?.country
+    ? `${weather.name}, ${weather.sys.country}`
+    : '';
+
 // Context Provider Component
 export const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(appReducer, initialState);
 
-  // Function to fetch weather and forecast data
+  // Fetch weather and forecast data based on input type
   const fetchWeatherAndForecast = async (locationOrLat, maybeLon) => {
     try {
-      console.info('Fetching weather and forecast for:', locationOrLat, maybeLon);
-      let weather, forecast;
+      let weather = null;
+      let forecast = null;
 
+      // Handle different input types
       if (typeof locationOrLat === 'number' && typeof maybeLon === 'number') {
-        // Called with lat/lon
+        // lat, lon as numbers
         const latLon = `${locationOrLat},${maybeLon}`;
         weather = await fetchWeatherData(latLon);
         forecast = await fetchForecastData(latLon);
-      } else if (typeof locationOrLat === 'object' && locationOrLat.lat && locationOrLat.lon) {
-        // Called with suggestion object
+      } else if (
+        typeof locationOrLat === 'object' &&
+        locationOrLat.lat &&
+        locationOrLat.lon
+      ) {
+        // suggestion object with lat/lon
         const { lat, lon } = locationOrLat;
         const latLon = `${lat},${lon}`;
         weather = await fetchWeatherData(latLon);
         forecast = await fetchForecastData(latLon);
       } else if (typeof locationOrLat === 'string') {
-        // Called with string (geocode first)
+        // location as string
         weather = await fetchWeatherData(locationOrLat);
         forecast = await fetchForecastData(locationOrLat);
       }
 
-      console.info('Weather data:', weather);
-      console.info('Forecast data:', forecast);
-
       if (weather && forecast) {
-        const formattedLocation = `${weather.name}, ${weather.sys.country}`;
+        const formattedLocation = formatLocation(weather);
 
-        // Avoid redundant dispatch calls by checking if the state already matches
-        if (state.weatherData !== weather || state.forecastData !== forecast || state.location !== formattedLocation || state.showImage) {
-          console.info('Updating state with fetched weather and forecast data.');
+        // Only update state if data changed
+        if (
+          state.weatherData !== weather ||
+          state.forecastData !== forecast ||
+          state.location !== formattedLocation ||
+          state.showImage
+        ) {
           dispatch({ type: 'SET_WEATHER_DATA', payload: weather });
           dispatch({ type: 'SET_FORECAST_DATA', payload: forecast });
           dispatch({ type: 'SET_LOCATION', payload: formattedLocation });
