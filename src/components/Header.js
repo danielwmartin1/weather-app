@@ -7,7 +7,11 @@ import React from 'react';
 const Header = () => {
   return (
     <header className="header">
-      <h1 id="title">Weather App</h1>
+      <h1 id="title">
+        <a style={{ textDecoration: 'none', color: "var(--color-accent)" }} href="https://dwm-weather.vercel.app/" target="_blank" rel="noopener noreferrer">
+          Weather App
+        </a>
+      </h1>
     </header>
   );
 };
