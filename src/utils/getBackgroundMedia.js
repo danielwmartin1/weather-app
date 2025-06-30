@@ -17,7 +17,10 @@ export function getBackgroundMedia(condition, isNightTime) {
     return { type: 'image', src: `${basePath}.jpg`, ext: 'jpg' };
   }
 
-  // Example: you could add more condition handling here if needed.
+  // --- Thunderstorm condition ---
+  if (/thunderstorm/i.test(condition)) {
+    return getMedia('thunderstorm', ['mp4', 'jpg']);
+  }
 
   // Handle night time backgrounds
   if (isNightTime) {
