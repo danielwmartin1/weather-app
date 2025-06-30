@@ -102,6 +102,17 @@ const App = () => {
     }
   }, [weatherData, background, dispatch]);
 
+  // --- After fetching weatherData for initial location ---
+  useEffect(() => {
+    if (weatherData) {
+      if (weatherData.sys?.country === 'US') {
+        dispatch({ type: 'SET_IS_US_LOCATION', payload: true });
+      } else {
+        dispatch({ type: 'SET_IS_US_LOCATION', payload: false });
+      }
+    }
+  }, [weatherData, dispatch]);
+
   // --- Prepare Media for Rendering ---
   const isNightTime = isNight(weatherData);
   const currentCondition = weatherData?.weather?.[0]?.main?.toLowerCase();
@@ -124,6 +135,15 @@ const App = () => {
       gifVideoRef.current.playbackRate = 0.25;
     }
   }, [backgroundMedia, currentCondition]);
+
+  // --- Handle Search ---
+  const handleSearch = (searchTerm) => {
+    if (/^\d{5}$/.test(searchTerm)) {
+      fetchWeatherAndForecast(`${searchTerm},us`);
+    } else {
+      fetchWeatherAndForecast(searchTerm);
+    }
+  };
 
   // --- Render ---
   return (
@@ -224,7 +244,7 @@ const App = () => {
               </svg>
             </div>
           )}
-          <Search onSearch={fetchWeatherAndForecast} />
+          <Search onSearch={handleSearch} />
           {weatherData && forecastData && (
             <>
               <CurrentWeather

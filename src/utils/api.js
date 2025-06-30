@@ -47,12 +47,15 @@ export const fetchWeatherData = async (location, countryCode) => {
   const units = getUnitsByCountry(countryCode);
   let url;
 
-  if (location.includes(',')) {
-    // If location is latitude and longitude
+  if (/^\d{5},us$/i.test(location)) {
+    // US ZIP code
+    url = `${BASE_URL}weather?zip=${location}&units=${units}`;
+  } else if (location.includes(',')) {
+    // Lat/lon
     const [lat, lon] = location.split(',');
     url = `${BASE_URL}weather?lat=${lat}&lon=${lon}&units=${units}`;
   } else {
-    // If location is a city name
+    // City name
     url = `${BASE_URL}weather?q=${location}&units=${units}`;
   }
 
@@ -72,7 +75,10 @@ export const fetchForecastData = async (location, countryCode) => {
   const units = getUnitsByCountry(countryCode);
   let url;
 
-  if (location.includes(',')) {
+  if (/^\d{5},us$/i.test(location)) {
+    // US ZIP code
+    url = `${BASE_URL}forecast?zip=${location}&units=${units}`;
+  } else if (location.includes(',')) {
     // If location is latitude and longitude
     const [lat, lon] = location.split(',');
     url = `${BASE_URL}forecast?lat=${lat}&lon=${lon}&units=${units}`;
