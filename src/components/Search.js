@@ -18,7 +18,13 @@ const Search = ({ onSearch }) => {
   return (
     <div className="home-screen">
       <div className="initial-render-image">
-        <img src={InitialRenderImage} alt="Initial Render" />
+        <a
+          href="https://openweathermap.org/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <img src={InitialRenderImage} alt="Initial Render" />
+        </a>
       </div>
       <form onSubmit={handleSearch} className="search-form">
         <input

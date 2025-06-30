@@ -700,11 +700,6 @@ h2, h3, .dateHeader {
     padding: calc(var(--padding-small) * 0.75);
   }
 
-  .forecast-day {
-
-    width: 98.5vw;
-  }
-
   .forecast-day p {
     margin: 0.25rem;
   }
