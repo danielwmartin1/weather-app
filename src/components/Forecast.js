@@ -35,6 +35,21 @@ const getHighLowTemps = (day) => {
     };
 };
 
+// Format a date with a suffix (e.g., "Apr 5th, 2024")
+const formatDateWithSuffix = (timestamp) => {
+    const date = new Date(timestamp * 1000);
+    const day = date.getDate();
+    const suffix = getDaySuffix(day);
+    return date.toLocaleDateString('en-US', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric',
+    }).replace(
+        /(\d+)(?=,)/,
+        (match) => `${match}${suffix}`
+    );
+};
+
 // Get the weather icon URL
 const getWeatherIconUrl = (icon) =>
     `http://openweathermap.org/img/wn/${icon}@2x.png`;
@@ -51,6 +66,9 @@ const getDayParts = (list) => {
 const Forecast = React.memo(({ forecastData }) => {
     const [selectedDay, setSelectedDay] = useState(null);
 
+    // Debug: Log forecastData on every render
+    console.debug('Forecast: forecastData', forecastData);
+
     if (!forecastData) {
         console.warn('Forecast: Missing forecast data.');
         return null;
@@ -58,23 +76,18 @@ const Forecast = React.memo(({ forecastData }) => {
 
     const dayParts = getDayParts(forecastData.list);
 
+    // Debug: Log dayParts
+    console.debug('Forecast: dayParts', dayParts);
+
     // Select a day to view details
-    const handleDayClick = (dayData) => setSelectedDay(dayData);
+    const handleDayClick = (dayData) => {
+        console.debug('Forecast: handleDayClick', dayData);
+        setSelectedDay(dayData);
+    };
 
-    // Go back to overview
-    const handleBackClick = () => setSelectedDay(null);
-
-    // Format date with suffix
-    const formatDateWithSuffix = (timestamp) => {
-        const date = new Date(timestamp * 1000);
-        return date.toLocaleDateString('en-US', {
-            month: 'short',
-            day: 'numeric',
-            year: 'numeric',
-        }).replace(
-            /(\d+)(?=,)/,
-            (match) => `${match}${getDaySuffix(parseInt(match))}`
-        );
+    // Go back to the overview
+    const handleBackClick = () => {
+        setSelectedDay(null);
     };
 
     return (

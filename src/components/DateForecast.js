@@ -32,17 +32,31 @@ const getDateWithSuffix = (timestamp) => {
 
 // Main component to display the forecast for a specific date
 const DateForecast = ({ dayData }) => {
+    // Debug: Log incoming dayData
+    console.debug('DateForecast: dayData:', dayData);
+
     // Return nothing if no data is provided
-    if (!dayData || !dayData.length) return null;
+    if (!dayData || !dayData.length) {
+        console.warn('DateForecast: No dayData provided or empty array.');
+        return null;
+    }
 
     // Use the first entry as the overall data for the day
     const overallData = dayData[0] || {};
     const units = overallData.units || 'imperial';
 
+    // Debug: Log overallData and units
+    console.debug('DateForecast: overallData:', overallData);
+    console.debug('DateForecast: units:', units);
+
     // Calculate max and min temperatures for the day
     const temperatures = dayData.map(data => data.main.temp);
     const maxTemp = Math.max(...temperatures);
     const minTemp = Math.min(...temperatures);
+
+    // Debug: Log temperatures, maxTemp, minTemp
+    console.debug('DateForecast: temperatures:', temperatures);
+    console.debug('DateForecast: maxTemp:', maxTemp, 'minTemp:', minTemp);
 
     // Convert pressure from hPa to inHg
     const pressureInHg = (overallData.main.pressure * 0.02953).toFixed(2);
@@ -50,6 +64,9 @@ const DateForecast = ({ dayData }) => {
     // Wind speed and direction
     const windSpeed = overallData.wind?.speed || 0;
     const windDirection = getWindDirection(overallData.wind?.deg || 0);
+
+    // Debug: Log wind info
+    console.debug('DateForecast: windSpeed:', windSpeed, 'windDirection:', windDirection);
 
     // Prepare weather details for display
     const weatherDetails = [
@@ -66,6 +83,9 @@ const DateForecast = ({ dayData }) => {
         { label: 'Wind Speed', value: `${windSpeed} ${units === 'imperial' ? 'mph' : 'm/s'}` },
         { label: 'Wind Direction', value: windDirection || 'N/A' },
     ].filter(detail => detail.value !== null);
+
+    // Debug: Log weatherDetails
+    console.debug('DateForecast: weatherDetails:', weatherDetails);
 
     return (
         <div

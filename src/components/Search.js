@@ -16,14 +16,21 @@ const Search = ({ onSearch }) => {
     const value = e.target.value;
     setLocation(value);
 
+    // Debug: log input value
+    console.debug('Input changed:', value);
+
     // Only fetch suggestions if input length > 2
     if (value.length > 2) {
       try {
         const res = await axios.get(
           `https://api.openweathermap.org/geo/1.0/direct?q=${value}&limit=5&appid=${process.env.REACT_APP_API_KEY}`
         );
+        // Debug: log API response
+        console.debug('Suggestions fetched:', res.data);
         setSuggestions(res.data || []);
       } catch (error) {
+        // Debug: log error
+        console.error('Error fetching suggestions:', error);
         setSuggestions([]);
       }
     } else {
@@ -41,6 +48,8 @@ const Search = ({ onSearch }) => {
   // Handle user clicking a suggestion
   const handleSuggestionClick = (suggestion) => {
     const locationString = formatLocationString(suggestion);
+    // Debug: log suggestion clicked
+    console.debug('Suggestion clicked:', suggestion);
     setLocation(locationString);
     setSuggestions([]);
     onSearch({
@@ -66,6 +75,9 @@ const Search = ({ onSearch }) => {
       (s) => formatLocationString(s) === location.trim()
     );
 
+    // Debug: log search action and match
+    console.debug('Search submitted:', location.trim(), 'Match:', match);
+
     if (match) {
       // If match found, pass full suggestion object
       onSearch({
@@ -84,6 +96,11 @@ const Search = ({ onSearch }) => {
     setLocation('');
     setSuggestions([]);
   };
+
+  // Debug: log current state on each render
+  React.useEffect(() => {
+    console.debug('Current state:', { location, suggestions });
+  }, [location, suggestions]);
 
   return (
     <div className="home-screen">
