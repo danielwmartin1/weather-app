@@ -12,6 +12,8 @@ const API_KEYS = [
   process.env.REACT_APP_API_KEY2,
 ].filter(Boolean);
 
+console.debug("Loaded API_KEYS:", API_KEYS);
+
 // --- API Key Rotation ---
 // Keeps track of the current API key index for rotation
 let currentKeyIndex = 0;
@@ -26,6 +28,7 @@ function getApiKey() {
     return null;
   }
   const apiKey = API_KEYS[currentKeyIndex];
+  console.debug(`Using API key at index ${currentKeyIndex}: ${apiKey}`);
   currentKeyIndex = (currentKeyIndex + 1) % API_KEYS.length;
   return apiKey;
 }
@@ -42,11 +45,16 @@ async function makeApiRequest(url, retries = API_KEYS.length) {
   for (let i = 0; i < retries; i++) {
     const apiKey = getApiKey();
     const requestUrl = `${url}&appid=${apiKey}`;
+    console.debug(`Attempt ${i + 1}/${retries}: Requesting URL: ${requestUrl}`);
     try {
       const response = await axios.get(requestUrl);
+      console.debug("API response:", response.data);
       return response.data;
     } catch (error) {
       console.error(`API request failed with key: ${apiKey}`, error.message);
+      if (error.response) {
+        console.error("API error response:", error.response.data);
+      }
       if (i === retries - 1) throw new Error("All API keys have failed.");
     }
   }
@@ -62,6 +70,7 @@ async function makeApiRequest(url, retries = API_KEYS.length) {
  */
 function getUnitsByCountry(countryCode) {
   const country = countries[countryCode];
+  console.debug(`Country lookup for code "${countryCode}":`, country);
   return country && country.region === "Europe" ? "metric" : "imperial";
 }
 
@@ -74,17 +83,20 @@ function getUnitsByCountry(countryCode) {
  * @returns {string} - The constructed API URL.
  */
 function buildWeatherUrl(endpoint, location, units) {
+  let url;
   // US ZIP code
   if (/^\d{5},us$/i.test(location)) {
-    return `${BASE_URL}${endpoint}?zip=${location}&units=${units}`;
-  }
-  // Latitude,Longitude
-  if (location.includes(',')) {
+    url = `${BASE_URL}${endpoint}?zip=${location}&units=${units}`;
+  } else if (location.includes(',')) {
+    // Latitude,Longitude
     const [lat, lon] = location.split(',');
-    return `${BASE_URL}${endpoint}?lat=${lat}&lon=${lon}&units=${units}`;
+    url = `${BASE_URL}${endpoint}?lat=${lat}&lon=${lon}&units=${units}`;
+  } else {
+    // City name
+    url = `${BASE_URL}${endpoint}?q=${location}&units=${units}`;
   }
-  // City name
-  return `${BASE_URL}${endpoint}?q=${location}&units=${units}`;
+  console.debug(`Built weather URL: ${url}`);
+  return url;
 }
 
 // --- Main API Functions ---
@@ -139,6 +151,7 @@ export async function fetchForecastData(location, countryCode) {
  */
 export async function fetchLocationData(lat, lon) {
   const url = `${BASE_URL}weather?lat=${lat}&lon=${lon}`;
+  console.debug(`fetchLocationData url: ${url}`);
   return await makeApiRequest(url);
 }
 
@@ -153,13 +166,19 @@ export async function fetchLocationData(lat, lon) {
 export async function fetchForecastDataByDate(location, date, countryCode) {
   const units = getUnitsByCountry(countryCode);
   const url = buildWeatherUrl("forecast", location, units);
+  console.debug(`fetchForecastDataByDate url: ${url}, date: ${date}`);
   const forecastData = await makeApiRequest(url);
 
-  if (!forecastData?.list) return [];
+  if (!forecastData?.list) {
+    console.warn("No forecast data list found.");
+    return [];
+  }
 
-  return forecastData.list.filter(item => {
+  const filtered = forecastData.list.filter(item => {
     const dataDate = new Date(item.dt * 1000);
     return dataDate.toDateString() === date.toDateString();
   });
-}
 
+  console.debug(`Filtered forecast data for date ${date.toDateString()}:`, filtered);
+  return filtered;
+}
