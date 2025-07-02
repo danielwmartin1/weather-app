@@ -189,8 +189,17 @@ const CurrentWeather = ({ weatherData, forecastData, location }) => {
           value: `${weatherData.pop ? weatherData.pop * 100 : 0}%`
         },
         {
-          label: 'Precipitation',
-          value: weatherData.rain?.['1h'] ? `${weatherData.rain['1h']} ${units === 'metric' ? 'mm' : 'in'}` : null
+          label: 'Total Precipitation',
+          value:
+            weatherData.rain?.['1h']
+              ? `${(weatherData.rain['1h'] * 0.0393701).toFixed(2)} in`
+              : weatherData.rain?.['3h']
+                ? `${(weatherData.rain['3h'] * 0.0393701).toFixed(2)} in`
+                : weatherData.snow?.['1h']
+                  ? `${(weatherData.snow['1h'] * 0.0393701).toFixed(2)} in`
+                  : weatherData.snow?.['3h']
+                    ? `${(weatherData.snow['3h'] * 0.0393701).toFixed(2)} in`
+                    : '0.00 in'
         },
         {
           label: 'Snow',
@@ -199,7 +208,8 @@ const CurrentWeather = ({ weatherData, forecastData, location }) => {
         {
           label: 'UV Index',
           value: weatherData.uvi || 0
-        }
+        },
+
       ].filter(detail => detail.value !== null);
       console.debug('weatherDetails calculated:', details);
       return details;

@@ -68,6 +68,16 @@ const DateForecast = ({ dayData }) => {
     // Debug: Log wind info
     console.debug('DateForecast: windSpeed:', windSpeed, 'windDirection:', windDirection);
 
+    // Calculate total precipitation and average chance of precipitation for the day
+    const totalRain = dayData.reduce((sum, d) => sum + (d.rain?.['3h'] || 0), 0);
+    const totalSnow = dayData.reduce((sum, d) => sum + (d.snow?.['3h'] || 0), 0);
+    const totalPrecip = totalRain + totalSnow;
+    const totalPrecipInches = totalPrecip * 0.0393701; // Convert mm to inches
+    const avgPop = (dayData.reduce((sum, d) => sum + (d.pop || 0), 0) / dayData.length) * 100;
+
+    // Debug: Log precipitation and pop
+    console.debug('DateForecast: totalPrecip:', totalPrecip, 'avgPop:', avgPop);
+
     // Prepare weather details for display
     const weatherDetails = [
         { label: 'Overall Conditions', value: overallData.weather?.[0]?.description || 'N/A' },
@@ -77,9 +87,9 @@ const DateForecast = ({ dayData }) => {
         { label: 'Cloud Cover', value: `${overallData.clouds?.all || 0}%` },
         { label: 'Visibility', value: `${overallData.visibility ? overallData.visibility / 1000 : 0} ${units === 'metric' ? 'km' : 'mi'}` },
         { label: 'Pressure', value: `${pressureInHg} inHg` },
-        { label: 'Chance of Precipitation', value: `${overallData.pop ? overallData.pop * 100 : 0}%` },
-        { label: 'Precipitation', value: overallData.rain?.['1h'] ? `${overallData.rain['1h']} ${units === 'metric' ? 'mm' : 'in'}` : null },
-        { label: 'Snow', value: overallData.snow?.['1h'] ? `${overallData.snow['1h']} ${units === 'metric' ? 'mm' : 'in'}` : null },
+        { label: 'Chance of Precipitation', value: `${avgPop.toFixed(0)}%` },
+        { label: 'Precipitation', value: `${totalPrecipInches.toFixed(2)} in` }, // <-- Inches and label
+        { label: 'Snow', value: overallData.snow?.['1h'] ? `${(overallData.snow['1h'] * 0.0393701).toFixed(2)} in` : null },
         { label: 'Wind Speed', value: `${windSpeed} ${units === 'imperial' ? 'mph' : 'm/s'}` },
         { label: 'Wind Direction', value: windDirection || 'N/A' },
     ].filter(detail => detail.value !== null);

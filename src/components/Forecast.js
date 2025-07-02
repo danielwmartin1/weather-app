@@ -138,6 +138,9 @@ const Forecast = React.memo(({ forecastData }) => {
                                         src={getWeatherIconUrl(part.weather[0].icon)}
                                         alt={part.weather[0].description}
                                     />
+                                    <p className="part">
+                                        💧 {Math.round((part.pop || 0) * 100)}%
+                                    </p>
                                 </div>
                             ))}
                         </div>
