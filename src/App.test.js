@@ -1,4 +1,5 @@
 import { render, screen, cleanup } from '@testing-library/react';
+import '@testing-library/jest-dom';
 import App from './App';
 import { AppProvider } from './context/AppContext'; // Import your context provider
 

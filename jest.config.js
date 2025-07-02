@@ -11,5 +11,4 @@ module.exports = {
     '\\.svg$': '<rootDir>/src/__mocks__/svgMock.js', // Mock SVG imports
   },
   testEnvironment: 'jsdom', // Use jsdom for testing React components
-  setupFiles: ['<rootDir>/src/setupTests.js'], // Load environment variables
 };

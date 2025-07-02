@@ -46,7 +46,7 @@
     "@babel/preset-env": "^7.26.9",
     "@babel/preset-react": "^7.26.3",
     "@testing-library/jest-dom": "^6.6.3",
-    "@testing-library/react": "^16.1.0",
+    "@testing-library/react": "^16.3.0",
     "babel-jest": "^27.5.1",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^27.5.1"

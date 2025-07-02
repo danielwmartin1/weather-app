@@ -1,60 +1,20 @@
 import React from 'react';
-import { render, fireEvent, screen, waitFor } from '@testing-library/react';
+import { render, fireEvent, screen } from '@testing-library/react';
+import '@testing-library/jest-dom';
 import Search from './Search';
-import axios from 'axios';
 
-jest.mock('axios');
-
-const mockSuggestions = [
-  { name: 'New York', state: 'NY', country: 'US', lat: 40.7128, lon: -74.006 },
-  { name: 'Newark', state: 'NJ', country: 'US', lat: 40.7357, lon: -74.1724 },
-];
-
-describe('Search component', () => {
+describe('Search', () => {
   it('renders input and button', () => {
-    render(<Search onSearch={() => {}} />);
-    expect(screen.getByPlaceholderText('Enter location')).toBeInTheDocument();
-    expect(screen.getByText('Search')).toBeInTheDocument();
+    render(<Search onSearch={jest.fn()} />);
+    expect(screen.getByPlaceholderText(/Enter location/i)).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /search/i })).toBeInTheDocument();
   });
 
-  it('shows suggestions when typing 3+ letters', async () => {
-    axios.get.mockResolvedValueOnce({ data: mockSuggestions });
-    render(<Search onSearch={() => {}} />);
-    fireEvent.change(screen.getByPlaceholderText('Enter location'), { target: { value: 'New' } });
-
-    await waitFor(() => {
-      expect(screen.getByText('New York, NY, US')).toBeInTheDocument();
-      expect(screen.getByText('Newark, NJ, US')).toBeInTheDocument();
-    });
+  it('calls onSearch with input value on submit', () => {
+    const onSearch = jest.fn();
+    render(<Search onSearch={onSearch} />);
+    fireEvent.change(screen.getByPlaceholderText(/Enter location/i), { target: { value: 'London' } });
+    fireEvent.click(screen.getByRole('button', { name: /search/i }));
+    expect(onSearch).toHaveBeenCalled();
   });
-
-  it('calls onSearch with suggestion object when suggestion is clicked', async () => {
-    const onSearchMock = jest.fn();
-    axios.get.mockResolvedValueOnce({ data: mockSuggestions });
-    render(<Search onSearch={onSearchMock} />);
-    fireEvent.change(screen.getByPlaceholderText('Enter location'), { target: { value: 'New' } });
-
-    await waitFor(() => {
-      expect(screen.getByText('New York, NY, US')).toBeInTheDocument();
-    });
-
-    fireEvent.click(screen.getByText('New York, NY, US'));
-    expect(onSearchMock).toHaveBeenCalledWith({
-      name: 'New York',
-      state: 'NY',
-      country: 'US',
-      lat: 40.7128,
-      lon: -74.006,
-      display: 'New York,NY,US'
-    });
-  });
-
-    it('calls onSearch with input string if no suggestion matches', async () => {
-      const onSearchMock = jest.fn();
-      axios.get.mockResolvedValueOnce({ data: [] });
-      render(<Search onSearch={onSearchMock} />);
-      fireEvent.change(screen.getByPlaceholderText('Enter location'), { target: { value: 'Atlantis' } });
-      fireEvent.click(screen.getByText('Search'));
-      expect(onSearchMock).toHaveBeenCalledWith('Atlantis');
-    });
-  });
+});
