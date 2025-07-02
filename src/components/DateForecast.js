@@ -3,16 +3,13 @@ import '../index.css';
 import '../App.css';
 import '../utils/api.js';
 
+// Returns the short weekday name (e.g., "Mon") from a Unix timestamp
 const getDayName = (timestamp) => {
     const date = new Date(timestamp * 1000);
     return date.toLocaleDateString('en-US', { weekday: 'short' });
 };
 
-// const formatTime = (timestamp) => {
-//     const date = new Date(timestamp * 1000);
-//     return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-// };
-
+// Returns wind direction as a string (e.g., "90° E")
 const getWindDirection = (deg) => {
     const directions = [
         'N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE',
@@ -22,6 +19,7 @@ const getWindDirection = (deg) => {
     return `${Math.round(deg)}° ${directions[index]}`;
 };
 
+// Returns a formatted date string with ordinal suffix (e.g., "Jun 1st, 2024")
 const getDateWithSuffix = (timestamp) => {
     const date = new Date(timestamp * 1000);
     const day = date.getDate();
@@ -32,25 +30,28 @@ const getDateWithSuffix = (timestamp) => {
         .replace(day, day + suffix);
 };
 
+// Main component to display the forecast for a specific date
 const DateForecast = ({ dayData }) => {
+    // Return nothing if no data is provided
     if (!dayData || !dayData.length) return null;
 
+    // Use the first entry as the overall data for the day
     const overallData = dayData[0] || {};
     const units = overallData.units || 'imperial';
 
-    // Temperatures
+    // Calculate max and min temperatures for the day
     const temperatures = dayData.map(data => data.main.temp);
     const maxTemp = Math.max(...temperatures);
     const minTemp = Math.min(...temperatures);
 
-    // Pressure
+    // Convert pressure from hPa to inHg
     const pressureInHg = (overallData.main.pressure * 0.02953).toFixed(2);
 
-    // Wind
+    // Wind speed and direction
     const windSpeed = overallData.wind?.speed || 0;
     const windDirection = getWindDirection(overallData.wind?.deg || 0);
 
-    // Weather details
+    // Prepare weather details for display
     const weatherDetails = [
         { label: 'Overall Conditions', value: overallData.weather?.[0]?.description || 'N/A' },
         { label: 'High Temp', value: `${Math.round(maxTemp)}°${units === 'metric' ? 'C' : 'F'}` },
@@ -79,6 +80,7 @@ const DateForecast = ({ dayData }) => {
                 textAlign: 'center'
             }}
         >
+            {/* Date header with day name and formatted date */}
             <h2
                 className="dateHeader"
                 style={{
@@ -91,6 +93,7 @@ const DateForecast = ({ dayData }) => {
             >
                 {getDayName(overallData.dt)} - {getDateWithSuffix(overallData.dt)}
             </h2>
+            {/* Weather details list */}
             <div className="forecast-part" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 {weatherDetails.map((detail, index) => (
                     <p className='details' key={index}>
@@ -101,6 +104,7 @@ const DateForecast = ({ dayData }) => {
                     </p>
                 ))}
             </div>
+            {/* Weather icon */}
             <img
                 className="small-icon date-icon"
                 src={`http://openweathermap.org/img/wn/${overallData.weather[0].icon}@2x.png`}

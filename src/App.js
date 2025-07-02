@@ -11,6 +11,11 @@ import './index.css';
 import './App.css';
 
 // --- Helper: Check if it's Night ---
+/**
+ * Determines if it's currently night based on weather data.
+ * @param {Object} weatherData - Weather data object.
+ * @returns {boolean} - True if it's night, false otherwise.
+ */
 function isNight(weatherData) {
   if (!weatherData || !weatherData.sys) return false;
   const { dt: now, sys: { sunrise, sunset } } = weatherData;
@@ -18,6 +23,10 @@ function isNight(weatherData) {
 }
 
 // --- Preload Media Files (runs once, client-side) ---
+/**
+ * Preloads media files (images, videos, gifs) for weather backgrounds.
+ * Sets a global flag to avoid reloading.
+ */
 function preloadMedia() {
   if (typeof window === 'undefined' || window.__MEDIA_EXISTS__) return;
   window.__MEDIA_EXISTS__ = {};
@@ -53,14 +62,17 @@ const App = () => {
 
   // --- Refs ---
   const hasFetched = useRef(false); // Prevents multiple fetches on mount
-  const videoRef = useRef(null);
-  const gifVideoRef = useRef(null);
+  const videoRef = useRef(null);    // Ref for background video
+  const gifVideoRef = useRef(null); // Ref for background gif video
 
   // --- Preload Media on First Render ---
   preloadMedia();
 
   // --- Fetch Weather Data on Mount ---
   useEffect(() => {
+    /**
+     * Fetches weather and forecast for user's location or defaults to New York.
+     */
     const fetchUserLocationWeather = async () => {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
@@ -124,6 +136,11 @@ const App = () => {
   }, [backgroundMedia, currentCondition]);
 
   // --- Handle Search ---
+  /**
+   * Handles search input from user.
+   * If input is a 5-digit zip, appends ',us' for US search.
+   * @param {string} searchTerm
+   */
   const handleSearch = (searchTerm) => {
     if (/^\d{5}$/.test(searchTerm)) {
       fetchWeatherAndForecast(`${searchTerm},us`);
@@ -149,7 +166,7 @@ const App = () => {
           overflow: 'hidden',
         }}
       >
-        {/* Render background video/gif/image */}
+        {/* --- Render background video/gif/image --- */}
         {backgroundMedia.type === 'video' && (
           <video
             ref={videoRef}
@@ -222,7 +239,7 @@ const App = () => {
           />
         )}
 
-        {/* Main Content */}
+        {/* --- Main Content --- */}
         <div style={{ position: 'relative', zIndex: 1 }}>
           {showImage && (
             <div id="picture">

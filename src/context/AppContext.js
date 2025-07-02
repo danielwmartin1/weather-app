@@ -1,16 +1,16 @@
 import React, { createContext, useReducer, useContext } from 'react';
 import { fetchWeatherData, fetchForecastData } from '../utils/api';
 
-// Initial state
+// Initial state for the app context
 const initialState = {
-  weatherData: null,
-  forecastData: null,
-  background: '',
-  location: '',
-  showImage: true,
+  weatherData: null,    // Stores current weather data
+  forecastData: null,   // Stores forecast data
+  background: '',       // Stores background image or style
+  location: '',         // Stores formatted location string
+  showImage: true,      // Controls whether to show the image
 };
 
-// Reducer function
+// Reducer function to handle state updates based on action types
 const appReducer = (state, action) => {
   switch (action.type) {
     case 'SET_WEATHER_DATA':
@@ -28,28 +28,32 @@ const appReducer = (state, action) => {
   }
 };
 
-// Create Context
+// Create the AppContext using React's createContext
 const AppContext = createContext();
 
-// Helper to format location string
+// Helper function to format the location string from weather data
 const formatLocation = (weather) =>
   weather && weather.name && weather.sys?.country
     ? `${weather.name}, ${weather.sys.country}`
     : '';
 
-// Context Provider Component
+// Context Provider Component that wraps the app and provides state and actions
 export const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(appReducer, initialState);
 
-  // Fetch weather and forecast data based on input type
+  /**
+   * Fetches weather and forecast data based on input.
+   * Accepts a location string, a lat/lon object, or lat/lon numbers.
+   * Updates context state with fetched data.
+   */
   const fetchWeatherAndForecast = async (locationOrLat, maybeLon) => {
     try {
       let weather = null;
       let forecast = null;
 
-      // Handle different input types
+      // Handle different input types for location
       if (typeof locationOrLat === 'number' && typeof maybeLon === 'number') {
-        // lat, lon as numbers
+        // Input is latitude and longitude as numbers
         const latLon = `${locationOrLat},${maybeLon}`;
         weather = await fetchWeatherData(latLon);
         forecast = await fetchForecastData(latLon);
@@ -58,13 +62,13 @@ export const AppProvider = ({ children }) => {
         locationOrLat.lat &&
         locationOrLat.lon
       ) {
-        // suggestion object with lat/lon
+        // Input is an object with lat and lon properties
         const { lat, lon } = locationOrLat;
         const latLon = `${lat},${lon}`;
         weather = await fetchWeatherData(latLon);
         forecast = await fetchForecastData(latLon);
       } else if (typeof locationOrLat === 'string') {
-        // location as string
+        // Input is a location string
         weather = await fetchWeatherData(locationOrLat);
         forecast = await fetchForecastData(locationOrLat);
       }
@@ -72,7 +76,7 @@ export const AppProvider = ({ children }) => {
       if (weather && forecast) {
         const formattedLocation = formatLocation(weather);
 
-        // Only update state if data changed
+        // Only update state if data has changed or image should be hidden
         if (
           state.weatherData !== weather ||
           state.forecastData !== forecast ||
@@ -85,9 +89,11 @@ export const AppProvider = ({ children }) => {
           dispatch({ type: 'SET_SHOW_IMAGE', payload: false });
         }
       } else {
+        // Log error if data could not be fetched
         console.error('Failed to fetch weather or forecast data', { weather, forecast });
       }
     } catch (error) {
+      // Log any errors during fetch
       console.error('Error fetching weather and forecast data:', error);
       if (error.response) {
         console.error('API error response:', error.response);
@@ -95,6 +101,7 @@ export const AppProvider = ({ children }) => {
     }
   };
 
+  // Provide state, dispatch, and fetchWeatherAndForecast to children components
   return (
     <AppContext.Provider value={{ state, dispatch, fetchWeatherAndForecast }}>
       {children}
@@ -102,5 +109,6 @@ export const AppProvider = ({ children }) => {
   );
 };
 
-// Custom hook to use the AppContext
+// Custom hook to access the AppContext in components
 export const useAppContext = () => useContext(AppContext);
+
