@@ -63,6 +63,13 @@ const getDayParts = (list) => {
     return dayParts.slice(0, 8);
 };
 
+// Convert wind degrees to compass direction
+const getWindDirection = (deg) => {
+    const directions = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];
+    const index = Math.round(deg / 45) % 8;
+    return directions[index];
+};
+
 const Forecast = React.memo(({ forecastData }) => {
     const [selectedDay, setSelectedDay] = useState(null);
 
@@ -121,7 +128,8 @@ const Forecast = React.memo(({ forecastData }) => {
                                     {getDayName(day[0].dt)} - {formatDateWithSuffix(day[0].dt)}
                                 </h3>
                                 <h4 className="high-low">
-                                    High: {Math.round(getHighLowTemps(day).high)}°F / Low: {Math.round(getHighLowTemps(day).low)}°F
+                                    High: {Math.round(getHighLowTemps(day).high)}°F&nbsp;|&nbsp;
+                                    Low: {Math.round(getHighLowTemps(day).low)}°F
                                 </h4>
                             </div>
                             {day.map((part) => (
@@ -140,6 +148,9 @@ const Forecast = React.memo(({ forecastData }) => {
                                     />
                                     <p className="part">
                                         💧 {Math.round((part.pop || 0) * 100)}%
+                                    </p>
+                                    <p className="part">
+                                        🌬️ {Math.round(part.wind.speed)} mph {getWindDirection(part.wind.deg)}
                                     </p>
                                 </div>
                             ))}

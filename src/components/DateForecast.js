@@ -30,6 +30,7 @@ const getDateWithSuffix = (timestamp) => {
         .replace(day, day + suffix);
 };
 
+
 // Main component to display the forecast for a specific date
 const DateForecast = ({ dayData }) => {
     // Debug: Log incoming dayData
@@ -79,19 +80,25 @@ const DateForecast = ({ dayData }) => {
     console.debug('DateForecast: totalPrecip:', totalPrecip, 'avgPop:', avgPop);
 
     // Prepare weather details for display
+    // Helper to capitalize the first letter of each word
+    function capitalizeWords(str) {
+        if (!str) return '';
+        return str.replace(/\b\w/g, c => c.toUpperCase());
+    }
+
     const weatherDetails = [
-        { label: 'Overall Conditions', value: overallData.weather?.[0]?.description || 'N/A' },
-        { label: 'High Temp', value: `${Math.round(maxTemp)}°${units === 'metric' ? 'C' : 'F'}` },
-        { label: 'Low Temp', value: `${Math.round(minTemp)}°${units === 'metric' ? 'C' : 'F'}` },
-        { label: 'Humidity', value: `${overallData.main?.humidity || 0}%` },
-        { label: 'Cloud Cover', value: `${overallData.clouds?.all || 0}%` },
-        { label: 'Visibility', value: `${overallData.visibility ? overallData.visibility / 1000 : 0} ${units === 'metric' ? 'km' : 'mi'}` },
-        { label: 'Pressure', value: `${pressureInHg} inHg` },
-        { label: 'Chance of Precipitation', value: `${avgPop.toFixed(0)}%` },
-        { label: 'Precipitation', value: `${totalPrecipInches.toFixed(2)} in` }, // <-- Inches and label
-        { label: 'Snow', value: overallData.snow?.['1h'] ? `${(overallData.snow['1h'] * 0.0393701).toFixed(2)} in` : null },
-        { label: 'Wind Speed', value: `${windSpeed} ${units === 'imperial' ? 'mph' : 'm/s'}` },
-        { label: 'Wind Direction', value: windDirection || 'N/A' },
+        { label: capitalizeWords('overall conditions'), value: capitalizeWords(overallData.weather?.[0]?.description) || 'N/A' },
+        { label: capitalizeWords('high temp'), value: `${Math.round(maxTemp)}°${units === 'metric' ? 'C' : 'F'}` },
+        { label: capitalizeWords('low temp'), value: `${Math.round(minTemp)}°${units === 'metric' ? 'C' : 'F'}` },
+        { label: capitalizeWords('humidity'), value: `${overallData.main?.humidity || 0}%` },
+        { label: capitalizeWords('cloud cover'), value: `${overallData.clouds?.all || 0}%` },
+        { label: capitalizeWords('visibility'), value: `${overallData.visibility ? overallData.visibility / 1000 : 0} ${units === 'metric' ? 'km' : 'mi'}` },
+        { label: capitalizeWords('pressure'), value: `${pressureInHg} inHg` },
+        { label: capitalizeWords('chance of precipitation'), value: `${avgPop.toFixed(0)}%` },
+        { label: capitalizeWords('precipitation'), value: `${totalPrecipInches.toFixed(2)} in` },
+        { label: capitalizeWords('snow'), value: overallData.snow?.['1h'] ? `${(overallData.snow['1h'] * 0.0393701).toFixed(2)} in` : null },
+        { label: capitalizeWords('wind speed'), value: `${windSpeed} ${units === 'imperial' ? 'mph' : 'm/s'}` },
+        { label: capitalizeWords('wind direction'), value: windDirection || 'N/A' },
     ].filter(detail => detail.value !== null);
 
     // Debug: Log weatherDetails
@@ -129,8 +136,9 @@ const DateForecast = ({ dayData }) => {
                     <p className='details' key={index}>
                         <strong>{detail.label}:&nbsp;</strong>
                         {typeof detail.value === 'string'
-                            ? detail.value.replace(/\b\w/g, char => char.toUpperCase())
-                            : detail.value}
+                            ? detail.value
+                            : null
+                        }
                     </p>
                 ))}
             </div>

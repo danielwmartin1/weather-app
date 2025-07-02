@@ -794,6 +794,10 @@ h2, h3, .dateHeader {
   padding: 0.5rem;
 }
 
+.high-low {
+  font-size: 0.9rem;
+}
+
 .suggestion-item {
   margin: 0.5rem;
   cursor: pointer;
