@@ -2,6 +2,7 @@ import React from 'react';
 import '../index.css';
 import '../App.css';
 import '../utils/api.js';
+import { getBackgroundMedia } from '../utils/getBackgroundMedia.js';
 
 // Returns the short weekday name (e.g., "Mon") from a Unix timestamp
 const getDayName = (timestamp) => {
@@ -104,50 +105,78 @@ const DateForecast = ({ dayData }) => {
     // Debug: Log weatherDetails
     console.debug('DateForecast: weatherDetails:', weatherDetails);
 
+    const isNightTime = overallData.weather?.[0]?.icon?.endsWith('n');
+    const condition = overallData.weather?.[0]?.main?.toLowerCase() || '';
+    const backgroundMedia = getBackgroundMedia(condition, isNightTime);
+
     return (
-        <div
-            className="current-weather"
-            style={{
-                width: '98.5vw',
-                margin: "1rem",
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'center',
-                textAlign: 'center'
-            }}
-        >
-            {/* Date header with day name and formatted date */}
-            <h2
-                className="dateHeader"
+        <div className="current-weather">
+            <div
+                className="current-weather-content background-media"
                 style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
+                    width: '100%',
+                    minHeight: '60vh',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'center',
                     textAlign: 'center',
-                    marginBottom: '0rem'
+                    position: 'relative',
+                    overflow: 'hidden',
+                    ...(backgroundMedia.type !== 'video'
+                        ? {
+                            backgroundImage: `url(${backgroundMedia.src})`,
+                            backgroundSize: 'cover',
+                            backgroundPosition: 'center',
+                            backgroundRepeat: 'no-repeat'
+                        }
+                        : {})
                 }}
             >
-                {getDayName(overallData.dt)} - {getDateWithSuffix(overallData.dt)}
-            </h2>
-            {/* Weather details list */}
-            <div className="forecast-part" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                {weatherDetails.map((detail, index) => (
-                    <p className='details' key={index}>
-                        <strong>{detail.label}:&nbsp;</strong>
-                        {typeof detail.value === 'string'
-                            ? detail.value
-                            : null
-                        }
-                    </p>
-                ))}
+                {backgroundMedia.type === 'video' && (
+                    <video
+                        className="background-video"
+                        src={backgroundMedia.src}
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                    />
+                )}
+                <div style={{ position: backgroundMedia.type === 'video' ? 'relative' : 'static', zIndex: 1, width: '100%' }}>
+                    {/* Date header with day name and formatted date */}
+                    <h2
+                        className="dateHeader"
+                        style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            textAlign: 'center',
+                            marginBottom: '0rem'
+                        }}
+                    >
+                        {getDayName(overallData.dt)} - {getDateWithSuffix(overallData.dt)}
+                    </h2>
+                    {/* Weather details list */}
+                    <div className="forecast-part" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                        {weatherDetails.map((detail, index) => (
+                            <p className='details' key={index}>
+                                <strong>{detail.label}:&nbsp;</strong>
+                                {typeof detail.value === 'string'
+                                    ? detail.value
+                                    : null
+                                }
+                            </p>
+                        ))}
+                    </div>
+                    {/* Weather icon */}
+                    <img
+                        className="small-icon date-icon"
+                        src={`http://openweathermap.org/img/wn/${overallData.weather[0].icon}@2x.png`}
+                        alt={overallData.weather[0].description}
+                    />
+                </div>
             </div>
-            {/* Weather icon */}
-            <img
-                className="small-icon date-icon"
-                src={`http://openweathermap.org/img/wn/${overallData.weather[0].icon}@2x.png`}
-                alt={overallData.weather[0].description}
-            />
         </div>
     );
 };

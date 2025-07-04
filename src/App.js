@@ -240,7 +240,9 @@ const App = () => {
         )}
 
         {/* --- Main Content --- */}
-        <div style={{ position: 'relative', zIndex: 1 }}>
+        <div
+          className="content"
+          style={{ position: 'relative', zIndex: 1 }}>
           {showImage && (
             <div id="picture">
               {/* SVG logo or image */}

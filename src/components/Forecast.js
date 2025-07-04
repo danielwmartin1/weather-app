@@ -4,6 +4,7 @@ import '../index.css';
 import '../App.css';
 import '../utils/api.js';
 import DayForecast from './DateForecast.js';
+import { getBackgroundMedia } from '../utils/getBackgroundMedia.js';
 
 // Get the day name from a timestamp
 const getDayName = (timestamp) => {
@@ -117,45 +118,78 @@ const Forecast = React.memo(({ forecastData }) => {
                 </div>
             ) : (
                 <div className="forecast-overview">
-                    {dayParts.map((day, dayIndex) => (
-                        <div
-                            key={dayIndex}
-                            className="forecast-day"
-                            onClick={() => handleDayClick(day)}
-                        >
-                            <div className="headerContainer">
-                                <h3 className="dateHeader">
-                                    {getDayName(day[0].dt)} - {formatDateWithSuffix(day[0].dt)}
-                                </h3>
-                                <h4 className="high-low">
-                                    High: {Math.round(getHighLowTemps(day).high)}°F&nbsp;|&nbsp;
-                                    Low: {Math.round(getHighLowTemps(day).low)}°F
-                                </h4>
-                            </div>
-                            {day.map((part) => (
-                                <div key={part.dt} className="forecast-part">
-                                    <p className="part">
-                                        {new Date(part.dt * 1000).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}
-                                    </p>
-                                    <p className="part">{Math.round(part.main.temp)}°F</p>
-                                    <p className="part condition">
-                                        {capitalizeFirstLetter(part.weather[0].description)}
-                                    </p>
-                                    <img
-                                        className="small-icon"
-                                        src={getWeatherIconUrl(part.weather[0].icon)}
-                                        alt={part.weather[0].description}
+                    {dayParts.map((day, dayIndex) => {
+                        const mainPart = day[0];
+                        const isNightTime = mainPart?.weather?.[0]?.icon?.endsWith('n');
+                        const condition = mainPart?.weather?.[0]?.main?.toLowerCase() || '';
+                        const backgroundMedia = getBackgroundMedia(condition, isNightTime);
+
+                        return (
+                            <div
+                                key={dayIndex}
+                                className="forecast-day background-media"
+                                style={{
+                                    position: 'relative',
+                                    overflow: 'hidden',
+                                    ...(backgroundMedia.type !== 'video'
+                                        ? {
+                                            backgroundImage: `url(${backgroundMedia.src})`,
+                                            backgroundSize: 'cover',
+                                            backgroundPosition: 'center',
+                                            backgroundRepeat: 'no-repeat',
+                                        }
+                                        : {})
+                                }}
+                                onClick={() => handleDayClick(day)}
+                            >
+                                {backgroundMedia.type === 'video' && (
+                                    <video
+                                        className="background-video"
+                                        src={backgroundMedia.src}
+                                        autoPlay
+                                        loop
+                                        muted
+                                        playsInline
                                     />
-                                    <p className="part">
-                                        💧 {Math.round((part.pop || 0) * 100)}%
-                                    </p>
-                                    <p className="part">
-                                        🌬️ {Math.round(part.wind.speed)} mph {getWindDirection(part.wind.deg)}
-                                    </p>
+                                )}
+                                <div className="forecast-day-content">
+                                    <div className="headerContainer">
+                                        <h3 className="dateHeader">
+                                            {getDayName(day[0].dt)} - {formatDateWithSuffix(day[0].dt)}
+                                        </h3>
+                                        <h4 className="high-low">
+                                            High: {Math.round(getHighLowTemps(day).high)}°F&nbsp;|&nbsp;
+                                            Low: {Math.round(getHighLowTemps(day).low)}°F
+                                        </h4>
+                                    </div>
+                                    <div className="forecast-parts">
+                                        {day.map((part) => (
+                                            <div key={part.dt} className="forecast-part">
+                                                <p className="part">
+                                                    {new Date(part.dt * 1000).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}
+                                                </p>
+                                                <p className="part">{Math.round(part.main.temp)}°F</p>
+                                                <p className="part condition">
+                                                    {capitalizeFirstLetter(part.weather[0].description)}
+                                                </p>
+                                                <img
+                                                    className="small-icon"
+                                                    src={getWeatherIconUrl(part.weather[0].icon)}
+                                                    alt={part.weather[0].description}
+                                                />
+                                                <p className="part">
+                                                    💧 {Math.round((part.pop || 0) * 100)}%
+                                                </p>
+                                                <p className="part">
+                                                    🌬️ {Math.round(part.wind.speed)} mph {getWindDirection(part.wind.deg)}
+                                                </p>
+                                            </div>
+                                        ))}
+                                    </div>
                                 </div>
-                            ))}
-                        </div>
-                    ))}
+                            </div>
+                        );
+                    })}
                 </div>
             )}
         </div>
