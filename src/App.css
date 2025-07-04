@@ -880,7 +880,7 @@ header, footer, .details, .dateHeader, .fiveDay, .popup-content, .statusMessage,
 /* Responsive grid for forecast parts */
 .forecast-parts {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: var(--padding-small);
     width: 100%;
     margin-top: var(--margin-small);
@@ -891,11 +891,9 @@ header, footer, .details, .dateHeader, .fiveDay, .popup-content, .statusMessage,
         grid-template-columns: repeat(2, 1fr);
     }
 }
-@media (max-width: 600px) {
+
+@media (max-width: 480px) {
     .forecast-parts {
-        grid-template-columns: 1fr;
-    }
-    .forecast-day-content {
-        padding: var(--padding-small) 0;
+        grid-template-columns: 1fr 1fr;
     }
 }
