@@ -882,12 +882,6 @@ header, footer, .details, .dateHeader, .fiveDay, .popup-content, .statusMessage,
   }
 }
 
-@media (max-width: 800px) {
-  .forecast-parts {
-    grid-template-columns: repeat(3, 1fr) !important;
-  }
-}
-
 @media (max-width: 600px) {
   .forecast-parts {
     grid-template-columns: repeat(3, 1fr) !important; /* Always at least 3 columns */
