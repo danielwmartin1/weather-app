@@ -939,3 +939,10 @@ input {
   color: black !important; /* Ensure text is readable */
   border: 2px solid #ccc; /* Add a border for better visibility */
 }
+
+/* Make all icons use the same border color */
+.large-icon,
+.small-icon,
+.date-icon {
+  border: 2px solid var(--color-primary) !important;
+}
