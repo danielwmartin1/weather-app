@@ -156,81 +156,13 @@ const App = () => {
       <div
         className="app"
         style={{
-          backgroundImage: backgroundMedia.type === 'image' ? background : undefined,
-          backgroundSize: 'cover',
-          backgroundRepeat: 'no-repeat',
-          backgroundPosition: 'center',
           height: '100vh',
           width: '100vw',
           position: 'relative',
           overflow: 'hidden',
         }}
       >
-        {/* --- Render background video/gif/image --- */}
-        {backgroundMedia.type === 'video' && (
-          <video
-            ref={el => {
-                if (el) el.playbackRate = 0.5; // Set your global speed here
-            }}
-            className="background-video"
-            src={backgroundMedia.src}
-            autoPlay
-            loop
-            muted
-            playsInline
-          />
-        )}
-        {backgroundMedia.type === 'gif' && (
-          <video
-            ref={gifVideoRef}
-            autoPlay
-            loop
-            muted
-            playsInline
-            style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-              zIndex: 0,
-            }}
-            src={backgroundMedia.src}
-            type="video/mp4,video/webm,video/ogg"
-            onError={e => {
-              if (e.target.src !== window.location.origin + '/images/clear.jpg') {
-                e.target.style.display = 'none';
-                document.querySelector('.app').style.backgroundImage = `url('/images/clear.jpg')`;
-              }
-            }}
-          />
-        )}
-        {backgroundMedia.type === 'image' && (
-          <img
-            src={backgroundMedia.src}
-            alt="background"
-            style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-              zIndex: 0,
-            }}
-            onError={e => {
-              if (e.target.src !== window.location.origin + '/images/clear.jpg') {
-                e.target.src = '/images/clear.jpg';
-              }
-            }}
-          />
-        )}
-
-        {/* --- Main Content --- */}
-        <div
-          className="content"
-          style={{ position: 'relative', zIndex: 1 }}>
+        <div className="content" style={{ position: 'relative', zIndex: 1 }}>
           {showImage && (
             <div id="picture">
               {/* SVG logo or image */}

@@ -3,6 +3,7 @@ import '../index.css';
 import '../App.css';
 import './Search.js';
 import { getHighLowTemps } from '../utils/weatherUtils';
+import { getBackgroundMedia } from '../utils/getBackgroundMedia';
 
 // --- Helper Functions ---
 
@@ -240,9 +241,53 @@ const CurrentWeather = ({ weatherData, forecastData, location }) => {
 
   console.debug('Rendering CurrentWeather component');
 
+  // Background media based on weather condition and time of day
+  const condition = weatherData.weather?.[0]?.main?.toLowerCase() || '';
+  const isNightTime = weatherData.weather?.[0]?.icon?.endsWith('n');
+  const backgroundMedia = getBackgroundMedia(condition, isNightTime);
+
   return (
-    <div className="current-weather">
-      <div className="current-weather-content">
+    <div className="current-weather" style={{ position: 'relative', overflow: 'hidden' }}>
+      {/* Background media */}
+      {backgroundMedia.type === 'video' && (
+        <video
+          className="background-video"
+          src={backgroundMedia.src}
+          autoPlay
+          loop
+          muted
+          playsInline
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            zIndex: 0,
+          }}
+          ref={el => { if (el) el.playbackRate = 0.5; }}
+        />
+      )}
+      {backgroundMedia.type === 'image' && (
+        <img
+          src={backgroundMedia.src}
+          alt="background"
+          className="background-image"
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            zIndex: 0,
+          }}
+        />
+      )}
+
+      {/* Foreground content */}
+      <div className="current-weather-content" style={{ position: 'relative', zIndex: 1 }}>
         {/* Location and current time */}
         <div className="locationTimeContainer">
           <h2 className="locationHeader">

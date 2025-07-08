@@ -86,6 +86,15 @@ footer {
   position: relative; /* Ensure the pseudo-element is positioned relative to the app container */
 }
 
+.app {
+  background-image: url('/public/images/blue-ribbon.jpg'); /* Adjust the path as needed */
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100%;
+  min-height: 100vh;
+}
+
 .app::before {
   content: '';
   position: absolute; /* Positioned relative to .app */
@@ -120,22 +129,6 @@ footer {
   padding: var(--padding-medium)!important;
 }
 
-.home-screen {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  color: var(--color-text);
-  background-color: rgba(0, 58, 139, 0.5);
-  text-decoration: underline;
-  text-shadow: #016ccf 1px 1px 1px;
-  border: 3px solid var(--color-accent);
-  border-radius: var(--border-radius);
-  margin-top: var(--margin-small);
-  margin-bottom: var(--margin-small);
-  padding: 4rem 6rem;
-}
 
 .home-screen img {
   background-color: #00fbff9c;
@@ -153,7 +146,8 @@ footer {
   border-radius: var(--border-radius);
   cursor: pointer;
   transition: background-color 0.3s, transform 0.2s;
-  width: 100px;
+  width: auto;
+  padding: var(--padding-small) var(--padding-large);
 }
 
 #title {
@@ -474,8 +468,6 @@ input {
   border-radius: var(--border-radius);
   background-color: var(--color-primary);
   color: var(--color-text);
-  width: 98.5vw !important; /* Ensure consistent width */
-  margin: var(--margin-small); /* Ensure consistent margin */
 }
 
 .weather-detail {
@@ -543,7 +535,7 @@ input {
   align-items: center
 }
 
-.home-screen, .current-weather {
+.current-weather {
   background-color: rgba(0, 125, 255, 0.25);
   margin: var(--margin-large);
 }
@@ -991,8 +983,19 @@ footer,
   width: auto !important;
   max-width: 900px;
   margin: var(--margin-small) auto;
+  margin-top: var(--margin-small);
+  margin-bottom: var(--margin-small);
   padding: 4rem 6rem;
   border-radius: var(--border-radius);
-  background-color: rgba(0, 58, 139, 0.5);
+  background-color: var(--color-tertiary)!important;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: var(--color-text);
+  text-decoration: underline;
+  text-shadow: #016ccf 1px 1px 1px;
+  border: 3px solid var(--color-accent);
 }
