@@ -150,6 +150,22 @@ footer {
   padding: var(--padding-small) var(--padding-large);
 }
 
+#submit,
+.search-form button {
+  border: 2px solid var(--color-accent);
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+#title,
+img,
+#submit:focus,
+#submit:hover,
+.search-form button:focus,
+.search-form button:hover {
+  border-color: aqua; 
+  box-shadow: 0 0 8px 2px aqua;
+  outline: none;
+}
+
 #title {
   border: 2px solid var(--color-accent);
   border-radius: var(--border-radius);
