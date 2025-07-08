@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import '../index.css';
 import '../App.css';
 import '../utils/api.js';
@@ -34,8 +34,21 @@ const getDateWithSuffix = (timestamp) => {
 
 // Main component to display the forecast for a specific date
 const DateForecast = ({ dayData }) => {
-    // Debug: Log incoming dayData
-    console.debug('DateForecast: dayData:', dayData);
+    // Always call hooks first!
+    const videoRef = useRef(null);
+
+    // Use dummy values for hooks if no data, to keep order
+    const overallData = dayData && dayData.length ? (dayData[0] || {}) : {};
+    const isNightTime = overallData.weather?.[0]?.icon?.endsWith('n');
+    const condition = overallData.weather?.[0]?.main?.toLowerCase() || '';
+    const backgroundMedia = getBackgroundMedia(condition, isNightTime);
+
+    // Set playbackRate to 0.25 for video backgrounds (to match App.js)
+    useEffect(() => {
+        if (backgroundMedia.type === 'video' && videoRef.current) {
+            videoRef.current.playbackRate = 0.25;
+        }
+    }, [backgroundMedia]);
 
     // Return nothing if no data is provided
     if (!dayData || !dayData.length) {
@@ -44,7 +57,7 @@ const DateForecast = ({ dayData }) => {
     }
 
     // Use the first entry as the overall data for the day
-    const overallData = dayData[0] || {};
+    // const overallData = dayData[0] || {};
     const units = overallData.units || 'imperial';
 
     // Debug: Log overallData and units
@@ -105,10 +118,6 @@ const DateForecast = ({ dayData }) => {
     // Debug: Log weatherDetails
     console.debug('DateForecast: weatherDetails:', weatherDetails);
 
-    const isNightTime = overallData.weather?.[0]?.icon?.endsWith('n');
-    const condition = overallData.weather?.[0]?.main?.toLowerCase() || '';
-    const backgroundMedia = getBackgroundMedia(condition, isNightTime);
-
     return (
         <div className="current-weather">
             <div
@@ -135,6 +144,7 @@ const DateForecast = ({ dayData }) => {
             >
                 {backgroundMedia.type === 'video' && (
                     <video
+                        ref={videoRef}
                         className="background-video"
                         src={backgroundMedia.src}
                         autoPlay
@@ -162,10 +172,7 @@ const DateForecast = ({ dayData }) => {
                         {weatherDetails.map((detail, index) => (
                             <p className='details' key={index}>
                                 <strong>{detail.label}:&nbsp;</strong>
-                                {typeof detail.value === 'string'
-                                    ? detail.value
-                                    : null
-                                }
+                                {typeof detail.value === 'string' ? detail.value : null}
                             </p>
                         ))}
                     </div>

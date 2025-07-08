@@ -1,5 +1,5 @@
 // src/components/Forecast.js
-import React, { useState } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import '../index.css';
 import '../App.css';
 import '../utils/api.js';
@@ -74,6 +74,18 @@ const getWindDirection = (deg) => {
 const Forecast = React.memo(({ forecastData }) => {
     const [selectedDay, setSelectedDay] = useState(null);
 
+    // Store refs for each forecast day video
+    const videoRefs = useRef([]);
+
+    // Set playbackRate to 0.25 for all forecast day background videos (to match App.js)
+    useEffect(() => {
+        videoRefs.current.forEach(video => {
+            if (video && video.playbackRate !== 0.25) {
+                video.playbackRate = 0.25;
+            }
+        });
+    });
+
     // Debug: Log forecastData on every render
     console.debug('Forecast: forecastData', forecastData);
 
@@ -144,6 +156,7 @@ const Forecast = React.memo(({ forecastData }) => {
                             >
                                 {backgroundMedia.type === 'video' && (
                                     <video
+                                        ref={el => (videoRefs.current[dayIndex] = el)}
                                         className="background-video"
                                         src={backgroundMedia.src}
                                         autoPlay
@@ -166,7 +179,9 @@ const Forecast = React.memo(({ forecastData }) => {
                                         {day.map((part) => (
                                             <div key={part.dt} className="forecast-part">
                                                 <p className="part">
-                                                    {new Date(part.dt * 1000).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}
+                                                    <strong>
+                                                        {new Date(part.dt * 1000).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}
+                                                    </strong>
                                                 </p>
                                                 <p className="part">{Math.round(part.main.temp)}°F</p>
                                                 <p className="part condition">
