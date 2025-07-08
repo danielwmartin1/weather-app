@@ -932,7 +932,7 @@ header, footer, .details, .dateHeader, .fiveDay, .popup-content, .statusMessage,
 
 /* Add text-shadow to all p elements */
 * {
-  text-shadow: 2px 2px 4px rgba(0,0,0,1)!important;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.75)!important;
 }
 input {
   text-shadow: none !important; 
