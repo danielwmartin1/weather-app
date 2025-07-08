@@ -82,22 +82,6 @@ const Search = ({ onSearch }) => {
     }
   }, [highlightedIndex, suggestions]);
 
-  const handleSuggestionKeyDown = (e, i) => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      handleSuggestionClick(suggestions[i]);
-    } else if (e.key === 'ArrowDown') {
-      e.preventDefault();
-      setHighlightedIndex((prev) =>
-        prev < suggestions.length - 1 ? prev + 1 : 0
-      );
-    } else if (e.key === 'ArrowUp') {
-      e.preventDefault();
-      setHighlightedIndex((prev) =>
-        prev > 0 ? prev - 1 : suggestions.length - 1
-      );
-    }
-  };
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -133,7 +117,7 @@ const Search = ({ onSearch }) => {
   }, [suggestions]);
 
   return (
-    <div className="home-screen">
+    <div className="home-screen" >
       <div className="initial-render-image">
         <a
           href="https://openweathermap.org/"
