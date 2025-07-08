@@ -135,10 +135,8 @@ footer {
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: var(--padding-large);
   border-radius: var(--border-radius);
-  border: 2px solid var(--color-accent);
-  background-color: #003a8b!important;
+  padding: var(--padding-large);
   margin: var(--margin-large);
   }
 
@@ -1006,4 +1004,28 @@ header, footer, .details, .dateHeader, .fiveDay, .popup-content, .statusMessage,
   justify-content: center;
   text-align: center;
   padding: var(--padding-small);
+}
+
+/* Make the OpenWeather image interactive like the submit button */
+.initial-render-image img {
+  transition: border-color 0.3s, box-shadow 0.3s, transform 0.2s, filter 0.2s;
+  cursor: pointer;
+  border: 2px solid var(--color-accent);
+  box-shadow: none;
+}
+
+.initial-render-image img:hover,
+.initial-render-image img:focus {
+  border-color: aqua;
+  box-shadow: 0 0 8px 2px aqua;
+  outline: none;
+  transform: scale(1.05);
+  filter: brightness(1.1);
+}
+
+.initial-render-image img:active {
+  border-color: #003f7f;
+  box-shadow: 0 0 8px 2px #003f7f;
+  transform: scale(0.97);
+  filter: brightness(0.95);
 }
