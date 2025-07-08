@@ -129,6 +129,18 @@ footer {
   padding: var(--padding-medium)!important;
 }
 
+.home-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--padding-large);
+  background-color: rgba(0, 58, 139, 0.8); /* Semi-transparent background */
+  border-radius: var(--border-radius);
+  margin: var(--margin-large);
+}
+
 
 .home-screen img {
   background-color: #00fbff9c;
@@ -231,6 +243,12 @@ img,
 .forecast-part {
   justify-content: center;
   align-items: center;
+  text-align: center;
+  padding: var(--padding-small);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   text-align: center;
   padding: var(--padding-small);
 }
@@ -950,85 +968,43 @@ header, footer, .details, .dateHeader, .fiveDay, .popup-content, .statusMessage,
     align-items: center;
     padding: var(--padding-small);
   }
-g
-  /* Responsive grid for forecast parts */
-  .forecast-parts {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: var(--padding-small);
-    width: 100%;
-    margin-top: var(--margin-small);
-  }
 
-  @media (max-width: 1200px) {
-    .forecast-parts {
-      grid-template-columns: repeat(3, 1fr);
-    }
-  }
-
-  @media (max-width: 800px) {
-    .forecast-parts {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  @media (max-width: 500px) {
-    .forecast-parts {
-      grid-template-columns: 1fr;
-    }
-  }
-
-@media (max-width: 900px) {
-    .forecast-parts {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 480px) {
-    .forecast-parts {
-        grid-template-columns: 1fr 1fr;
-    }
-}
-
-/* Make all main components full width except .home-screen */
-.app,
-.app-container,
-.forecast,
-.current-weather,
-.weather,
-.fiveDay,
-.popup-content,
-.day-forecast,
-.weather-detail,
-header,
-footer,
-.content {
-  width: 100% !important;
-  max-width: 100vw !important;
-  box-sizing: border-box;
-  margin-left: 0 !important;
-  margin-right: 0 !important;
-  padding-left: 0 !important;
-  padding-right: 0 !important;
-}
-
-/* Exclude .home-screen from full width */
-.home-screen {
-  width: auto !important;
-  max-width: 900px;
-  margin: var(--margin-small) auto;
+/* Responsive grid for forecast parts */
+.forecast-parts {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--padding-small);
+  width: 100%;
   margin-top: var(--margin-small);
-  margin-bottom: var(--margin-small);
-  padding: 4rem 6rem;
-  border-radius: var(--border-radius);
-  background-color: var(--color-tertiary)!important;
-  box-sizing: border-box;
+}
+
+@media (max-width: 1200px) {
+  .forecast-parts {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (max-width: 900px), (max-width: 800px) {
+  .forecast-parts {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 500px) {
+  .forecast-parts {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 480px) {
+  .forecast-parts {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Each forecast item */
+.forecast-part {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   text-align: center;
-  color: var(--color-text);
-  text-shadow: #016ccf 1px 1px 1px;
-  border: 3px solid var(--color-accent);
+  padding: var(--padding-small);
 }
