@@ -169,27 +169,16 @@ const App = () => {
         {/* --- Render background video/gif/image --- */}
         {backgroundMedia.type === 'video' && (
           <video
-            ref={videoRef}
+            ref={el => {
+              // Set playbackRate to 0.35 when the ref is set
+              if (el) el.playbackRate = 0.5;
+            }}
+            className="background-video"
+            src={backgroundMedia.src}
             autoPlay
             loop
             muted
             playsInline
-            style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-              zIndex: 0,
-            }}
-            src={backgroundMedia.src}
-            onError={e => {
-              if (e.target.src !== window.location.origin + '/images/clear.jpg') {
-                e.target.style.display = 'none';
-                document.querySelector('.app').style.backgroundImage = `url('/images/clear.jpg')`;
-              }
-            }}
           />
         )}
         {backgroundMedia.type === 'gif' && (

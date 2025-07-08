@@ -120,7 +120,8 @@ const Forecast = React.memo(({ forecastData }) => {
             ) : (
                 dayParts.map((day, dayIndex) => {
                     const mainPart = day[0];
-                    const isNightTime = mainPart?.weather?.[0]?.icon?.endsWith('n');
+                    // Always use daytime backgrounds in Forecast
+                    const isNightTime = false;
                     const condition = mainPart?.weather?.[0]?.main?.toLowerCase() || '';
                     const backgroundMedia = getBackgroundMedia(condition, isNightTime);
 
@@ -144,7 +145,11 @@ const Forecast = React.memo(({ forecastData }) => {
                         >
                             {backgroundMedia.type === 'video' && (
                                 <video
-                                    ref={el => (videoRefs.current[dayIndex] = el)}
+                                    ref={el => {
+                                        videoRefs.current[dayIndex] = el;
+                                        // Set playbackRate to 0.35 when the ref is set
+                                        if (el) el.playbackRate = 0.5;
+                                    }}
                                     className="background-video"
                                     src={backgroundMedia.src}
                                     autoPlay

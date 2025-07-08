@@ -41,12 +41,13 @@ const DateForecast = ({ dayData }) => {
     const overallData = dayData && dayData.length ? (dayData[0] || {}) : {};
     const isNightTime = overallData.weather?.[0]?.icon?.endsWith('n');
     const condition = overallData.weather?.[0]?.main?.toLowerCase() || '';
-    const backgroundMedia = getBackgroundMedia(condition, isNightTime);
+    // Always use daytime backgrounds for DateForecast
+    const backgroundMedia = getBackgroundMedia(condition, false);
 
-    // Set playbackRate to 0.25 for video backgrounds (to match App.js)
+    // Set playbackRate to 0.5 for video backgrounds (to match App.js)
     useEffect(() => {
         if (backgroundMedia.type === 'video' && videoRef.current) {
-            videoRef.current.playbackRate = 0.25;
+            videoRef.current.playbackRate = 0.5;
         }
     }, [backgroundMedia]);
 

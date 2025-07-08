@@ -481,6 +481,25 @@ input {
   font-size: 1rem;
 }
 
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .weather-detail {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 800px) {
+  .weather-detail {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 500px) {
+  .weather-detail {
+    grid-template-columns: 1fr;
+  }
+}
+
 .small-icons-container {
   display: flex;
   flex-wrap: wrap;
@@ -511,6 +530,11 @@ input {
 
 .forecast-day, .current-weather-content {
   width: 100%; /* Ensure consistent width */
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center
 }
 
 .home-screen, .current-weather {
@@ -539,7 +563,6 @@ h2, h3, .dateHeader {
 .current-weather-content,
 .dateforecast,
 .DayForecast {
-    margin: 1.5rem auto;
     box-sizing: border-box;
 }
 
@@ -569,11 +592,6 @@ h2, h3, .dateHeader {
 @media (max-width: 1500px) {
   .forecast-day, .details, .current-weather, .locationTimeContainer {
     font-size: calc(var(--font-size-small) * 0.9);
-  }
-
-  .forecast-day, .weather-detail {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   }
 
 
@@ -615,7 +633,7 @@ h2, h3, .dateHeader {
 
   .forecast-day, .weather-detail {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(auto, 1fr));
   }
 
   .locationTime, .dateHeader {
@@ -654,7 +672,7 @@ h2, h3, .dateHeader {
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 800px) {
   .details {
     margin: var(--margin-medium);
   }
@@ -892,7 +910,6 @@ header, footer, .details, .dateHeader, .fiveDay, .popup-content, .statusMessage,
 
 .background-media {
     position: relative;
-    overflow: hidden;
 }
 .background-video {
     position: absolute !important;
