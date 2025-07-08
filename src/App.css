@@ -237,15 +237,12 @@ img,
 }
 
 .forecast-part {
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: var(--padding-small);
-  display: flex;
+  display: flex !important;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
+  padding: var(--padding-small);
 }
 
 .selected-day-forecast {
@@ -718,7 +715,7 @@ input {
 
   .forecast-part {
     display: grid;
-    grid-template-columns: repeat(3, 1fr) !important; /* Responsive grid with 2 columns */
+    grid-template-columns: repeat(2, 1fr) !important; /* Responsive grid with 2 columns */
   }
 }
 
