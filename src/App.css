@@ -911,3 +911,8 @@ header, footer, .details, .dateHeader, .fiveDay, .popup-content, .statusMessage,
   transform: scale(0.97);
   filter: brightness(0.95);
 }
+
+/* Add text-shadow to all p elements */
+p, p.part, p.detail, p.forecast-day p, p.dateHeader, p.locationTime, .statusMessage {
+  text-shadow: 2px 2px 4px rgba(0,0,0,1)!important;
+}

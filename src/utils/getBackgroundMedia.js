@@ -39,6 +39,15 @@ export function getBackgroundMedia(condition, isNightTime) {
     return getMedia('fog', ['mp4', 'jpg']);
   }
 
+  // --- Scattered Clouds and Broken Clouds (use broken-clouds media) ---
+  if (/scattered clouds?|broken clouds?/i.test(condition)) {
+    if (isNightTime) {
+      return getMedia('night-broken-clouds', ['mp4', 'jpg']);
+    } else {
+      return getMedia('broken-clouds', ['mp4', 'jpg']);
+    }
+  }
+
   // Handle night time backgrounds
   if (isNightTime) {
     // Use night-cloudy media for cloudy conditions at night
