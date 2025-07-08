@@ -673,6 +673,18 @@
   }
   
   @media (max-width: 480px) {
+    .forecast-part {
+      display: grid !important;
+      grid-template-columns: repeat(3, 1fr) !important;
+    }
+    .forecast-parts {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr)!important;
+        gap: var(--padding-small);
+        width: 100%;
+        padding: var(--padding-small);  
+    }      
+  
     .forecast, .forecast-day, .forecast-part {
       font-size: calc(var(--font-size-small) * 0.75);
       padding: calc(var(--padding-small) * 0.75);
@@ -1000,4 +1012,3 @@
     margin: var(--margin-small); /* Optional: Adjust margin if needed */
     padding: 1rem;
   }
-  
