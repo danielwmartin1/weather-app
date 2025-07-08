@@ -586,6 +586,30 @@ h2, h3, .dateHeader {
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Add a black text shadow */
 }
 
+/* Make the title in the header interactive like the submit button and OpenWeather image */
+#title {
+  transition: border-color 0.3s, box-shadow 0.3s, transform 0.2s, filter 0.2s;
+  cursor: pointer;
+  border: 2px solid var(--color-accent);
+  box-shadow: none;
+}
+
+#title:hover,
+#title:focus {
+  border-color: aqua;
+  box-shadow: 0 0 8px 2px aqua;
+  outline: none;
+  transform: scale(1.05);
+  filter: brightness(1.1);
+}
+
+#title:active {
+  border-color: #003f7f;
+  box-shadow: 0 0 8px 2px #003f7f;
+  transform: scale(0.97);
+  filter: brightness(0.95);
+}
+
 /* Consistent padding and margin for main containers */
 .forecast,
 .current-weather,
