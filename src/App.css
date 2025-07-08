@@ -326,7 +326,7 @@ hr {
   border-bottom: 2px solid var(--color-border);
   margin: 0;
   background-color: rgba(0, 58, 139, 1);
-  width: 100%;
+  width: 100vw;
 }
 
 .locationTime {
