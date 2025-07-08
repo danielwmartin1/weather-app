@@ -152,7 +152,7 @@ footer {
 
 #submit {
   padding: var(--padding-small);
-  border: none;
+  border: 2px solid var(--color-primary)!important;
   background-color: var(--color-secondary);
   color: var(--color-text);
   border-radius: var(--border-radius);
@@ -179,11 +179,29 @@ img,
 }
 
 #title {
+  transition: border-color 0.3s, box-shadow 0.3s, transform 0.2s, filter 0.2s;
+  cursor: pointer;
   border: 2px solid var(--color-accent);
   border-radius: var(--border-radius);
   padding: var(--padding-large);
-  background-color: rgba(0, 58, 139, 1); 
-  font-size: var(--font-size-large)
+  background-color: rgba(0, 58, 139, 1);
+  font-size: var(--font-size-large);
+}
+
+#title:hover,
+#title:focus {
+  border-color: aqua;
+  box-shadow: 0 0 8px 2px aqua;
+  outline: none;
+  transform: scale(1.05);
+  filter: brightness(1.1);
+}
+
+#title:active {
+  border-color: aqua;
+  box-shadow: 0 0 8px 2px #003f7f;
+  transform: scale(0.97);
+  filter: brightness(0.95);
 }
 
 .details {
@@ -913,6 +931,11 @@ header, footer, .details, .dateHeader, .fiveDay, .popup-content, .statusMessage,
 }
 
 /* Add text-shadow to all p elements */
-p, p.part, p.detail, p.forecast-day p, p.dateHeader, p.locationTime, .statusMessage {
+* {
   text-shadow: 2px 2px 4px rgba(0,0,0,1)!important;
+}
+input {
+  text-shadow: none !important; 
+  color: black !important; /* Ensure text is readable */
+  border: 2px solid #ccc; /* Add a border for better visibility */
 }
