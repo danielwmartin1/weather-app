@@ -4,6 +4,7 @@ import '../App.css';
 import './Search.js';
 import { getHighLowTemps } from '../utils/weatherUtils';
 import { getBackgroundMedia } from '../utils/getBackgroundMedia';
+import './CurrentWeather.css';
 
 // --- Helper Functions ---
 

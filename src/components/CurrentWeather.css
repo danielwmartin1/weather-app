@@ -1,0 +1,3437 @@
+:root {
+  --color-primary: #0056b3;
+  --color-secondary: #007bff;
+  --color-tertiary: #47afd1c9;
+  --color-accent: aqua;
+  --color-background: #f0f8ff;
+  --color-text: white;
+  --color-border: var(--color-accent);
+  --font-size-large: 2.75rem;
+  --font-size-medium: 1.35rem;
+  --font-size-small: 1rem;
+  --padding-small: 0.5rem;
+  --padding-medium: 1rem;
+  --padding-large: 1.5rem;
+  --margin-small: 0.5rem;
+  --margin-medium: 1rem;
+  --margin-large: 1.5rem;
+  --border-radius: 8px;
+  --line-height: 1.5;
+  --font-weight-normal: 400;
+  --font-weight-bold: 700;
+  --transition-duration: 0.3s;
+  --transition-timing-function: ease-in-out;
+  --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --max-width: 1200px;
+  --min-width: 320px;
+  --z-index-high: 1000;
+  --z-index-medium: 500;
+  --z-index-low: 100;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+  font-size: 1rem; /* Base font size */
+}
+
+header, footer {
+  text-align: center;
+  background-color: var(--color-primary);
+  color: var(--color-text);
+  width: 100%;
+  position: relative;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+header {
+  top: 0;
+  border-bottom: 5px ridge var(--color-accent);
+}
+
+footer {
+  border-top: 5px ridge var(--color-accent);
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
+}
+
+.app {
+  flex: 1;
+  text-align: center;
+  background-color: var(--color-background); /* Fallback background color */
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  z-index: 0;
+  min-height: 100vh;
+  position: relative; /* Ensure the pseudo-element is positioned relative to the app container */
+}
+
+.app {
+  background-image: url('/public/images/blue-ribbon.jpg'); /* Adjust the path as needed */
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.app::before {
+  content: '';
+  position: absolute; /* Positioned relative to .app */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.1); /* Semi-transparent overlay */
+  z-index: -1; /* Place it behind the content of .app */
+}
+
+.day-forecast {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--padding-small);
+  width: 100%;
+  padding: var(--padding-small);
+  font-size: var(--font-size-medium);
+  text-align: center;
+}
+
+.locationHeader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem !important;
+  color: var(--color-text);
+  background-color: #003a8b !important;
+  text-shadow: #016ccf 1px 1px 1px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  padding: var(--padding-medium)!important;
+}
+
+.home-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border-radius: var(--border-radius);
+  padding: var(--padding-large);
+  margin: var(--margin-large);
+  }
+
+
+.home-screen img {
+  background-color: #00fbff9c;
+  margin-bottom: var(--margin-medium);
+  padding: var(--padding-medium);
+  border-radius: var(--border-radius);
+  border: 2px solid var(--color-accent);
+}
+
+#submit {
+  padding: var(--padding-small);
+  border: 2px solid var(--color-primary)!important;
+  background-color: var(--color-secondary);
+  color: var(--color-text);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  width: auto;
+  padding: var(--padding-small) var(--padding-large);
+}
+
+#submit,
+.search-form button {
+  border: 2px solid var(--color-accent);
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+#title,
+img,
+#submit:focus,
+#submit:hover,
+.search-form button:focus,
+.search-form button:hover {
+  border-color: aqua; 
+  box-shadow: 0 0 8px 2px aqua;
+  outline: none;
+}
+
+#title {
+  transition: border-color 0.3s, box-shadow 0.3s, transform 0.2s, filter 0.2s;
+  cursor: pointer;
+  border: 2px solid var(--color-accent);
+  border-radius: var(--border-radius);
+  padding: var(--padding-large);
+  background-color: rgba(0, 58, 139, 1);
+  font-size: var(--font-size-large);
+}
+
+#title:hover,
+#title:focus {
+  border-color: aqua;
+  box-shadow: 0 0 8px 2px aqua;
+  outline: none;
+  transform: scale(1.05);
+  filter: brightness(1.1);
+}
+
+#title:active {
+  border-color: aqua;
+  box-shadow: 0 0 8px 2px #003f7f;
+  transform: scale(0.97);
+  filter: brightness(0.95);
+}
+
+.details {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+  color: var(--color-text);
+  margin: 0.75rem;
+  padding: 1rem 0rem;
+}
+
+.dateHeader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--padding-small) !important;
+  font-size: calc(var(--font-size-small) * 1.1);
+  text-align: center;
+  color: var(--color-text);
+  background-color: #003a8b !important;
+  text-shadow: #0067c7 1px 1px 1px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  margin: var(--margin-small) auto !important;
+  width: fit-content;
+  min-width: 180px;
+  max-width: 95vw;
+  box-sizing: border-box;
+}
+
+.popup-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: var(--padding-small);
+  font-size: var(--font-size-medium);
+  text-align: center;
+}
+
+.forecast {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  text-align: center;
+  overflow-y: auto; /* Add scrolling if the content exceeds the container height */
+}
+
+.forecast-part {
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--padding-small);
+}
+
+.selected-day-forecast {
+  width: 100%;
+}
+
+.backButton {
+  background-color: var(--color-secondary);
+  color: var(--color-text);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  margin: var(--margin-medium);
+  padding: var(--padding-small);
+  width: 135px;
+  height: 35px;
+  border: none;
+}
+
+.backButton:hover {
+  background-color: var(--color-primary);
+  transform: scale(1.05);
+}
+
+.backButton:active {
+  background-color: #003f7f;
+  transform: scale(0.95);
+}
+
+.icon-container {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.large-icon {
+  width: 12.5rem;
+  height: 12.5rem;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid var(--color-border);
+  border-radius: 50%;
+  background-color: var(--color-tertiary) !important;
+  padding: 1rem;
+  margin: 2rem;
+}
+
+.small-icon {
+  width: 6.25rem !important;
+  height: 6.25rem !important;
+  border-radius: 50%;
+  background-color: var(--color-tertiary);
+  border: 2px solid var(--color-border);
+  margin: var(--margin-small); /* Optional: Adjust margin if needed */
+  padding: 1rem;
+}
+
+hr {
+  width: 100%;
+  border: 1.5px solid var(--color-border);
+}
+
+.locationTimeContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  border-bottom: 2px solid var(--color-border);
+  margin: 0;
+  background-color: rgba(0, 58, 139, 1);
+  width: 100vw;
+}
+
+.locationTime {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap; /* Prevent wrapping */
+  padding: var(--padding-small);
+  font-size: 1.15rem;
+  text-align: center;
+  color: var(--color-text);
+  text-shadow: #016ccf 1px 1px 1px;
+  border-radius: var(--border-radius);
+  margin: var(--margin-medium);
+  white-space: nowrap; /* Ensure text stays on one line */
+  background-color: rgba(0, 0, 0, 0); /* Set background color to transparent */
+}
+
+.fiveDay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: var(--padding-large);
+  font-size: calc(var(--font-size-medium) + 0.25rem);
+  text-align: center;
+  color: var(--color-text);
+  background-color: #003a8b;
+  text-shadow: #016ccf 1px 1px 1px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  margin: var(--margin-medium);
+}
+
+.high-low {
+  font-size: 1.1rem;
+}
+
+.popup-content {
+  color: black;
+  background-color: #ffc414;
+  border: 2px solid red;
+}
+
+.statusMessage {
+  color: var(--color-text);
+  font-size: var(--font-size-large);
+}
+
+.search-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 500px;
+  margin: 1rem;
+}
+
+.search-form input {
+  padding: var(--padding-small);
+  width: 80%;
+  max-width: 320px;
+  border: 1px solid #ccc;
+  border-radius: var(--border-radius);
+  text-align: center;
+}
+
+input {
+  color: black !important;
+  text-shadow: none;
+  background-color: rgb(255, 255, 255);
+}
+
+#picture {
+  width: 100%;
+  height: auto;
+  margin-bottom: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.search-form button {
+  padding: var(--padding-small);
+  border: none;
+  background-color: var(--color-secondary);
+  color: var(--color-text);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  margin: var(--margin-medium);
+  width: 50%;
+  max-width: 320px;
+}
+
+.search-form input, .search-form button {
+  width: 100%;
+  margin: 5px 0;
+  color: var(--color-text);
+  background-color: rgba(0 0 0 1);
+}
+
+.search-form button:hover {
+  background-color: var(--color-primary);
+  transform: scale(1.05);
+}
+
+.search-form button:active {
+  background-color: #003f7f;
+  transform: scale(0.95);
+}
+
+.time {
+  font-size: 1.15rem;
+  color: var(--color-text);
+}
+
+.weather {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: var(--padding-medium);
+  font-size: var(--font-size-medium);
+  text-align: center;
+}
+
+.current-weather {
+  color: var(--color-text);
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow-y: visible;
+  border: 2px solid var(--color-border);
+  margin: 0 var(--margin-large) !important;
+  display: flex;
+  width: 100vw;
+}
+
+.current-weather .forecast-part {
+  display: grid !important; /* Use grid layout */
+  grid-template-columns: repeat(4, 1fr); /* Responsive grid */
+  gap: var(--padding-small); /* Add spacing between grid items */
+  justify-items: center; /* Center items horizontally */
+  align-items: center; /* Center items vertically */
+  padding: var(--padding-medium); /* Add padding around the grid */
+  font-size: 1rem; /* Adjust font size for better readability */
+}
+
+.weather-detail {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(125px, 1fr));
+  gap: var(--padding-small);
+  padding: var(--padding-small);
+  margin: var(--margin-small);
+  font-size: 1rem;
+}
+
+.large-icon {
+  width: 12.5rem;
+  height: 12.5rem;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid var(--color-border);
+  border-radius: 50%;
+  background-color: var(--color-tertiary) !important;
+  padding: 1rem;
+  margin: 2rem;
+}
+
+.small-icon {
+  width: 6.25rem !important;
+  height: 6.25rem !important;
+  border-radius: 50%;
+  background-color: var(--color-tertiary);
+  border: 2px solid var(--color-border);
+  margin: var(--margin-small); /* Optional: Adjust margin if needed */
+  padding: 1rem;
+}
+
+hr {
+  width: 100%;
+  border: 1.5px solid var(--color-border);
+}
+
+.locationTimeContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  border-bottom: 2px solid var(--color-border);
+  margin: 0;
+  background-color: rgba(0, 58, 139, 1);
+  width: 100vw;
+}
+
+.locationTime {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap; /* Prevent wrapping */
+  padding: var(--padding-small);
+  font-size: 1.15rem;
+  text-align: center;
+  color: var(--color-text);
+  text-shadow: #016ccf 1px 1px 1px;
+  border-radius: var(--border-radius);
+  margin: var(--margin-medium);
+  white-space: nowrap; /* Ensure text stays on one line */
+  background-color: rgba(0, 0, 0, 0); /* Set background color to transparent */
+}
+
+.fiveDay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: var(--padding-large);
+  font-size: calc(var(--font-size-medium) + 0.25rem);
+  text-align: center;
+  color: var(--color-text);
+  background-color: #003a8b;
+  text-shadow: #016ccf 1px 1px 1px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  margin: var(--margin-medium);
+}
+
+.high-low {
+  font-size: 1.1rem;
+}
+
+.popup-content {
+  color: black;
+  background-color: #ffc414;
+  border: 2px solid red;
+}
+
+.statusMessage {
+  color: var(--color-text);
+  font-size: var(--font-size-large);
+}
+
+.search-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 500px;
+  margin: 1rem;
+}
+
+.search-form input {
+  padding: var(--padding-small);
+  width: 80%;
+  max-width: 320px;
+  border: 1px solid #ccc;
+  border-radius: var(--border-radius);
+  text-align: center;
+}
+
+input {
+  color: black !important;
+  text-shadow: none;
+  background-color: rgb(255, 255, 255);
+}
+
+#picture {
+  width: 100%;
+  height: auto;
+  margin-bottom: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.search-form button {
+  padding: var(--padding-small);
+  border: none;
+  background-color: var(--color-secondary);
+  color: var(--color-text);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  margin: var(--margin-medium);
+  width: 50%;
+  max-width: 320px;
+}
+
+.search-form input, .search-form button {
+  width: 100%;
+  margin: 5px 0;
+  color: var(--color-text);
+  background-color: rgba(0 0 0 1);
+}
+
+.search-form button:hover {
+  background-color: var(--color-primary);
+  transform: scale(1.05);
+}
+
+.search-form button:active {
+  background-color: #003f7f;
+  transform: scale(0.95);
+}
+
+.time {
+  font-size: 1.15rem;
+  color: var(--color-text);
+}
+
+.weather {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: var(--padding-medium);
+  font-size: var(--font-size-medium);
+  text-align: center;
+}
+
+.current-weather {
+  color: var(--color-text);
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow-y: visible;
+  border: 2px solid var(--color-border);
+  margin: 0 var(--margin-large) !important;
+  display: flex;
+  width: 100vw;
+}
+
+.current-weather .forecast-part {
+  display: grid !important; /* Use grid layout */
+  grid-template-columns: repeat(4, 1fr); /* Responsive grid */
+  gap: var(--padding-small); /* Add spacing between grid items */
+  justify-items: center; /* Center items horizontally */
+  align-items: center; /* Center items vertically */
+  padding: var(--padding-medium); /* Add padding around the grid */
+  font-size: 1rem; /* Adjust font size for better readability */
+}
+
+.weather-detail {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(125px, 1fr));
+  gap: var(--padding-small);
+  padding: var(--padding-small);
+  margin: var(--margin-small);
+  font-size: 1rem;
+}
+
+.large-icon {
+  width: 12.5rem;
+  height: 12.5rem;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid var(--color-border);
+  border-radius: 50%;
+  background-color: var(--color-tertiary) !important;
+  padding: 1rem;
+  margin: 2rem;
+}
+
+.small-icon {
+  width: 6.25rem !important;
+  height: 6.25rem !important;
+  border-radius: 50%;
+  background-color: var(--color-tertiary);
+  border: 2px solid var(--color-border);
+  margin: var(--margin-small); /* Optional: Adjust margin if needed */
+  padding: 1rem;
+}
+
+hr {
+  width: 100%;
+  border: 1.5px solid var(--color-border);
+}
+
+.locationTimeContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  border-bottom: 2px solid var(--color-border);
+  margin: 0;
+  background-color: rgba(0, 58, 139, 1);
+  width: 100vw;
+}
+
+.locationTime {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap; /* Prevent wrapping */
+  padding: var(--padding-small);
+  font-size: 1.15rem;
+  text-align: center;
+  color: var(--color-text);
+  text-shadow: #016ccf 1px 1px 1px;
+  border-radius: var(--border-radius);
+  margin: var(--margin-medium);
+  white-space: nowrap; /* Ensure text stays on one line */
+  background-color: rgba(0, 0, 0, 0); /* Set background color to transparent */
+}
+
+.fiveDay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: var(--padding-large);
+  font-size: calc(var(--font-size-medium) + 0.25rem);
+  text-align: center;
+  color: var(--color-text);
+  background-color: #003a8b;
+  text-shadow: #016ccf 1px 1px 1px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  margin: var(--margin-medium);
+}
+
+.high-low {
+  font-size: 1.1rem;
+}
+
+.popup-content {
+  color: black;
+  background-color: #ffc414;
+  border: 2px solid red;
+}
+
+.statusMessage {
+  color: var(--color-text);
+  font-size: var(--font-size-large);
+}
+
+.search-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 500px;
+  margin: 1rem;
+}
+
+.search-form input {
+  padding: var(--padding-small);
+  width: 80%;
+  max-width: 320px;
+  border: 1px solid #ccc;
+  border-radius: var(--border-radius);
+  text-align: center;
+}
+
+input {
+  color: black !important;
+  text-shadow: none;
+  background-color: rgb(255, 255, 255);
+}
+
+#picture {
+  width: 100%;
+  height: auto;
+  margin-bottom: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.search-form button {
+  padding: var(--padding-small);
+  border: none;
+  background-color: var(--color-secondary);
+  color: var(--color-text);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  margin: var(--margin-medium);
+  width: 50%;
+  max-width: 320px;
+}
+
+.search-form input, .search-form button {
+  width: 100%;
+  margin: 5px 0;
+  color: var(--color-text);
+  background-color: rgba(0 0 0 1);
+}
+
+.search-form button:hover {
+  background-color: var(--color-primary);
+  transform: scale(1.05);
+}
+
+.search-form button:active {
+  background-color: #003f7f;
+  transform: scale(0.95);
+}
+
+.time {
+  font-size: 1.15rem;
+  color: var(--color-text);
+}
+
+.weather {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: var(--padding-medium);
+  font-size: var(--font-size-medium);
+  text-align: center;
+}
+
+.current-weather {
+  color: var(--color-text);
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow-y: visible;
+  border: 2px solid var(--color-border);
+  margin: 0 var(--margin-large) !important;
+  display: flex;
+  width: 100vw;
+}
+
+.current-weather .forecast-part {
+  display: grid !important; /* Use grid layout */
+  grid-template-columns: repeat(4, 1fr); /* Responsive grid */
+  gap: var(--padding-small); /* Add spacing between grid items */
+  justify-items: center; /* Center items horizontally */
+  align-items: center; /* Center items vertically */
+  padding: var(--padding-medium); /* Add padding around the grid */
+  font-size: 1rem; /* Adjust font size for better readability */
+}
+
+.weather-detail {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(125px, 1fr));
+  gap: var(--padding-small);
+  padding: var(--padding-small);
+  margin: var(--margin-small);
+  font-size: 1rem;
+}
+
+.large-icon {
+  width: 12.5rem;
+  height: 12.5rem;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid var(--color-border);
+  border-radius: 50%;
+  background-color: var(--color-tertiary) !important;
+  padding: 1rem;
+  margin: 2rem;
+}
+
+.small-icon {
+  width: 6.25rem !important;
+  height: 6.25rem !important;
+  border-radius: 50%;
+  background-color: var(--color-tertiary);
+  border: 2px solid var(--color-border);
+  margin: var(--margin-small); /* Optional: Adjust margin if needed */
+  padding: 1rem;
+}
+
+hr {
+  width: 100%;
+  border: 1.5px solid var(--color-border);
+}
+
+.locationTimeContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  border-bottom: 2px solid var(--color-border);
+  margin: 0;
+  background-color: rgba(0, 58, 139, 1);
+  width: 100vw;
+}
+
+.locationTime {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap; /* Prevent wrapping */
+  padding: var(--padding-small);
+  font-size: 1.15rem;
+  text-align: center;
+  color: var(--color-text);
+  text-shadow: #016ccf 1px 1px 1px;
+  border-radius: var(--border-radius);
+  margin: var(--margin-medium);
+  white-space: nowrap; /* Ensure text stays on one line */
+  background-color: rgba(0, 0, 0, 0); /* Set background color to transparent */
+}
+
+.fiveDay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: var(--padding-large);
+  font-size: calc(var(--font-size-medium) + 0.25rem);
+  text-align: center;
+  color: var(--color-text);
+  background-color: #003a8b;
+  text-shadow: #016ccf 1px 1px 1px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  margin: var(--margin-medium);
+}
+
+.high-low {
+  font-size: 1.1rem;
+}
+
+.popup-content {
+  color: black;
+  background-color: #ffc414;
+  border: 2px solid red;
+}
+
+.statusMessage {
+  color: var(--color-text);
+  font-size: var(--font-size-large);
+}
+
+.search-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 500px;
+  margin: 1rem;
+}
+
+.search-form input {
+  padding: var(--padding-small);
+  width: 80%;
+  max-width: 320px;
+  border: 1px solid #ccc;
+  border-radius: var(--border-radius);
+  text-align: center;
+}
+
+input {
+  color: black !important;
+  text-shadow: none;
+  background-color: rgb(255, 255, 255);
+}
+
+#picture {
+  width: 100%;
+  height: auto;
+  margin-bottom: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.search-form button {
+  padding: var(--padding-small);
+  border: none;
+  background-color: var(--color-secondary);
+  color: var(--color-text);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  margin: var(--margin-medium);
+  width: 50%;
+  max-width: 320px;
+}
+
+.search-form input, .search-form button {
+  width: 100%;
+  margin: 5px 0;
+  color: var(--color-text);
+  background-color: rgba(0 0 0 1);
+}
+
+.search-form button:hover {
+  background-color: var(--color-primary);
+  transform: scale(1.05);
+}
+
+.search-form button:active {
+  background-color: #003f7f;
+  transform: scale(0.95);
+}
+
+.time {
+  font-size: 1.15rem;
+  color: var(--color-text);
+}
+
+.weather {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: var(--padding-medium);
+  font-size: var(--font-size-medium);
+  text-align: center;
+}
+
+.current-weather {
+  color: var(--color-text);
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow-y: visible;
+  border: 2px solid var(--color-border);
+  margin: 0 var(--margin-large) !important;
+  display: flex;
+  width: 100vw;
+}
+
+.current-weather .forecast-part {
+  display: grid !important; /* Use grid layout */
+  grid-template-columns: repeat(4, 1fr); /* Responsive grid */
+  gap: var(--padding-small); /* Add spacing between grid items */
+  justify-items: center; /* Center items horizontally */
+  align-items: center; /* Center items vertically */
+  padding: var(--padding-medium); /* Add padding around the grid */
+  font-size: 1rem; /* Adjust font size for better readability */
+}
+
+.weather-detail {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(125px, 1fr));
+  gap: var(--padding-small);
+  padding: var(--padding-small);
+  margin: var(--margin-small);
+  font-size: 1rem;
+}
+
+.large-icon {
+  width: 12.5rem;
+  height: 12.5rem;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid var(--color-border);
+  border-radius: 50%;
+  background-color: var(--color-tertiary) !important;
+  padding: 1rem;
+  margin: 2rem;
+}
+
+.small-icon {
+  width: 6.25rem !important;
+  height: 6.25rem !important;
+  border-radius: 50%;
+  background-color: var(--color-tertiary);
+  border: 2px solid var(--color-border);
+  margin: var(--margin-small); /* Optional: Adjust margin if needed */
+  padding: 1rem;
+}
+
+hr {
+  width: 100%;
+  border: 1.5px solid var(--color-border);
+}
+
+.locationTimeContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  border-bottom: 2px solid var(--color-border);
+  margin: 0;
+  background-color: rgba(0, 58, 139, 1);
+  width: 100vw;
+}
+
+.locationTime {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap; /* Prevent wrapping */
+  padding: var(--padding-small);
+  font-size: 1.15rem;
+  text-align: center;
+  color: var(--color-text);
+  text-shadow: #016ccf 1px 1px 1px;
+  border-radius: var(--border-radius);
+  margin: var(--margin-medium);
+  white-space: nowrap; /* Ensure text stays on one line */
+  background-color: rgba(0, 0, 0, 0); /* Set background color to transparent */
+}
+
+.fiveDay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: var(--padding-large);
+  font-size: calc(var(--font-size-medium) + 0.25rem);
+  text-align: center;
+  color: var(--color-text);
+  background-color: #003a8b;
+  text-shadow: #016ccf 1px 1px 1px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  margin: var(--margin-medium);
+}
+
+.high-low {
+  font-size: 1.1rem;
+}
+
+.popup-content {
+  color: black;
+  background-color: #ffc414;
+  border: 2px solid red;
+}
+
+.statusMessage {
+  color: var(--color-text);
+  font-size: var(--font-size-large);
+}
+
+.search-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 500px;
+  margin: 1rem;
+}
+
+.search-form input {
+  padding: var(--padding-small);
+  width: 80%;
+  max-width: 320px;
+  border: 1px solid #ccc;
+  border-radius: var(--border-radius);
+  text-align: center;
+}
+
+input {
+  color: black !important;
+  text-shadow: none;
+  background-color: rgb(255, 255, 255);
+}
+
+#picture {
+  width: 100%;
+  height: auto;
+  margin-bottom: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.search-form button {
+  padding: var(--padding-small);
+  border: none;
+  background-color: var(--color-secondary);
+  color: var(--color-text);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  margin: var(--margin-medium);
+  width: 50%;
+  max-width: 320px;
+}
+
+.search-form input, .search-form button {
+  width: 100%;
+  margin: 5px 0;
+  color: var(--color-text);
+  background-color: rgba(0 0 0 1);
+}
+
+.search-form button:hover {
+  background-color: var(--color-primary);
+  transform: scale(1.05);
+}
+
+.search-form button:active {
+  background-color: #003f7f;
+  transform: scale(0.95);
+}
+
+.time {
+  font-size: 1.15rem;
+  color: var(--color-text);
+}
+
+.weather {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: var(--padding-medium);
+  font-size: var(--font-size-medium);
+  text-align: center;
+}
+
+.current-weather {
+  color: var(--color-text);
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow-y: visible;
+  border: 2px solid var(--color-border);
+  margin: 0 var(--margin-large) !important;
+  display: flex;
+  width: 100vw;
+}
+
+.current-weather .forecast-part {
+  display: grid !important; /* Use grid layout */
+  grid-template-columns: repeat(4, 1fr); /* Responsive grid */
+  gap: var(--padding-small); /* Add spacing between grid items */
+  justify-items: center; /* Center items horizontally */
+  align-items: center; /* Center items vertically */
+  padding: var(--padding-medium); /* Add padding around the grid */
+  font-size: 1rem; /* Adjust font size for better readability */
+}
+
+.weather-detail {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(125px, 1fr));
+  gap: var(--padding-small);
+  padding: var(--padding-small);
+  margin: var(--margin-small);
+  font-size: 1rem;
+}
+
+.large-icon {
+  width: 12.5rem;
+  height: 12.5rem;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid var(--color-border);
+  border-radius: 50%;
+  background-color: var(--color-tertiary) !important;
+  padding: 1rem;
+  margin: 2rem;
+}
+
+.small-icon {
+  width: 6.25rem !important;
+  height: 6.25rem !important;
+  border-radius: 50%;
+  background-color: var(--color-tertiary);
+  border: 2px solid var(--color-border);
+  margin: var(--margin-small); /* Optional: Adjust margin if needed */
+  padding: 1rem;
+}
+
+hr {
+  width: 100%;
+  border: 1.5px solid var(--color-border);
+}
+
+.locationTimeContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  border-bottom: 2px solid var(--color-border);
+  margin: 0;
+  background-color: rgba(0, 58, 139, 1);
+  width: 100vw;
+}
+
+.locationTime {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap; /* Prevent wrapping */
+  padding: var(--padding-small);
+  font-size: 1.15rem;
+  text-align: center;
+  color: var(--color-text);
+  text-shadow: #016ccf 1px 1px 1px;
+  border-radius: var(--border-radius);
+  margin: var(--margin-medium);
+  white-space: nowrap; /* Ensure text stays on one line */
+  background-color: rgba(0, 0, 0, 0); /* Set background color to transparent */
+}
+
+.fiveDay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: var(--padding-large);
+  font-size: calc(var(--font-size-medium) + 0.25rem);
+  text-align: center;
+  color: var(--color-text);
+  background-color: #003a8b;
+  text-shadow: #016ccf 1px 1px 1px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  margin: var(--margin-medium);
+}
+
+.high-low {
+  font-size: 1.1rem;
+}
+
+.popup-content {
+  color: black;
+  background-color: #ffc414;
+  border: 2px solid red;
+}
+
+.statusMessage {
+  color: var(--color-text);
+  font-size: var(--font-size-large);
+}
+
+.search-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 500px;
+  margin: 1rem;
+}
+
+.search-form input {
+  padding: var(--padding-small);
+  width: 80%;
+  max-width: 320px;
+  border: 1px solid #ccc;
+  border-radius: var(--border-radius);
+  text-align: center;
+}
+
+input {
+  color: black !important;
+  text-shadow: none;
+  background-color: rgb(255, 255, 255);
+}
+
+#picture {
+  width: 100%;
+  height: auto;
+  margin-bottom: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.search-form button {
+  padding: var(--padding-small);
+  border: none;
+  background-color: var(--color-secondary);
+  color: var(--color-text);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  margin: var(--margin-medium);
+  width: 50%;
+  max-width: 320px;
+}
+
+.search-form input, .search-form button {
+  width: 100%;
+  margin: 5px 0;
+  color: var(--color-text);
+  background-color: rgba(0 0 0 1);
+}
+
+.search-form button:hover {
+  background-color: var(--color-primary);
+  transform: scale(1.05);
+}
+
+.search-form button:active {
+  background-color: #003f7f;
+  transform: scale(0.95);
+}
+
+.time {
+  font-size: 1.15rem;
+  color: var(--color-text);
+}
+
+.weather {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: var(--padding-medium);
+  font-size: var(--font-size-medium);
+  text-align: center;
+}
+
+.current-weather {
+  color: var(--color-text);
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow-y: visible;
+  border: 2px solid var(--color-border);
+  margin: 0 var(--margin-large) !important;
+  display: flex;
+  width: 100vw;
+}
+
+.current-weather .forecast-part {
+  display: grid !important; /* Use grid layout */
+  grid-template-columns: repeat(4, 1fr); /* Responsive grid */
+  gap: var(--padding-small); /* Add spacing between grid items */
+  justify-items: center; /* Center items horizontally */
+  align-items: center; /* Center items vertically */
+  padding: var(--padding-medium); /* Add padding around the grid */
+  font-size: 1rem; /* Adjust font size for better readability */
+}
+
+.weather-detail {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(125px, 1fr));
+  gap: var(--padding-small);
+  padding: var(--padding-small);
+  margin: var(--margin-small);
+  font-size: 1rem;
+}
+
+.large-icon {
+  width: 12.5rem;
+  height: 12.5rem;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid var(--color-border);
+  border-radius: 50%;
+  background-color: var(--color-tertiary) !important;
+  padding: 1rem;
+  margin: 2rem;
+}
+
+.small-icon {
+  width: 6.25rem !important;
+  height: 6.25rem !important;
+  border-radius: 50%;
+  background-color: var(--color-tertiary);
+  border: 2px solid var(--color-border);
+  margin: var(--margin-small); /* Optional: Adjust margin if needed */
+  padding: 1rem;
+}
+
+hr {
+  width: 100%;
+  border: 1.5px solid var(--color-border);
+}
+
+.locationTimeContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  border-bottom: 2px solid var(--color-border);
+  margin: 0;
+  background-color: rgba(0, 58, 139, 1);
+  width: 100vw;
+}
+
+.locationTime {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap; /* Prevent wrapping */
+  padding: var(--padding-small);
+  font-size: 1.15rem;
+  text-align: center;
+  color: var(--color-text);
+  text-shadow: #016ccf 1px 1px 1px;
+  border-radius: var(--border-radius);
+  margin: var(--margin-medium);
+  white-space: nowrap; /* Ensure text stays on one line */
+  background-color: rgba(0, 0, 0, 0); /* Set background color to transparent */
+}
+
+.fiveDay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: var(--padding-large);
+  font-size: calc(var(--font-size-medium) + 0.25rem);
+  text-align: center;
+  color: var(--color-text);
+  background-color: #003a8b;
+  text-shadow: #016ccf 1px 1px 1px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  margin: var(--margin-medium);
+}
+
+.high-low {
+  font-size: 1.1rem;
+}
+
+.popup-content {
+  color: black;
+  background-color: #ffc414;
+  border: 2px solid red;
+}
+
+.statusMessage {
+  color: var(--color-text);
+  font-size: var(--font-size-large);
+}
+
+.search-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 500px;
+  margin: 1rem;
+}
+
+.search-form input {
+  padding: var(--padding-small);
+  width: 80%;
+  max-width: 320px;
+  border: 1px solid #ccc;
+  border-radius: var(--border-radius);
+  text-align: center;
+}
+
+input {
+  color: black !important;
+  text-shadow: none;
+  background-color: rgb(255, 255, 255);
+}
+
+#picture {
+  width: 100%;
+  height: auto;
+  margin-bottom: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.search-form button {
+  padding: var(--padding-small);
+  border: none;
+  background-color: var(--color-secondary);
+  color: var(--color-text);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  margin: var(--margin-medium);
+  width: 50%;
+  max-width: 320px;
+}
+
+.search-form input, .search-form button {
+  width: 100%;
+  margin: 5px 0;
+  color: var(--color-text);
+  background-color: rgba(0 0 0 1);
+}
+
+.search-form button:hover {
+  background-color: var(--color-primary);
+  transform: scale(1.05);
+}
+
+.search-form button:active {
+  background-color: #003f7f;
+  transform: scale(0.95);
+}
+
+.time {
+  font-size: 1.15rem;
+  color: var(--color-text);
+}
+
+.weather {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: var(--padding-medium);
+  font-size: var(--font-size-medium);
+  text-align: center;
+}
+
+.current-weather {
+  color: var(--color-text);
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow-y: visible;
+  border: 2px solid var(--color-border);
+  margin: 0 var(--margin-large) !important;
+  display: flex;
+  width: 100vw;
+}
+
+.current-weather .forecast-part {
+  display: grid !important; /* Use grid layout */
+  grid-template-columns: repeat(4, 1fr); /* Responsive grid */
+  gap: var(--padding-small); /* Add spacing between grid items */
+  justify-items: center; /* Center items horizontally */
+  align-items: center; /* Center items vertically */
+  padding: var(--padding-medium); /* Add padding around the grid */
+  font-size: 1rem; /* Adjust font size for better readability */
+}
+
+.weather-detail {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(125px, 1fr));
+  gap: var(--padding-small);
+  padding: var(--padding-small);
+  margin: var(--margin-small);
+  font-size: 1rem;
+}
+
+.large-icon {
+  width: 12.5rem;
+  height: 12.5rem;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid var(--color-border);
+  border-radius: 50%;
+  background-color: var(--color-tertiary) !important;
+  padding: 1rem;
+  margin: 2rem;
+}
+
+.small-icon {
+  width: 6.25rem !important;
+  height: 6.25rem !important;
+  border-radius: 50%;
+  background-color: var(--color-tertiary);
+  border: 2px solid var(--color-border);
+  margin: var(--margin-small); /* Optional: Adjust margin if needed */
+  padding: 1rem;
+}
+
+hr {
+  width: 100%;
+  border: 1.5px solid var(--color-border);
+}
+
+.locationTimeContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  border-bottom: 2px solid var(--color-border);
+  margin: 0;
+  background-color: rgba(0, 58, 139, 1);
+  width: 100vw;
+}
+
+.locationTime {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap; /* Prevent wrapping */
+  padding: var(--padding-small);
+  font-size: 1.15rem;
+  text-align: center;
+  color: var(--color-text);
+  text-shadow: #016ccf 1px 1px 1px;
+  border-radius: var(--border-radius);
+  margin: var(--margin-medium);
+  white-space: nowrap; /* Ensure text stays on one line */
+  background-color: rgba(0, 0, 0, 0); /* Set background color to transparent */
+}
+
+.fiveDay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: var(--padding-large);
+  font-size: calc(var(--font-size-medium) + 0.25rem);
+  text-align: center;
+  color: var(--color-text);
+  background-color: #003a8b;
+  text-shadow: #016ccf 1px 1px 1px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  margin: var(--margin-medium);
+}
+
+.high-low {
+  font-size: 1.1rem;
+}
+
+.popup-content {
+  color: black;
+  background-color: #ffc414;
+  border: 2px solid red;
+}
+
+.statusMessage {
+  color: var(--color-text);
+  font-size: var(--font-size-large);
+}
+
+.search-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 500px;
+  margin: 1rem;
+}
+
+.search-form input {
+  padding: var(--padding-small);
+  width: 80%;
+  max-width: 320px;
+  border: 1px solid #ccc;
+  border-radius: var(--border-radius);
+  text-align: center;
+}
+
+input {
+  color: black !important;
+  text-shadow: none;
+  background-color: rgb(255, 255, 255);
+}
+
+#picture {
+  width: 100%;
+  height: auto;
+  margin-bottom: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.search-form button {
+  padding: var(--padding-small);
+  border: none;
+  background-color: var(--color-secondary);
+  color: var(--color-text);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  margin: var(--margin-medium);
+  width: 50%;
+  max-width: 320px;
+}
+
+.search-form input, .search-form button {
+  width: 100%;
+  margin: 5px 0;
+  color: var(--color-text);
+  background-color: rgba(0 0 0 1);
+}
+
+.search-form button:hover {
+  background-color: var(--color-primary);
+  transform: scale(1.05);
+}
+
+.search-form button:active {
+  background-color: #003f7f;
+  transform: scale(0.95);
+}
+
+.time {
+  font-size: 1.15rem;
+  color: var(--color-text);
+}
+
+.weather {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: var(--padding-medium);
+  font-size: var(--font-size-medium);
+  text-align: center;
+}
+
+.current-weather {
+  color: var(--color-text);
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow-y: visible;
+  border: 2px solid var(--color-border);
+  margin: 0 var(--margin-large) !important;
+  display: flex;
+  width: 100vw;
+}
+
+.current-weather .forecast-part {
+  display: grid !important; /* Use grid layout */
+  grid-template-columns: repeat(4, 1fr); /* Responsive grid */
+  gap: var(--padding-small); /* Add spacing between grid items */
+  justify-items: center; /* Center items horizontally */
+  align-items: center; /* Center items vertically */
+  padding: var(--padding-medium); /* Add padding around the grid */
+  font-size: 1rem; /* Adjust font size for better readability */
+}
+
+.weather-detail {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(125px, 1fr));
+  gap: var(--padding-small);
+  padding: var(--padding-small);
+  margin: var(--margin-small);
+  font-size: 1rem;
+}
+
+.large-icon {
+  width: 12.5rem;
+  height: 12.5rem;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid var(--color-border);
+  border-radius: 50%;
+  background-color: var(--color-tertiary) !important;
+  padding: 1rem;
+  margin: 2rem;
+}
+
+.small-icon {
+  width: 6.25rem !important;
+  height: 6.25rem !important;
+  border-radius: 50%;
+  background-color: var(--color-tertiary);
+  border: 2px solid var(--color-border);
+  margin: var(--margin-small); /* Optional: Adjust margin if needed */
+  padding: 1rem;
+}
+
+hr {
+  width: 100%;
+  border: 1.5px solid var(--color-border);
+}
+
+.locationTimeContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  border-bottom: 2px solid var(--color-border);
+  margin: 0;
+  background-color: rgba(0, 58, 139, 1);
+  width: 100vw;
+}
+
+.locationTime {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap; /* Prevent wrapping */
+  padding: var(--padding-small);
+  font-size: 1.15rem;
+  text-align: center;
+  color: var(--color-text);
+  text-shadow: #016ccf 1px 1px 1px;
+  border-radius: var(--border-radius);
+  margin: var(--margin-medium);
+  white-space: nowrap; /* Ensure text stays on one line */
+  background-color: rgba(0, 0, 0, 0); /* Set background color to transparent */
+}
+
+.fiveDay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: var(--padding-large);
+  font-size: calc(var(--font-size-medium) + 0.25rem);
+  text-align: center;
+  color: var(--color-text);
+  background-color: #003a8b;
+  text-shadow: #016ccf 1px 1px 1px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  margin: var(--margin-medium);
+}
+
+.high-low {
+  font-size: 1.1rem;
+}
+
+.popup-content {
+  color: black;
+  background-color: #ffc414;
+  border: 2px solid red;
+}
+
+.statusMessage {
+  color: var(--color-text);
+  font-size: var(--font-size-large);
+}
+
+.search-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 500px;
+  margin: 1rem;
+}
+
+.search-form input {
+  padding: var(--padding-small);
+  width: 80%;
+  max-width: 320px;
+  border: 1px solid #ccc;
+  border-radius: var(--border-radius);
+  text-align: center;
+}
+
+input {
+  color: black !important;
+  text-shadow: none;
+  background-color: rgb(255, 255, 255);
+}
+
+#picture {
+  width: 100%;
+  height: auto;
+  margin-bottom: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.search-form button {
+  padding: var(--padding-small);
+  border: none;
+  background-color: var(--color-secondary);
+  color: var(--color-text);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  margin: var(--margin-medium);
+  width: 50%;
+  max-width: 320px;
+}
+
+.search-form input, .search-form button {
+  width: 100%;
+  margin: 5px 0;
+  color: var(--color-text);
+  background-color: rgba(0 0 0 1);
+}
+
+.search-form button:hover {
+  background-color: var(--color-primary);
+  transform: scale(1.05);
+}
+
+.search-form button:active {
+  background-color: #003f7f;
+  transform: scale(0.95);
+}
+
+.time {
+  font-size: 1.15rem;
+  color: var(--color-text);
+}
+
+.weather {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: var(--padding-medium);
+  font-size: var(--font-size-medium);
+  text-align: center;
+}
+
+.current-weather {
+  color: var(--color-text);
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow-y: visible;
+  border: 2px solid var(--color-border);
+  margin: 0 var(--margin-large) !important;
+  display: flex;
+  width: 100vw;
+}
+
+.current-weather .forecast-part {
+  display: grid !important; /* Use grid layout */
+  grid-template-columns: repeat(4, 1fr); /* Responsive grid */
+  gap: var(--padding-small); /* Add spacing between grid items */
+  justify-items: center; /* Center items horizontally */
+  align-items: center; /* Center items vertically */
+  padding: var(--padding-medium); /* Add padding around the grid */
+  font-size: 1rem; /* Adjust font size for better readability */
+}
+
+.weather-detail {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(125px, 1fr));
+  gap: var(--padding-small);
+  padding: var(--padding-small);
+  margin: var(--margin-small);
+  font-size: 1rem;
+}
+
+.large-icon {
+  width: 12.5rem;
+  height: 12.5rem;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid var(--color-border);
+  border-radius: 50%;
+  background-color: var(--color-tertiary) !important;
+  padding: 1rem;
+  margin: 2rem;
+}
+
+.small-icon {
+  width: 6.25rem !important;
+  height: 6.25rem !important;
+  border-radius: 50%;
+  background-color: var(--color-tertiary);
+  border: 2px solid var(--color-border);
+  margin: var(--margin-small); /* Optional: Adjust margin if needed */
+  padding: 1rem;
+}
+
+hr {
+  width: 100%;
+  border: 1.5px solid var(--color-border);
+}
+
+.locationTimeContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  border-bottom: 2px solid var(--color-border);
+  margin: 0;
+  background-color: rgba(0, 58, 139, 1);
+  width: 100vw;
+}
+
+.locationTime {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap; /* Prevent wrapping */
+  padding: var(--padding-small);
+  font-size: 1.15rem;
+  text-align: center;
+  color: var(--color-text);
+  text-shadow: #016ccf 1px 1px 1px;
+  border-radius: var(--border-radius);
+  margin: var(--margin-medium);
+  white-space: nowrap; /* Ensure text stays on one line */
+  background-color: rgba(0, 0, 0, 0); /* Set background color to transparent */
+}
+
+.fiveDay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: var(--padding-large);
+  font-size: calc(var(--font-size-medium) + 0.25rem);
+  text-align: center;
+  color: var(--color-text);
+  background-color: #003a8b;
+  text-shadow: #016ccf 1px 1px 1px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  margin: var(--margin-medium);
+}
+
+.high-low {
+  font-size: 1.1rem;
+}
+
+.popup-content {
+  color: black;
+  background-color: #ffc414;
+  border: 2px solid red;
+}
+
+.statusMessage {
+  color: var(--color-text);
+  font-size: var(--font-size-large);
+}
+
+.search-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 500px;
+  margin: 1rem;
+}
+
+.search-form input {
+  padding: var(--padding-small);
+  width: 80%;
+  max-width: 320px;
+  border: 1px solid #ccc;
+  border-radius: var(--border-radius);
+  text-align: center;
+}
+
+input {
+  color: black !important;
+  text-shadow: none;
+  background-color: rgb(255, 255, 255);
+}
+
+#picture {
+  width: 100%;
+  height: auto;
+  margin-bottom: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.search-form button {
+  padding: var(--padding-small);
+  border: none;
+  background-color: var(--color-secondary);
+  color: var(--color-text);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  margin: var(--margin-medium);
+  width: 50%;
+  max-width: 320px;
+}
+
+.search-form input, .search-form button {
+  width: 100%;
+  margin: 5px 0;
+  color: var(--color-text);
+  background-color: rgba(0 0 0 1);
+}
+
+.search-form button:hover {
+  background-color: var(--color-primary);
+  transform: scale(1.05);
+}
+
+.search-form button:active {
+  background-color: #003f7f;
+  transform: scale(0.95);
+}
+
+.time {
+  font-size: 1.15rem;
+  color: var(--color-text);
+}
+
+.weather {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: var(--padding-medium);
+  font-size: var(--font-size-medium);
+  text-align: center;
+}
+
+.current-weather {
+  color: var(--color-text);
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow-y: visible;
+  border: 2px solid var(--color-border);
+  margin: 0 var(--margin-large) !important;
+  display: flex;
+  width: 100vw;
+}
+
+.current-weather .forecast-part {
+  display: grid !important; /* Use grid layout */
+  grid-template-columns: repeat(4, 1fr); /* Responsive grid */
+  gap: var(--padding-small); /* Add spacing between grid items */
+  justify-items: center; /* Center items horizontally */
+  align-items: center; /* Center items vertically */
+  padding: var(--padding-medium); /* Add padding around the grid */
+  font-size: 1rem; /* Adjust font size for better readability */
+}
+
+.weather-detail {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(125px, 1fr));
+  gap: var(--padding-small);
+  padding: var(--padding-small);
+  margin: var(--margin-small);
+  font-size: 1rem;
+}
+
+.large-icon {
+  width: 12.5rem;
+  height: 12.5rem;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid var(--color-border);
+  border-radius: 50%;
+  background-color: var(--color-tertiary) !important;
+  padding: 1rem;
+  margin: 2rem;
+}
+
+.small-icon {
+  width: 6.25rem !important;
+  height: 6.25rem !important;
+  border-radius: 50%;
+  background-color: var(--color-tertiary);
+  border: 2px solid var(--color-border);
+  margin: var(--margin-small); /* Optional: Adjust margin if needed */
+  padding: 1rem;
+}
+
+hr {
+  width: 100%;
+  border: 1.5px solid var(--color-border);
+}
+
+.locationTimeContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  border-bottom: 2px solid var(--color-border);
+  margin: 0;
+  background-color: rgba(0, 58, 139, 1);
+  width: 100vw;
+}
+
+.locationTime {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap; /* Prevent wrapping */
+  padding: var(--padding-small);
+  font-size: 1.15rem;
+  text-align: center;
+  color: var(--color-text);
+  text-shadow: #016ccf 1px 1px 1px;
+  border-radius: var(--border-radius);
+  margin: var(--margin-medium);
+  white-space: nowrap; /* Ensure text stays on one line */
+  background-color: rgba(0, 0, 0, 0); /* Set background color to transparent */
+}
+
+.fiveDay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: var(--padding-large);
+  font-size: calc(var(--font-size-medium) + 0.25rem);
+  text-align: center;
+  color: var(--color-text);
+  background-color: #003a8b;
+  text-shadow: #016ccf 1px 1px 1px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  margin: var(--margin-medium);
+}
+
+.high-low {
+  font-size: 1.1rem;
+}
+
+.popup-content {
+  color: black;
+  background-color: #ffc414;
+  border: 2px solid red;
+}
+
+.statusMessage {
+  color: var(--color-text);
+  font-size: var(--font-size-large);
+}
+
+.search-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 500px;
+  margin: 1rem;
+}
+
+.search-form input {
+  padding: var(--padding-small);
+  width: 80%;
+  max-width: 320px;
+  border: 1px solid #ccc;
+  border-radius: var(--border-radius);
+  text-align: center;
+}
+
+input {
+  color: black !important;
+  text-shadow: none;
+  background-color: rgb(255, 255, 255);
+}
+
+#picture {
+  width: 100%;
+  height: auto;
+  margin-bottom: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.search-form button {
+  padding: var(--padding-small);
+  border: none;
+  background-color: var(--color-secondary);
+  color: var(--color-text);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  margin: var(--margin-medium);
+  width: 50%;
+  max-width: 320px;
+}
+
+.search-form input, .search-form button {
+  width: 100%;
+  margin: 5px 0;
+  color: var(--color-text);
+  background-color: rgba(0 0 0 1);
+}
+
+.search-form button:hover {
+  background-color: var(--color-primary);
+  transform: scale(1.05);
+}
+
+.search-form button:active {
+  background-color: #003f7f;
+  transform: scale(0.95);
+}
+
+.time {
+  font-size: 1.15rem;
+  color: var(--color-text);
+}
+
+.weather {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: var(--padding-medium);
+  font-size: var(--font-size-medium);
+  text-align: center;
+}
+
+.current-weather {
+  color: var(--color-text);
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow-y: visible;
+  border: 2px solid var(--color-border);
+  margin: 0 var(--margin-large) !important;
+  display: flex;
+  width: 100vw;
+}
+
+.current-weather .forecast-part {
+  display: grid !important; /* Use grid layout */
+  grid-template-columns: repeat(4, 1fr); /* Responsive grid */
+  gap: var(--padding-small); /* Add spacing between grid items */
+  justify-items: center; /* Center items horizontally */
+  align-items: center; /* Center items vertically */
+  padding: var(--padding-medium); /* Add padding around the grid */
+  font-size: 1rem; /* Adjust font size for better readability */
+}
+
+.weather-detail {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(125px, 1fr));
+  gap: var(--padding-small);
+  padding: var(--padding-small);
+  margin: var(--margin-small);
+  font-size: 1rem;
+}
+
+.large-icon {
+  width: 12.5rem;
+  height: 12.5rem;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid var(--color-border);
+  border-radius: 50%;
+  background-color: var(--color-tertiary) !important;
+  padding: 1rem;
+  margin: 2rem;
+}
+
+.small-icon {
+  width: 6.25rem !important;
+  height: 6.25rem !important;
+  border-radius: 50%;
+  background-color: var(--color-tertiary);
+  border: 2px solid var(--color-border);
+  margin: var(--margin-small); /* Optional: Adjust margin if needed */
+  padding: 1rem;
+}
+
+hr {
+  width: 100%;
+  border: 1.5px solid var(--color-border);
+}
+
+.locationTimeContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  border-bottom: 2px solid var(--color-border);
+  margin: 0;
+  background-color: rgba(0, 58, 139, 1);
+  width: 100vw;
+}
+
+.locationTime {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap; /* Prevent wrapping */
+  padding: var(--padding-small);
+  font-size: 1.15rem;
+  text-align: center;
+  color: var(--color-text);
+  text-shadow: #016ccf 1px 1px 1px;
+  border-radius: var(--border-radius);
+  margin: var(--margin-medium);
+  white-space: nowrap; /* Ensure text stays on one line */
+  background-color: rgba(0, 0, 0, 0); /* Set background color to transparent */
+}
+
+.fiveDay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: var(--padding-large);
+  font-size: calc(var(--font-size-medium) + 0.25rem);
+  text-align: center;
+  color: var(--color-text);
+  background-color: #003a8b;
+  text-shadow: #016ccf 1px 1px 1px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  margin: var(--margin-medium);
+}
+
+.high-low {
+  font-size: 1.1rem;
+}
+
+.popup-content {
+  color: black;
+  background-color: #ffc414;
+  border: 2px solid red;
+}
+
+.statusMessage {
+  color: var(--color-text);
+  font-size: var(--font-size-large);
+}
+
+.search-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 500px;
+  margin: 1rem;
+}
+
+.search-form input {
+  padding: var(--padding-small);
+  width: 80%;
+  max-width: 320px;
+  border: 1px solid #ccc;
+  border-radius: var(--border-radius);
+  text-align: center;
+}
+
+input {
+  color: black !important;
+  text-shadow: none;
+  background-color: rgb(255, 255, 255);
+}
+
+#picture {
+  width: 100%;
+  height: auto;
+  margin-bottom: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.search-form button {
+  padding: var(--padding-small);
+  border: none;
+  background-color: var(--color-secondary);
+  color: var(--color-text);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  margin: var(--margin-medium);
+  width: 50%;
+  max-width: 320px;
+}
+
+.search-form input, .search-form button {
+  width: 100%;
+  margin: 5px 0;
+  color: var(--color-text);
+  background-color: rgba(0 0 0 1);
+}
+
+.search-form button:hover {
+  background-color: var(--color-primary);
+  transform: scale(1.05);
+}
+
+.search-form button:active {
+  background-color: #003f7f;
+  transform: scale(0.95);
+}
+
+.time {
+  font-size: 1.15rem;
+  color: var(--color-text);
+}
+
+.weather {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: var(--padding-medium);
+  font-size: var(--font-size-medium);
+  text-align: center;
+}
+
+.current-weather {
+  color: var(--color-text);
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow-y: visible;
+  border: 2px solid var(--color-border);
+  margin: 0 var(--margin-large) !important;
+  display: flex;
+  width: 100vw;
+}
+
+.current-weather .forecast-part {
+  display: grid !important; /* Use grid layout */
+  grid-template-columns: repeat(4, 1fr); /* Responsive grid */
+  gap: var(--padding-small); /* Add spacing between grid items */
+  justify-items: center; /* Center items horizontally */
+  align-items: center; /* Center items vertically */
+  padding: var(--padding-medium); /* Add padding around the grid */
+  font-size: 1rem; /* Adjust font size for better readability */
+}
+
+.weather-detail {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(125px, 1fr));
+  gap: var(--padding-small);
+  padding: var(--padding-small);
+  margin: var(--margin-small);
+  font-size: 1rem;
+}
+
+.large-icon {
+  width: 12.5rem;
+  height: 12.5rem;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid var(--color-border);
+  border-radius: 50%;
+  background-color: var(--color-tertiary) !important;
+  padding: 1rem;
+  margin: 2rem;
+}
+
+.small-icon {
+  width: 6.25rem !important;
+  height: 6.25rem !important;
+  border-radius: 50%;
+  background-color: var(--color-tertiary);
+  border: 2px solid var(--color-border);
+  margin: var(--margin-small); /* Optional: Adjust margin if needed */
+  padding: 1rem;
+}
+
+hr {
+  width: 100%;
+  border: 1.5px solid var(--color-border);
+}
+
+.locationTimeContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  border-bottom: 2px solid var(--color-border);
+  margin: 0;
+  background-color: rgba(0, 58, 139, 1);
+  width: 100vw;
+}
+
+.locationTime {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap; /* Prevent wrapping */
+  padding: var(--padding-small);
+  font-size: 1.15rem;
+  text-align: center;
+  color: var(--color-text);
+  text-shadow: #016ccf 1px 1px 1px;
+  border-radius: var(--border-radius);
+  margin: var(--margin-medium);
+  white-space: nowrap; /* Ensure text stays on one line */
+  background-color: rgba(0, 0, 0, 0); /* Set background color to transparent */
+}
+
+.fiveDay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: var(--padding-large);
+  font-size: calc(var(--font-size-medium) + 0.25rem);
+  text-align: center;
+  color: var(--color-text);
+  background-color: #003a8b;
+  text-shadow: #016ccf 1px 1px 1px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  margin: var(--margin-medium);
+}
+
+.high-low {
+  font-size: 1.1rem;
+}
+
+.popup-content {
+  color: black;
+  background-color: #ffc414;
+  border: 2px solid red;
+}
+
+.statusMessage {
+  color: var(--color-text);
+  font-size: var(--font-size-large);
+}
+
+.search-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 500px;
+  margin: 1rem;
+}
+
+.search-form input {
+  padding: var(--padding-small);
+  width: 80%;
+  max-width: 320px;
+  border: 1px solid #ccc;
+  border-radius: var(--border-radius);
+  text-align: center;
+}
+
+input {
+  color: black !important;
+  text-shadow: none;
+  background-color: rgb(255, 255, 255);
+}
+
+#picture {
+  width: 100%;
+  height: auto;
+  margin-bottom: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.search-form button {
+  padding: var(--padding-small);
+  border: none;
+  background-color: var(--color-secondary);
+  color: var(--color-text);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  margin: var(--margin-medium);
+  width: 50%;
+  max-width: 320px;
+}
+
+.search-form input, .search-form button {
+  width: 100%;
+  margin: 5px 0;
+  color: var(--color-text);
+  background-color: rgba(0 0 0 1);
+}
+
+.search-form button:hover {
+  background-color: var(--color-primary);
+  transform: scale(1.05);
+}
+
+.search-form button:active {
+  background-color: #003f7f;
+  transform: scale(0.95);
+}
+
+.time {
+  font-size: 1.15rem;
+  color: var(--color-text);
+}
+
+.weather {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: var(--padding-medium);
+  font-size: var(--font-size-medium);
+  text-align: center;
+}
+
+.current-weather {
+  color: var(--color-text);
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow-y: visible;
+  border: 2px solid var(--color-border);
+  margin: 0 var(--margin-large) !important;
+  display: flex;
+  width: 100vw;
+}
+
+.current-weather .forecast-part {
+  display: grid !important; /* Use grid layout */
+  grid-template-columns: repeat(4, 1fr); /* Responsive grid */
+  gap: var(--padding-small); /* Add spacing between grid items */
+  justify-items: center; /* Center items horizontally */
+  align-items: center; /* Center items vertically */
+  padding: var(--padding-medium); /* Add padding around the grid */
+  font-size: 1rem; /* Adjust font size for better readability */
+}
+
+.weather-detail {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(125px, 1fr));
+  gap: var(--padding-small);
+  padding: var(--padding-small);
+  margin: var(--margin-small);
+  font-size: 1rem;
+}
+
+.large-icon {
+  width: 12.5rem;
+  height: 12.5rem;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid var(--color-border);
+  border-radius: 50%;
+  background-color: var(--color-tertiary) !important;
+  padding: 1rem;
+  margin: 2rem;
+}
+
+.small-icon {
+  width: 6.25rem !important;
+  height: 6.25rem !important;
+  border-radius: 50%;
+  background-color: var(--color-tertiary);
+  border: 2px solid var(--color-border);
+  margin: var(--margin-small); /* Optional: Adjust margin if needed */
+  padding: 1rem;
+}
+
+hr {
+  width: 100%;
+  border: 1.5px solid var(--color-border);
+}
+
+.locationTimeContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  border-bottom: 2px solid var(--color-border);
+  margin: 0;
+  background-color: rgba(0, 58, 139, 1);
+  width: 100vw;
+}
+
+.locationTime {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap; /* Prevent wrapping */
+  padding: var(--padding-small);
+  font-size: 1.15rem;
+  text-align: center;
+  color: var(--color-text);
+  text-shadow: #016ccf 1px 1px 1px;
+  border-radius: var(--border-radius);
+  margin: var(--margin-medium);
+  white-space: nowrap; /* Ensure text stays on one line */
+  background-color: rgba(0, 0, 0, 0); /* Set background color to transparent */
+}
+
+.fiveDay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: var(--padding-large);
+  font-size: calc(var(--font-size-medium) + 0.25rem);
+  text-align: center;
+  color: var(--color-text);
+  background-color: #003a8b;
+  text-shadow: #016ccf 1px 1px 1px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  margin: var(--margin-medium);
+}
+
+.high-low {
+  font-size: 1.1rem;
+}
+
+.popup-content {
+  color: black;
+  background-color: #ffc414;
+  border: 2px solid red;
+}
+
+.statusMessage {
+  color: var(--color-text);
+  font-size: var(--font-size-large);
+}
+
+.search-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 500px;
+  margin: 1rem;
+}
+
+.search-form input {
+  padding: var(--padding-small);
+  width: 80%;
+  max-width: 320px;
+  border: 1px solid #ccc;
+  border-radius: var(--border-radius);
+  text-align: center;
+}
+
+input {
+  color: black !important;
+  text-shadow: none;
+  background-color: rgb(255, 255, 255);
+}
+
+#picture {
+  width: 100%;
+  height: auto;
+  margin-bottom: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.search-form button {
+  padding: var(--padding-small);
+  border: none;
+  background-color: var(--color-secondary);
+  color: var(--color-text);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  margin: var(--margin-medium);
+  width: 50%;
+  max-width: 320px;
+}
+
+.search-form input, .search-form button {
+  width: 100%;
+  margin: 5px 0;
+  color: var(--color-text);
+  background-color: rgba(0 0 0 1);
+}
+
+.search-form button:hover {
+  background-color: var(--color-primary);
+  transform: scale(1.05);
+}
+
+.search-form button:active {
+  background-color: #003f7f;
+  transform: scale(0.95);
+}
+
+.time {
+  font-size: 1.15rem;
+  color: var(--color-text);
+}
+
+.weather {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: var(--padding-medium);
+  font-size: var(--font-size-medium);
+  text-align: center;
+}
+
+.current-weather {
+  color: var(--color-text);
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow-y: visible;
+  border: 2px solid var(--color-border);
+  margin: 0 var(--margin-large) !important;
+  display: flex;
+  width: 100vw;
+}
+
+.current-weather .forecast-part {
+  display: grid !important; /* Use grid layout */
+  grid-template-columns: repeat(4, 1fr); /* Responsive grid */
+  gap: var(--padding-small); /* Add spacing between grid items */
+  justify-items: center; /* Center items horizontally */
+  align-items: center; /* Center items vertically */
+  padding: var(--padding-medium); /* Add padding around the grid */
+  font-size: 1rem; /* Adjust font size for better readability */
+}
+
+.weather-detail {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(125px, 1fr));
+  gap: var(--padding-small);
+  padding: var(--padding-small);
+  margin: var(--margin-small);
+  font-size: 1rem;
+}
+
+.large-icon {
+  width: 12.5rem;
+  height: 12.5rem;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid var(--color-border);
+  border-radius: 50%;
+  background-color: var(--color-tertiary) !important;
+  padding: 1rem;
+  margin: 2rem;
+}
+
+.small-icon {
+  width: 6.25rem !important;
+  height: 6.25rem !important;
+  border-radius: 50%;
+  background-color: var(--color-tertiary);
+  border: 2px solid var(--color-border);
+  margin: var(--margin-small); /* Optional: Adjust margin if needed */
+  padding: 1rem;
+}
+
+hr {
+  width: 100%;
+  border: 1.5px solid var(--color-border);
+}
+
+.locationTimeContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  border-bottom: 2px solid var(--color-border);
+  margin: 0;
+  background-color: rgba(0, 58, 139, 1);
+  width: 100vw;
+}
+
+.locationTime {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap; /* Prevent wrapping */
+  padding: var(--padding-small);
+  font-size: 1.15rem;
+  text-align: center;
+  color: var(--color-text);
+  text-shadow: #016ccf 1px 1px 1px;
+  border-radius: var(--border-radius);
+  margin: var(--margin-medium);
+  white-space: nowrap; /* Ensure text stays on one line */
+  background-color: rgba(0, 0, 0, 0); /* Set background color to transparent */
+}
+
+.fiveDay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: var(--padding-large);
+  font-size: calc(var(--font-size-medium) + 0.25rem);
+  text-align: center;
+  color: var(--color-text);
+  background-color: #003a8b;
+  text-shadow: #016ccf 1px 1px 1px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  margin: var(--margin-medium);
+}
+
+.high-low {
+  font-size: 1.1rem;
+}
+
+.popup-content {
+  color: black;
+  background-color: #ffc414;
+  border: 2px solid red;
+}
+
+.statusMessage {
+  color: var(--color-text);
+  font-size: var(--font-size-large);
+}
+
+.search-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 500px;
+  margin: 1rem;
+}
+
+.search-form input {
+  padding: var(--padding-small);
+  width: 80%;
+  max-width: 320px;
+  border: 1px solid #ccc;
+  border-radius: var(--border-radius);
+  text-align: center;
+}
+
+input {
+  color: black !important;
+  text-shadow: none;
+  background-color: rgb(255, 255, 255);
+}
+
+#picture {
+  width: 100%;
+  height: auto;
+  margin-bottom: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.search-form button {
+  padding: var(--padding-small);
+  border: none;
+  background-color: var(--color-secondary);
+  color: var(--color-text);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  margin: var(--margin-medium);
+  width: 50%;
+  max-width: 320px;
+}
+
+.search-form input, .search-form button {
+  width: 100%;
+  margin: 5px 0;
+  color: var(--color-text);
+  background-color: rgba(0 0 0 1);
+}
+
+.search-form button:hover {
+  background-color: var(--color-primary);
+  transform: scale(1.05);
+}
+
+.search-form button:active {
+  background-color: #003f7f;
+  transform: scale(0.95);
+}
+
+.time {
+  font-size: 1.15rem;
+  color: var(--color-text);
+}
+
+.weather {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: var(--padding-medium);
+  font-size: var(--font-size-medium);
+  text-align: center;
+}
+
+.current-weather {
+  color: var(--color-text);
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow-y: visible;
+  border: 2px solid var(--color-border);
+  margin: 0 var(--margin-large) !important;
+  display: flex;
+  width: 100vw;
+}
+
+.current-weather .forecast-part {
+  display: grid !important; /* Use grid layout */
+  grid-template-columns: repeat(4, 1fr); /* Responsive grid */
+  gap: var(--padding-small); /* Add spacing between grid items */
+  justify-items: center; /* Center items horizontally */
+  align-items: center; /* Center items vertically */
+  padding: var(--padding-medium); /* Add padding around the grid */
+  font-size: 1rem; /* Adjust font size for better readability */
+}
+
+.weather-detail {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(125px, 1fr));
+  gap: var(--padding-small);
+  padding: var(--padding-small);
+  margin: var(--margin-small);
+  font-size: 1rem;
+}
+
+.large-icon {
+  width: 12.5rem;
+  height: 12.5rem;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid var(--color-border);
+  border-radius: 50%;
+  background-color: var(--color-tertiary) !important;
+  padding: 1rem;
+  margin: 2rem;
+}
+
+.small-icon {
+  width: 6.25rem !important;
+  height: 6.25rem !important;
+  border-radius: 50%;
+  background-color: var(--color-tertiary);
+  border: 2px solid var(--color-border);
+  margin: var(--margin-small); /* Optional: Adjust margin if needed */
+  padding: 1rem;
+}
+
+hr {
+  width: 100%;
+  border: 1.5px solid var(--color-border);
+}
+
+.locationTimeContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  border-bottom: 2px solid var(--color-border);
+  margin: 0;
+  background-color: rgba(0, 58, 139, 1);
+  width: 100vw;
+}
+
+.locationTime {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap; /* Prevent wrapping */
+  padding: var(--padding-small);
+  font-size: 1.15rem;
+  text-align: center;
+  color: var(--color-text);
+  text-shadow: #016ccf 1px 1px 1px;
+  border-radius: var(--border-radius);
+  margin: var(--margin-medium);
+  white-space: nowrap; /* Ensure text stays on one line */
+  background-color: rgba(0, 0, 0, 0); /* Set background color to transparent */
+}
+
+.fiveDay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: var(--padding-large);
+  font-size: calc(var(--font-size-medium) + 0.25rem);
+  text-align: center;
+  color: var(--color-text);
+  background-color: #003a8b;
+  text-shadow: #016ccf 1px 1px 1px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  margin: var(--margin-medium);
+}
+
+.high-low {
+  font-size: 1.1rem;
+}
+
+.popup-content {
+  color: black;
+  background-color: #ffc414;
+  border: 2px solid red;
+}
+
+.statusMessage {
+  color: var(--color-text);
+  font-size: var(--font-size-large);
+}
+
+.search-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 500px;
+  margin: 1rem;
+}
+
+.search-form input {
+  padding: var(--padding-small);
+  width: 80%;
+  max-width: 320px;
+  border: 1px solid #ccc;
+  border-radius: var(--border-radius);
+  text-align: center;
+}
+
+input {
+  color: black !important;
+  text-shadow: none;
+  background-color: rgb(255, 255, 255);
+}
+
+#picture {
+  width: 100%;
+  height: auto;
+  margin-bottom: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.search-form button {
+  padding: var(--padding-small);
+  border: none;
+  background-color: var(--color-secondary);
+  color: var(--color-text);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  margin: var(--margin-medium);
+  width: 50%;
+  max-width: 320px;
+}
+
+.search-form input, .search-form button {
+  width: 100%;
+  margin: 5px 0;
+  color: var(--color-text);
+  background-color: rgba(0 0 0 1);
+}
+
+.search-form button:hover {
+  background-color: var(--color-primary);
+  transform: scale(1.05);
+}
+
+.search-form button:active {
+  background-color: #003f7f;
+  transform: scale(0.95);
+}
+
+.time {
+  font-size: 1.15rem;
+  color: var(--color-text);
+}
+
+.weather {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: var(--padding-medium);
+  font-size: var(--font-size-medium);
+  text-align: center;
+}

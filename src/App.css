@@ -946,3 +946,57 @@ input {
 .date-icon {
   border: 2px solid var(--color-primary) !important;
 }
+
+.current-weather {
+  color: var(--color-text);
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow-y: visible;
+  border: 2px solid var(--color-border);
+  margin: 0 var(--margin-large) !important;
+  display: flex;
+  width: 100vw;
+}
+
+.current-weather .forecast-part {
+  display: grid !important; /* Use grid layout */
+  grid-template-columns: repeat(4, 1fr); /* Responsive grid */
+  gap: var(--padding-small); /* Add spacing between grid items */
+  justify-items: center; /* Center items horizontally */
+  align-items: center; /* Center items vertically */
+  padding: var(--padding-medium); /* Add padding around the grid */
+  font-size: 1rem; /* Adjust font size for better readability */
+}
+
+.weather-detail {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(125px, 1fr));
+  gap: var(--padding-small);
+  padding: var(--padding-small);
+  margin: var(--margin-small);
+  font-size: 1rem;
+}
+
+.large-icon {
+  width: 12.5rem;
+  height: 12.5rem;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid var(--color-border);
+  border-radius: 50%;
+  background-color: var(--color-tertiary) !important;
+  padding: 1rem;
+  margin: 2rem;
+}
+
+.small-icon {
+  width: 6.25rem !important;
+  height: 6.25rem !important;
+  border-radius: 50%;
+  background-color: var(--color-tertiary);
+  border: 2px solid var(--color-border);
+  margin: var(--margin-small); /* Optional: Adjust margin if needed */
+  padding: 1rem;
+}

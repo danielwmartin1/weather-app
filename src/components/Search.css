@@ -1,0 +1,6 @@
+ul {
+  color: black !important;
+  text-shadow: none;
+  background-color: #fff !important; /* Ensure white background */
+  border: 2px solid #ccc;
+}

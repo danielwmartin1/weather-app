@@ -5,6 +5,7 @@ import '../App.css';
 import '../utils/api.js';
 import DayForecast from './DateForecast.js';
 import { getBackgroundMedia } from '../utils/getBackgroundMedia.js';
+import './Forecast.css';
 
 // Get the day name from a timestamp
 const getDayName = (timestamp) => {

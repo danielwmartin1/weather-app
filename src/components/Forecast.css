@@ -1,0 +1,45 @@
+/* filepath: src/components/Forecast.css */
+.forecast {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  text-align: center;
+  overflow-y: auto;
+}
+
+.forecast-day {
+  margin: var(--margin-small);
+  padding: var(--padding-small);
+  border-radius: var(--border-radius);
+  background: rgba(0,0,0,0.05);
+}
+
+.forecast-parts {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--padding-small);
+  width: 100%;
+  margin-top: var(--margin-small);
+  padding: var(--padding-small);
+}
+
+@media (max-width: 1200px) {
+  .forecast-parts {
+    grid-template-columns: repeat(4, 1fr) !important;
+  }
+}
+@media (max-width: 600px) {
+  .forecast-parts {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+}
+
+.forecast-part {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--padding-small);
+}
