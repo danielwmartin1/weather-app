@@ -533,6 +533,39 @@ h2, h3, .dateHeader {
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Add a black text shadow */
 }
 
+/* Consistent padding and margin for main containers */
+.forecast,
+.current-weather,
+.current-weather-content,
+.dateforecast,
+.DayForecast {
+    padding: 2rem !important;
+    margin: 1.5rem auto !important;
+    box-sizing: border-box !important;
+}
+
+@media (max-width: 900px) {
+    .forecast,
+    .current-weather,
+    .current-weather-content,
+    .dateforecast,
+    .DayForecast {
+        padding: 1rem !important;
+        margin: 1rem auto !important;
+    }
+}
+
+@media (max-width: 600px) {
+    .forecast,
+    .current-weather,
+    .current-weather-content,
+    .dateforecast,
+    .DayForecast {
+        padding: 0.5rem !important;
+        margin: 0.5rem auto !important;
+    }
+}
+
 /* Media queries for responsiveness */
 @media (max-width: 1500px) {
   .forecast-day, .details, .current-weather, .locationTimeContainer {

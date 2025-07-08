@@ -1,5 +1,5 @@
 // src/components/Forecast.js
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import '../index.css';
 import '../App.css';
 import '../utils/api.js';
