@@ -176,12 +176,14 @@ const DateForecast = ({ dayData }) => {
                             </p>
                         ))}
                     </div>
-                    {/* Weather icon */}
-                    <img
-                        className="small-icon date-icon"
-                        src={`http://openweathermap.org/img/wn/${overallData.weather[0].icon}@2x.png`}
-                        alt={overallData.weather[0].description}
-                    />
+                    {/* Place the icon after the forecast-part */}
+                    <div className="date-icon-container">
+                        <img
+                            className="small-icon date-icon"
+                            src={`http://openweathermap.org/img/wn/${overallData.weather[0].icon}@2x.png`}
+                            alt={overallData.weather[0].description}
+                        />
+                    </div>
                 </div>
             </div>
         </div>

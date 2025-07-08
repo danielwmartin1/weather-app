@@ -1,5 +1,5 @@
 // src/components/Forecast.js
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import '../index.css';
 import '../App.css';
 import '../utils/api.js';
@@ -73,18 +73,7 @@ const getWindDirection = (deg) => {
 
 const Forecast = React.memo(({ forecastData }) => {
     const [selectedDay, setSelectedDay] = useState(null);
-
-    // Store refs for each forecast day video
     const videoRefs = useRef([]);
-
-    // Set playbackRate to 0.25 for all forecast day background videos (to match App.js)
-    useEffect(() => {
-        videoRefs.current.forEach(video => {
-            if (video && video.playbackRate !== 0.25) {
-                video.playbackRate = 0.25;
-            }
-        });
-    });
 
     // Debug: Log forecastData on every render
     console.debug('Forecast: forecastData', forecastData);
@@ -129,83 +118,79 @@ const Forecast = React.memo(({ forecastData }) => {
                     </button>
                 </div>
             ) : (
-                <div className="forecast-overview">
-                    {dayParts.map((day, dayIndex) => {
-                        const mainPart = day[0];
-                        const isNightTime = mainPart?.weather?.[0]?.icon?.endsWith('n');
-                        const condition = mainPart?.weather?.[0]?.main?.toLowerCase() || '';
-                        const backgroundMedia = getBackgroundMedia(condition, isNightTime);
+                dayParts.map((day, dayIndex) => {
+                    const mainPart = day[0];
+                    const isNightTime = mainPart?.weather?.[0]?.icon?.endsWith('n');
+                    const condition = mainPart?.weather?.[0]?.main?.toLowerCase() || '';
+                    const backgroundMedia = getBackgroundMedia(condition, isNightTime);
 
-                        return (
-                            <div
-                                key={dayIndex}
-                                className="forecast-day background-media"
-                                style={{
-                                    position: 'relative',
-                                    overflow: 'hidden',
-                                    ...(backgroundMedia.type !== 'video'
-                                        ? {
-                                            backgroundImage: `url(${backgroundMedia.src})`,
-                                            backgroundSize: 'cover',
-                                            backgroundPosition: 'center',
-                                            backgroundRepeat: 'no-repeat',
-                                        }
-                                        : {})
-                                }}
-                                onClick={() => handleDayClick(day)}
-                            >
-                                {backgroundMedia.type === 'video' && (
-                                    <video
-                                        ref={el => (videoRefs.current[dayIndex] = el)}
-                                        className="background-video"
-                                        src={backgroundMedia.src}
-                                        autoPlay
-                                        loop
-                                        muted
-                                        playsInline
-                                    />
-                                )}
-                                <div className="forecast-day-content">
-                                    <div className="headerContainer">
-                                        <h3 className="dateHeader">
-                                            {getDayName(day[0].dt)} - {formatDateWithSuffix(day[0].dt)}
-                                        </h3>
-                                        <h4 className="high-low">
-                                            High: {Math.round(getHighLowTemps(day).high)}°F&nbsp;|&nbsp;
-                                            Low: {Math.round(getHighLowTemps(day).low)}°F
-                                        </h4>
-                                    </div>
-                                    <div className="forecast-parts">
-                                        {day.map((part) => (
-                                            <div key={part.dt} className="forecast-part">
-                                                <p className="part">
-                                                    <strong>
-                                                        {new Date(part.dt * 1000).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}
-                                                    </strong>
-                                                </p>
-                                                <p className="part">{Math.round(part.main.temp)}°F</p>
-                                                <p className="part condition">
-                                                    {capitalizeFirstLetter(part.weather[0].description)}
-                                                </p>
-                                                <img
-                                                    className="small-icon"
-                                                    src={getWeatherIconUrl(part.weather[0].icon)}
-                                                    alt={part.weather[0].description}
-                                                />
-                                                <p className="part">
-                                                    💧 {Math.round((part.pop || 0) * 100)}%
-                                                </p>
-                                                <p className="part">
-                                                    🌬️ {Math.round(part.wind.speed)} mph {getWindDirection(part.wind.deg)}
-                                                </p>
-                                            </div>
-                                        ))}
-                                    </div>
+                    return (
+                        <div
+                            key={dayIndex}
+                            className="forecast-day background-media"
+                            style={{
+                                position: 'relative',
+                                overflow: 'hidden',
+                                ...(backgroundMedia.type !== 'video'
+                                    ? {
+                                        backgroundImage: `url(${backgroundMedia.src})`,
+                                        backgroundSize: 'cover',
+                                        backgroundPosition: 'center',
+                                        backgroundRepeat: 'no-repeat',
+                                    }
+                                    : {})
+                            }}
+                            onClick={() => handleDayClick(day)}
+                        >
+                            {backgroundMedia.type === 'video' && (
+                                <video
+                                    ref={el => (videoRefs.current[dayIndex] = el)}
+                                    className="background-video"
+                                    src={backgroundMedia.src}
+                                    autoPlay
+                                    loop
+                                    muted
+                                    playsInline
+                                />
+                            )}
+                            <div className="forecast-day-content">
+                                <div className="headerContainer">
+                                    <h3 className="dateHeader">
+                                        {getDayName(day[0].dt)} - {formatDateWithSuffix(day[0].dt)}
+                                    </h3>
+                                    <h4 className="high-low">
+                                        High: {Math.round(getHighLowTemps(day).high)}°F&nbsp;|&nbsp;
+                                        Low: {Math.round(getHighLowTemps(day).low)}°F
+                                    </h4>
+                                </div>
+                                <div className="forecast-parts">
+                                    {day.map((part) => (
+                                        <div key={part.dt} className="forecast-part">
+                                            <p className="part">
+                                                {new Date(part.dt * 1000).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}
+                                            </p>
+                                            <p className="part">{Math.round(part.main.temp)}°F</p>
+                                            <p className="part condition">
+                                                {capitalizeFirstLetter(part.weather[0].description)}
+                                            </p>
+                                            <img
+                                                className="small-icon"
+                                                src={getWeatherIconUrl(part.weather[0].icon)}
+                                                alt={part.weather[0].description}
+                                            />
+                                            <p className="part">
+                                                💧 {Math.round((part.pop || 0) * 100)}%
+                                            </p>
+                                            <p className="part">
+                                                🌬️ {Math.round(part.wind.speed)} mph {getWindDirection(part.wind.deg)}
+                                            </p>
+                                        </div>
+                                    ))}
                                 </div>
                             </div>
-                        );
-                    })}
-                </div>
+                        </div>
+                    );
+                })
             )}
         </div>
     );
