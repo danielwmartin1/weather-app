@@ -33,9 +33,9 @@ export function getBackgroundMedia(condition, isNightTime) {
     return getMedia('night-overcast', ['mp4', 'jpg']);
   }
 
-  // --- Fog condition ---
+  // --- Fog or Haze condition (day or night) ---
   // Use fog-specific media if the condition matches
-  if (/fog/i.test(condition)) {
+  if (/fog|haze/i.test(condition)) {
     return getMedia('fog', ['mp4', 'jpg']);
   }
 
@@ -53,8 +53,8 @@ export function getBackgroundMedia(condition, isNightTime) {
     if (['mist', 'drizzle'].includes(condition)) {
       return getMedia('night-mist', ['mp4', 'jpg']);
     }
-    // Use night-fog media for fog at night
-    if (condition === 'fog') {
+    // Use night-fog media for fog or haze at night
+    if (condition === 'fog' || condition === 'haze') {
       return getMedia('night-fog', ['mp4', 'jpg']);
     }
     // Default night background
@@ -66,8 +66,8 @@ export function getBackgroundMedia(condition, isNightTime) {
     return getMedia('mist', ['mp4', 'jpg']);
   }
 
-  // Handle daytime fog
-  if (condition === 'fog') {
+  // Handle daytime fog or haze
+  if (condition === 'fog' || condition === 'haze') {
     return getMedia('fog', ['mp4', 'jpg']);
   }
 

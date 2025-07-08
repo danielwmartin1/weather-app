@@ -8,7 +8,7 @@ const Search = ({ onSearch }) => {
   const [location, setLocation] = useState('');
   const [suggestions, setSuggestions] = useState([]);
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
-  const suggestionsRef = useRef(null);
+  //const suggestionsRef = useRef(null);
   const itemRefs = useRef([]);
 
   const handleInputChange = async (e) => {
@@ -52,22 +52,18 @@ const Search = ({ onSearch }) => {
   };
 
   const handleInputKeyDown = (e) => {
+    if (suggestions.length === 0) return;
+
     if (e.key === 'ArrowDown') {
       e.preventDefault();
-      if (suggestions.length > 0) {
-        setHighlightedIndex((prev) => {
-          const next = prev < suggestions.length - 1 ? prev + 1 : 0;
-          return next;
-        });
-      }
+      setHighlightedIndex((prev) =>
+        prev < suggestions.length - 1 ? prev + 1 : 0
+      );
     } else if (e.key === 'ArrowUp') {
       e.preventDefault();
-      if (suggestions.length > 0) {
-        setHighlightedIndex((prev) => {
-          const next = prev > 0 ? prev - 1 : suggestions.length - 1;
-          return next;
-        });
-      }
+      setHighlightedIndex((prev) =>
+        prev > 0 ? prev - 1 : suggestions.length - 1
+      );
     } else if (e.key === 'Enter') {
       if (highlightedIndex >= 0 && highlightedIndex < suggestions.length) {
         e.preventDefault();
@@ -76,7 +72,7 @@ const Search = ({ onSearch }) => {
     }
   };
 
-  // Move focus to the highlighted suggestion item
+  // Move focus to the highlighted suggestion item for accessibility
   useEffect(() => {
     if (
       highlightedIndex >= 0 &&
@@ -162,24 +158,17 @@ const Search = ({ onSearch }) => {
           }
         />
         {suggestions.length > 0 && (
-          <ul
-            className="suggestions-list"
-            id="suggestions-list"
-            ref={suggestionsRef}
-            role="listbox"
-          >
+          <ul className="suggestions-list" id="suggestions-list" role="listbox">
             {suggestions.map((s, i) => (
               <li
-                className={`suggestion-item${i === highlightedIndex ? ' highlighted' : ''}`}
                 key={i}
-                id={`suggestion-${i}`}
-                role="option"
-                aria-selected={i === highlightedIndex}
-                tabIndex={i === highlightedIndex ? 0 : -1}
-                ref={el => (itemRefs.current[i] = el)}
+                className={`suggestion-item${i === highlightedIndex ? ' highlighted' : ''}`}
                 onClick={() => handleSuggestionClick(s)}
                 onMouseEnter={() => setHighlightedIndex(i)}
-                onKeyDown={e => handleSuggestionKeyDown(e, i)}
+                tabIndex={i === highlightedIndex ? 0 : -1}
+                ref={el => (itemRefs.current[i] = el)}
+                role="option"
+                aria-selected={i === highlightedIndex}
               >
                 {formatLocationString(s)}
               </li>
