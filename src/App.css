@@ -231,9 +231,7 @@ img,
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  margin-bottom: 1rem;
   text-align: center;
-  width: 100%;
   padding: var(--padding-small);
   max-height: 100vh; /* Prevent the forecast container from exceeding the viewport height */
   overflow-y: auto; /* Add scrolling if the content exceeds the container height */
@@ -513,132 +511,12 @@ input {
 /* Responsive adjustments */
 @media (max-width: 1200px) {
   .weather-detail {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
   }
-}
 
-@media (max-width: 800px) {
-  .weather-detail {
-    grid-template-columns: repeat(2, 1fr);
+  .forecast-parts {
+    grid-template-columns: repeat(4, 1fr);
   }
-}
-
-@media (max-width: 500px) {
-  .weather-detail {
-    grid-template-columns: 1fr;
-  }
-}
-
-.small-icons-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  gap: var(--padding-small); /* Adjust the gap between icons as needed */
-}
-
-.location-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: no;
-  text-align: center;
-  color: var(--color-text);
-  background-color: rgba(0, 58, 139, 1);
-  text-shadow: #016ccf 1px 1px 1px;
-  border-radius: var(--border-radius);
-  margin: var(--margin-small);
-}
-
-.locationTime {
-  margin: var(--margin-small);
-  font-size: 1.3rem;  
-  text-align: center;
-  background-color: rgba(0, 58, 139, 0) !important; /* Set background color to transparent */
-}
-
-.forecast-day, .current-weather-content {
-  width: 100%; /* Ensure consistent width */
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center
-}
-
-.current-weather {
-  background-color: rgba(0, 125, 255, 0.25);
-  margin: var(--margin-large);
-}
-
-div {
-  background-color: rgba(0, 125, 255, 0) !important;
-}
-
-h2, h3, .dateHeader {
-  background-color: var(--color-secondary); /* Set a consistent background color for all h2 elements */
-  color: var(--color-text); /* Ensure text color contrasts with the background */
-  padding: var(--padding-small); /* Optional: Add padding for better spacing */
-  border-radius: var(--border-radius); /* Optional: Add rounded corners */
-}
-
-* {
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Add a black text shadow */
-}
-
-/* Make the title in the header interactive like the submit button and OpenWeather image */
-#title {
-  transition: border-color 0.3s, box-shadow 0.3s, transform 0.2s, filter 0.2s;
-  cursor: pointer;
-  border: 2px solid var(--color-accent);
-  box-shadow: none;
-}
-
-#title:hover,
-#title:focus {
-  border-color: aqua;
-  box-shadow: 0 0 8px 2px aqua;
-  outline: none;
-  transform: scale(1.05);
-  filter: brightness(1.1);
-}
-
-#title:active {
-  border-color: #003f7f;
-  box-shadow: 0 0 8px 2px #003f7f;
-  transform: scale(0.97);
-  filter: brightness(0.95);
-}
-
-/* Consistent padding and margin for main containers */
-.forecast,
-.current-weather,
-.current-weather-content,
-.dateforecast,
-.DayForecast {
-    box-sizing: border-box;
-}
-
-@media (max-width: 900px) {
-    .forecast,
-    .current-weather,
-    .current-weather-content,
-    .dateforecast,
-    .DayForecast {
-        padding: 1rem !important;
-        margin: 1rem auto !important;
-    }
-}
-
-@media (max-width: 600px) {
-    .forecast,
-    .current-weather,
-    .current-weather-content,
-    .dateforecast,
-    .DayForecast {
-        padding: 0.5rem !important;
-        margin: 0.5rem auto !important;
-    }
 }
 
 /* Media queries for responsiveness */
@@ -673,10 +551,7 @@ h2, h3, .dateHeader {
   .part {
     font-size: calc(var(--font-size-small) * 0.9);
   }
-  
-  .forecast-day {
-    margin: var(--margin-small); /* Consistent margin */
-  }
+
 }
 
 @media (max-width: 1024px) {
@@ -775,12 +650,14 @@ h2, h3, .dateHeader {
   .forecast-part {
     grid-template-columns: repeat(2, 1fr) !important; /* Adjust to two columns */
   }
-  .current-weather .forecast-parts {
-    grid-template-columns: 1fr 1fr !important; /* Stack items vertically on smaller screens */
-  }
-  .forecast-day, .weather-detail {
+
+  .weather-detail {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(1fr, 1fr)) !important; /* Responsive grid */
+    grid-template-columns: repeat(3, 1fr) !important; /* Responsive grid with 3 columns */
+  }
+
+  .forecast-parts {
+    grid-template-columns: repeat(3, 1fr) !important; /* Always at least 3 columns */
   }
 }
 
@@ -983,7 +860,7 @@ header, footer, .details, .dateHeader, .fiveDay, .popup-content, .statusMessage,
 .forecast-day-content {
     position: relative;
     z-index: 1;
-    width: 100%;
+    width: 100vw;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -993,41 +870,30 @@ header, footer, .details, .dateHeader, .fiveDay, .popup-content, .statusMessage,
 /* Responsive grid for forecast parts */
 .forecast-parts {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(6, minmax(125px, 1fr));
   gap: var(--padding-small);
   width: 100%;
   margin-top: var(--margin-small);
+  padding: var(--padding-small);
 }
 
+/* Responsive adjustments for forecast-parts */
 @media (max-width: 1200px) {
+  .forecast-parts {
+    grid-template-columns: repeat(4, 1fr)!important; /* Adjust to 4 columns */
+  }
+}
+
+@media (max-width: 800px) {
   .forecast-parts {
     grid-template-columns: repeat(3, 1fr);
   }
 }
-@media (max-width: 900px), (max-width: 800px) {
-  .forecast-parts {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-@media (max-width: 500px) {
-  .forecast-parts {
-    grid-template-columns: 1fr;
-  }
-}
-@media (max-width: 480px) {
-  .forecast-parts {
-    grid-template-columns: 1fr 1fr;
-  }
-}
 
-/* Each forecast item */
-.forecast-part {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: var(--padding-small);
+@media (max-width: 600px) {
+  .forecast-parts {
+    grid-template-columns: repeat(3, 1fr) !important; /* Always at least 3 columns */
+  }
 }
 
 /* Make the OpenWeather image interactive like the submit button */
