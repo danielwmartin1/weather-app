@@ -539,9 +539,8 @@ h2, h3, .dateHeader {
 .current-weather-content,
 .dateforecast,
 .DayForecast {
-    padding: 2rem !important;
-    margin: 1.5rem auto !important;
-    box-sizing: border-box !important;
+    margin: 1.5rem auto;
+    box-sizing: border-box;
 }
 
 @media (max-width: 900px) {
