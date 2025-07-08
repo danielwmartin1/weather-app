@@ -33,6 +33,7 @@ body {
   display: flex;
   flex-direction: column;
   height: 100vh;
+  width: 100vw;
   margin: 0;
   font-size: 1rem; /* Base font size */
 }
@@ -232,8 +233,6 @@ img,
   align-items: center;
   flex-wrap: wrap;
   text-align: center;
-  padding: var(--padding-small);
-  max-height: 100vh; /* Prevent the forecast container from exceeding the viewport height */
   overflow-y: auto; /* Add scrolling if the content exceeds the container height */
 }
 
@@ -247,7 +246,6 @@ img,
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: var(--padding-small);
 }
 
 .selected-day-forecast {
@@ -461,11 +459,12 @@ input {
   border: 2px solid var(--color-border);
   margin: 0 var(--margin-large) !important;
   display: flex;
+  width: 100vw;
 }
 
 .current-weather .forecast-part {
   display: grid !important; /* Use grid layout */
-  grid-template-columns: repeat(3, 1fr); /* Responsive grid */
+  grid-template-columns: repeat(4, 1fr); /* Responsive grid */
   gap: var(--padding-small); /* Add spacing between grid items */
   justify-items: center; /* Center items horizontally */
   align-items: center; /* Center items vertically */
@@ -514,8 +513,8 @@ input {
     grid-template-columns: repeat(4, 1fr);
   }
 
-  .forecast-parts {
-    grid-template-columns: repeat(4, 1fr);
+  .forecast-part {
+    grid-template-columns: repeat(4, 1fr) !important;
   }
 }
 
@@ -647,9 +646,6 @@ input {
 }
 
 @media (max-width: 600px) {
-  .forecast-part {
-    grid-template-columns: repeat(2, 1fr) !important; /* Adjust to two columns */
-  }
 
   .weather-detail {
     display: grid;
@@ -719,9 +715,14 @@ input {
   .forecast-day {
     margin: var(--margin-small); /* Consistent margin */
   }
+
+  .forecast-part {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr) !important; /* Responsive grid with 2 columns */
+  }
 }
 
-@media (max-width: 352px) {
+@media (max-width: 375px) {
   .forecast, .forecast-day, .details, header, footer, .dateHeader, .search-form input, .search-form button {
     font-size: calc(var(--font-size-small) * 0.7);
     padding: var(--padding-small);
@@ -880,13 +881,13 @@ header, footer, .details, .dateHeader, .fiveDay, .popup-content, .statusMessage,
 /* Responsive adjustments for forecast-parts */
 @media (max-width: 1200px) {
   .forecast-parts {
-    grid-template-columns: repeat(4, 1fr)!important; /* Adjust to 4 columns */
+    grid-template-columns: repeat(4, 1fr) !important;
   }
 }
 
 @media (max-width: 800px) {
   .forecast-parts {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, 1fr) !important;
   }
 }
 
