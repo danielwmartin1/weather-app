@@ -933,16 +933,34 @@ header, footer, .details, .dateHeader, .fiveDay, .popup-content, .statusMessage,
     flex-direction: column;
     align-items: center;
     padding: var(--padding-small);
-}
-
-/* Responsive grid for forecast parts */
-.forecast-parts {
+  }
+g
+  /* Responsive grid for forecast parts */
+  .forecast-parts {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     gap: var(--padding-small);
     width: 100%;
     margin-top: var(--margin-small);
-}
+  }
+
+  @media (max-width: 1200px) {
+    .forecast-parts {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (max-width: 800px) {
+    .forecast-parts {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 500px) {
+    .forecast-parts {
+      grid-template-columns: 1fr;
+    }
+  }
 
 @media (max-width: 900px) {
     .forecast-parts {
@@ -995,7 +1013,6 @@ footer,
   align-items: center;
   text-align: center;
   color: var(--color-text);
-  text-decoration: underline;
   text-shadow: #016ccf 1px 1px 1px;
   border: 3px solid var(--color-accent);
 }
