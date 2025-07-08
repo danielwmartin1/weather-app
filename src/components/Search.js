@@ -39,7 +39,7 @@ const Search = ({ onSearch }) => {
   const handleSuggestionClick = (suggestion) => {
     const locationString = formatLocationString(suggestion);
     setLocation(locationString);
-    setSuggestions([]);
+    setSuggestions([]); // Clear suggestions
     setHighlightedIndex(-1);
     onSearch({
       name: suggestion.name,
@@ -87,7 +87,7 @@ const Search = ({ onSearch }) => {
   }, [highlightedIndex, suggestions]);
 
   const handleSuggestionKeyDown = (e, i) => {
-    if (e.key === 'Enter' || e.key === ' ') {
+    if (e.key === 'Enter') {
       e.preventDefault();
       handleSuggestionClick(suggestions[i]);
     } else if (e.key === 'ArrowDown') {

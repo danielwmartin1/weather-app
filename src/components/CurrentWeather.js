@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import '../index.css';
 import '../App.css';
 import './Search.js';
@@ -91,6 +91,18 @@ const getLocationHeader = (location, weatherData) => {
 const CurrentWeather = ({ weatherData, forecastData, location }) => {
   // State for current time (updates every second)
   const [time, setTime] = useState(new Date());
+  const videoRef = useRef(null);
+
+  // Background media based on weather condition and time of day
+  const condition = weatherData?.weather?.[0]?.main?.toLowerCase() || '';
+  const isNightTime = weatherData?.weather?.[0]?.icon?.endsWith('n');
+  const backgroundMedia = getBackgroundMedia(condition, isNightTime);
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.playbackRate = 0.5;
+    }
+  }, [backgroundMedia]);
 
   // Debugging: Log props and key data
   useEffect(() => {
@@ -240,11 +252,7 @@ const CurrentWeather = ({ weatherData, forecastData, location }) => {
   // --- Render ---
 
   console.debug('Rendering CurrentWeather component');
-
-  // Background media based on weather condition and time of day
-  const condition = weatherData.weather?.[0]?.main?.toLowerCase() || '';
-  const isNightTime = weatherData.weather?.[0]?.icon?.endsWith('n');
-  const backgroundMedia = getBackgroundMedia(condition, isNightTime);
+  console.debug('backgroundMedia:', backgroundMedia);
 
   return (
     <div className="current-weather" style={{ position: 'relative', overflow: 'hidden' }}>

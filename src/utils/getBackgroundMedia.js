@@ -1,3 +1,5 @@
+import { useMemo } from 'react';
+
 // Returns an object describing the background media (image, gif, or video) to use
 // based on the weather condition and whether it's night time.
 export function getBackgroundMedia(condition, isNightTime) {
@@ -5,7 +7,7 @@ export function getBackgroundMedia(condition, isNightTime) {
   // Uses window.__MEDIA_EXISTS__ to check which files exist.
   function getMedia(name, extensions = ['mp4', 'gif', 'jpg', 'png']) {
     const basePath = `/images/${name}`;
-    if (window && window.__MEDIA_EXISTS__) {
+    if (typeof window !== 'undefined' && window.__MEDIA_EXISTS__) {
       // Loop through the provided extensions and return the first existing media file
       for (const ext of extensions) {
         if (window.__MEDIA_EXISTS__[`${name}.${ext}`]) {
@@ -31,6 +33,12 @@ export function getBackgroundMedia(condition, isNightTime) {
     return getMedia('night-overcast', ['mp4', 'jpg']);
   }
 
+  // --- Fog condition ---
+  // Use fog-specific media if the condition matches
+  if (/fog/i.test(condition)) {
+    return getMedia('fog', ['mp4', 'jpg']);
+  }
+
   // Handle night time backgrounds
   if (isNightTime) {
     // Use night-cloudy media for cloudy conditions at night
@@ -45,6 +53,10 @@ export function getBackgroundMedia(condition, isNightTime) {
     if (['mist', 'drizzle'].includes(condition)) {
       return getMedia('night-mist', ['mp4', 'jpg']);
     }
+    // Use night-fog media for fog at night
+    if (condition === 'fog') {
+      return getMedia('night-fog', ['mp4', 'jpg']);
+    }
     // Default night background
     return getMedia('night', ['mp4', 'jpg']);
   }
@@ -54,6 +66,11 @@ export function getBackgroundMedia(condition, isNightTime) {
     return getMedia('mist', ['mp4', 'jpg']);
   }
 
+  // Handle daytime fog
+  if (condition === 'fog') {
+    return getMedia('fog', ['mp4', 'jpg']);
+  }
+
   // Fallback if no condition is provided
   if (!condition) {
     return { type: 'image', src: '/images/blue-ribbon.jpg', ext: 'jpg' };
@@ -61,4 +78,23 @@ export function getBackgroundMedia(condition, isNightTime) {
 
   // Default: try all extensions for the given condition
   return getMedia(condition, ['mp4', 'gif', 'jpg', 'png']);
+}
+
+export function BackgroundMediaComponent({ weatherData }) {
+  const backgroundMedia = useMemo(() => getBackgroundMedia(weatherData), [weatherData]);
+
+  return (
+    <div>
+      {backgroundMedia.type === 'video' ? (
+        <video autoPlay loop muted>
+          <source src={backgroundMedia.src} type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      ) : backgroundMedia.type === 'gif' ? (
+        <img src={backgroundMedia.src} alt="Weather GIF" />
+      ) : (
+        <img src={backgroundMedia.src} alt="Weather Background" />
+      )}
+    </div>
+  );
 }

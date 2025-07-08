@@ -39,7 +39,6 @@ const DateForecast = ({ dayData }) => {
 
     // Use dummy values for hooks if no data, to keep order
     const overallData = dayData && dayData.length ? (dayData[0] || {}) : {};
-    const isNightTime = overallData.weather?.[0]?.icon?.endsWith('n');
     const condition = overallData.weather?.[0]?.main?.toLowerCase() || '';
     // Always use daytime backgrounds for DateForecast
     const backgroundMedia = getBackgroundMedia(condition, false);
