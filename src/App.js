@@ -170,8 +170,7 @@ const App = () => {
         {backgroundMedia.type === 'video' && (
           <video
             ref={el => {
-              // Set playbackRate to 0.35 when the ref is set
-              if (el) el.playbackRate = 0.5;
+                if (el) el.playbackRate = 0.5; // Set your global speed here
             }}
             className="background-video"
             src={backgroundMedia.src}

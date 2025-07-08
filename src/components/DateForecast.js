@@ -47,7 +47,7 @@ const DateForecast = ({ dayData }) => {
     // Set playbackRate to 0.5 for video backgrounds (to match App.js)
     useEffect(() => {
         if (backgroundMedia.type === 'video' && videoRef.current) {
-            videoRef.current.playbackRate = 0.5;
+            videoRef.current.playbackRate = 0.5; // Set your global speed here
         }
     }, [backgroundMedia]);
 
@@ -124,9 +124,9 @@ const DateForecast = ({ dayData }) => {
             <div
                 className="current-weather-content background-media"
                 style={{
-                    width: '100%',
-                    minHeight: '60vh',
                     display: 'flex',
+                    padding: 'var(--padding-medium)',
+                    width: '100%',
                     flexDirection: 'column',
                     justifyContent: 'center',
                     alignItems: 'center',
@@ -159,11 +159,11 @@ const DateForecast = ({ dayData }) => {
                     <h2
                         className="dateHeader"
                         style={{
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
+                            width: 'fit-content',
+                            margin: 'var(--margin-small) auto',
+                            padding: 'var(--padding-small)',
                             textAlign: 'center',
-                            marginBottom: '0rem'
+                            fontSize: 'calc(var(--font-size-small) * 1.1)'
                         }}
                     >
                         {getDayName(overallData.dt)} - {getDateWithSuffix(overallData.dt)}
