@@ -866,9 +866,9 @@ header, footer, .details, .dateHeader, .fiveDay, .popup-content, .statusMessage,
   }
 
 /* Responsive grid for forecast parts */
-.forecast-parts {
+.forecast-part {
   display: grid;
-  grid-template-columns: repeat(6, minmax(125px, 1fr));
+  grid-template-columns: repeat(6, 1fr);
   gap: var(--padding-small);
   width: 100%;
   margin-top: var(--margin-small);
