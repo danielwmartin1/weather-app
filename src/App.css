@@ -863,7 +863,6 @@ header, footer, .details, .dateHeader, .fiveDay, .popup-content, .statusMessage,
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: var(--padding-small);
   }
 
 /* Responsive grid for forecast parts */
