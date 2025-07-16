@@ -8,7 +8,7 @@ function getMedia(name, extensions = ['mp4', 'gif', 'jpg', 'png']) {
       if (window.__MEDIA_EXISTS__[`${name}.${ext}`]) {
         let type = ext === 'mp4' ? 'video' : ext === 'gif' ? 'gif' : 'image';
         return { type, src: `${basePath}.${ext}`, ext };
-      }
+      } 
     }
   }
   return { type: 'image', src: `${basePath}.jpg`, ext: 'jpg' };
@@ -20,7 +20,7 @@ export function getBackgroundMedia(condition, isNightTime) {
   const condStr = typeof condition === 'string' ? condition.toLowerCase() : '';
 
   // Overcast condition (day or night)
-  if (condStr.includes('overcast')) {
+  if (/overcast/i.test(condStr)) {
     const media = isNightTime
       ? getMedia('night-overcast', ['mp4', 'jpg'])
       : getMedia('overcast', ['mp4', 'jpg']);
