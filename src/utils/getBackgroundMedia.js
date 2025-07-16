@@ -93,59 +93,17 @@ export function BackgroundMediaComponent({ weatherData }) {
   const backgroundMedia = useMemo(() => getBackgroundMedia(weatherData), [weatherData]);
 
   return (
-    <div style={{ position: 'relative', overflow: 'hidden' }}>
+    <div>
       {backgroundMedia.type === 'video' ? (
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover',
-            zIndex: 0,
-            background: 'black'
-          }}
-        >
+        <video autoPlay loop muted playsInline>
           <source src={backgroundMedia.src} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
       ) : backgroundMedia.type === 'gif' ? (
-        <img
-          src={backgroundMedia.src}
-          alt="Weather GIF"
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover',
-            zIndex: 0
-          }}
-        />
+        <img src={backgroundMedia.src} alt="Weather GIF" />
       ) : (
-        <img
-          src={backgroundMedia.src}
-          alt="Weather Background"
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover',
-            zIndex: 0
-          }}
-        />
+        <img src={backgroundMedia.src} alt="Weather Background" />
       )}
-      <div style={{ position: 'relative', zIndex: 1 }}>
-        {/* Foreground content goes here */}
-      </div>
     </div>
   );
 }
