@@ -332,6 +332,7 @@ img,
   padding: var(--padding-small);
   border: none;
   box-shadow: 0 0 2px 1px aqua; /* Added box shadow */
+  margin-bottom: var(--margin-small) !important;
 }
 
 .backButton:hover {
