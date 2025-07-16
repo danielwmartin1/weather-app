@@ -8,29 +8,51 @@ const initialState = {
   background: '',       // Stores background image or style
   location: '',         // Stores formatted location string
   showImage: true,      // Controls whether to show the image
+  isUSLocation: null,   // Add this if you want to track US location
 };
 
 // Reducer function to handle state updates based on action types
 const appReducer = (state, action) => {
-  console.debug('[AppContext] Reducer action:', action);
+  console.group(`[AppContext] Reducer`);
+  console.log(`Action Type:`, action.type);
+  if (action.payload !== undefined) {
+    console.log(`Payload:`);
+    if (typeof action.payload === 'object') {
+      console.table(action.payload);
+    } else {
+      console.log(action.payload);
+    }
+  }
   switch (action.type) {
     case 'SET_WEATHER_DATA':
-      console.debug('[AppContext] Setting weather data:', action.payload);
+      console.log(`[AppContext] Weather Data Table:`);
+      console.table(action.payload);
+      console.groupEnd();
       return { ...state, weatherData: action.payload };
     case 'SET_FORECAST_DATA':
-      console.debug('[AppContext] Setting forecast data:', action.payload);
+      console.log(`[AppContext] Forecast Data Table:`);
+      console.table(action.payload);
+      console.groupEnd();
       return { ...state, forecastData: action.payload };
     case 'SET_BACKGROUND':
-      console.debug('[AppContext] Setting background:', action.payload);
+      console.log(`[AppContext] Background:`, action.payload);
+      console.groupEnd();
       return { ...state, background: action.payload };
     case 'SET_LOCATION':
-      console.debug('[AppContext] Setting location:', action.payload);
+      console.log(`[AppContext] Location:`, action.payload);
+      console.groupEnd();
       return { ...state, location: action.payload };
     case 'SET_SHOW_IMAGE':
-      console.debug('[AppContext] Setting showImage:', action.payload);
+      console.log(`[AppContext] Show Image:`, action.payload);
+      console.groupEnd();
       return { ...state, showImage: action.payload };
+    case 'SET_IS_US_LOCATION':
+      console.log(`[AppContext] isUSLocation:`, action.payload);
+      console.groupEnd();
+      return { ...state, isUSLocation: action.payload };
     default:
-      console.debug('[AppContext] Unknown action type:', action.type);
+      console.warn(`[AppContext] Unknown action type:`, action.type);
+      console.groupEnd();
       return state;
   }
 };
@@ -49,7 +71,10 @@ export const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(appReducer, initialState);
 
   React.useEffect(() => {
-    console.debug('[AppContext] State updated:', state);
+    console.group(`[AppContext] State Updated`);
+    console.log(`[AppContext] Current State Table:`);
+    console.table(state);
+    console.groupEnd();
   }, [state]);
 
   /**
@@ -58,7 +83,8 @@ export const AppProvider = ({ children }) => {
    * Updates context state with fetched data.
    */
   const fetchWeatherAndForecast = async (locationOrLat, maybeLon) => {
-    console.debug('[AppContext] fetchWeatherAndForecast called with:', locationOrLat, maybeLon);
+    console.group(`[AppContext] fetchWeatherAndForecast`);
+    console.log(`[AppContext] Input:`, locationOrLat, maybeLon);
     try {
       let weather = null;
       let forecast = null;
@@ -67,7 +93,7 @@ export const AppProvider = ({ children }) => {
       if (typeof locationOrLat === 'number' && typeof maybeLon === 'number') {
         // Input is latitude and longitude as numbers
         const latLon = `${locationOrLat},${maybeLon}`;
-        console.debug('[AppContext] Fetching by lat/lon:', latLon);
+        console.log(`[AppContext] Fetching by lat/lon:`, latLon);
         weather = await fetchWeatherData(latLon);
         forecast = await fetchForecastData(latLon);
       } else if (
@@ -78,18 +104,20 @@ export const AppProvider = ({ children }) => {
         // Input is an object with lat and lon properties
         const { lat, lon } = locationOrLat;
         const latLon = `${lat},${lon}`;
-        console.debug('[AppContext] Fetching by lat/lon object:', latLon);
+        console.log(`[AppContext] Fetching by lat/lon object:`, latLon);
         weather = await fetchWeatherData(latLon);
         forecast = await fetchForecastData(latLon);
       } else if (typeof locationOrLat === 'string') {
         // Input is a location string
-        console.debug('[AppContext] Fetching by location string:', locationOrLat);
+        console.log(`[AppContext] Fetching by location string:`, locationOrLat);
         weather = await fetchWeatherData(locationOrLat);
         forecast = await fetchForecastData(locationOrLat);
       }
 
-      console.debug('[AppContext] Fetched weather:', weather);
-      console.debug('[AppContext] Fetched forecast:', forecast);
+      console.log(`[AppContext] Fetched Weather Table:`);
+      console.table(weather);
+      console.log(`[AppContext] Fetched Forecast Table:`);
+      console.table(forecast);
 
       if (weather && forecast) {
         const formattedLocation = formatLocation(weather);
@@ -101,25 +129,24 @@ export const AppProvider = ({ children }) => {
           state.location !== formattedLocation ||
           state.showImage
         ) {
-          console.debug('[AppContext] Dispatching state updates');
+          console.log(`[AppContext] Dispatching state updates`);
           dispatch({ type: 'SET_WEATHER_DATA', payload: weather });
           dispatch({ type: 'SET_FORECAST_DATA', payload: forecast });
           dispatch({ type: 'SET_LOCATION', payload: formattedLocation });
           dispatch({ type: 'SET_SHOW_IMAGE', payload: false });
         } else {
-          console.debug('[AppContext] No state update needed');
+          console.log(`[AppContext] No state update needed`);
         }
       } else {
-        // Log error if data could not be fetched
-        console.error('[AppContext] Failed to fetch weather or forecast data', { weather, forecast });
+        console.error(`[AppContext] Failed to fetch weather or forecast data`, { weather, forecast });
       }
     } catch (error) {
-      // Log any errors during fetch
-      console.error('[AppContext] Error fetching weather and forecast data:', error);
+      console.error(`[AppContext] Error fetching weather and forecast data:`, error);
       if (error.response) {
-        console.error('[AppContext] API error response:', error.response);
+        console.error(`[AppContext] API error response:`, error.response);
       }
     }
+    console.groupEnd();
   };
 
   // Provide state, dispatch, and fetchWeatherAndForecast to children components
