@@ -143,12 +143,14 @@ const Forecast = React.memo(({ forecastData }) => {
                                     : {})
                             }}
                             onClick={() => handleDayClick(day)}
+                            tabIndex={0}
+                            role="button"
+                            aria-label={`View details for ${getDayName(day[0].dt)}, ${formatDateWithSuffix(day[0].dt)}`}
                         >
                             {backgroundMedia.type === 'video' && (
                                 <video
                                     ref={el => {
                                         videoRefs.current[dayIndex] = el;
-                                        // Set playbackRate to 0.35 when the ref is set
                                         if (el) el.playbackRate = 0.5;
                                     }}
                                     className="background-video"
@@ -186,6 +188,11 @@ const Forecast = React.memo(({ forecastData }) => {
                                             />
                                             <p className="part">
                                                 💧 {Math.round((part.pop || 0) * 100)}%
+                                            </p>
+                                            <p className="part">
+                                                🌧️ {part.rain?.['3h']
+                                                    ? `${(part.rain['3h'] * 0.0393701).toFixed(2)} in`
+                                                    : '0 in'}
                                             </p>
                                             <p className="part">
                                                 🌬️ {Math.round(part.wind.speed)} mph {getWindDirection(part.wind.deg)}

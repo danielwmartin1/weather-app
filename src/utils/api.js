@@ -182,3 +182,20 @@ export async function fetchForecastDataByDate(location, date, countryCode) {
   console.debug(`Filtered forecast data for date ${date.toDateString()}:`, filtered);
   return filtered;
 }
+
+/**
+ * Fetches precipitation forecast for a given city.
+ * Returns an array of { time, precipitation } objects.
+ * @param {string} city
+ * @returns {Promise<Array<{time: string, precipitation: number}>>}
+ */
+export async function fetchPrecipitationForecast(city) {
+  const apiKey = process.env.REACT_APP_API_KEY; // Use your env key
+  const url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`;
+  const res = await fetch(url);
+  const data = await res.json();
+  return data.list.map(entry => ({
+    time: entry.dt_txt,
+    precipitation: entry.rain?.["3h"] || 0
+  }));
+}
