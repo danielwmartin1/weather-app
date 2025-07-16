@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useEffect } from 'react';
 
 // Helper to select the first available media file for a given name and extensions.
 function getMedia(name, extensions = ['mp4', 'gif', 'jpg', 'png']) {
@@ -113,7 +113,13 @@ export function BackgroundMediaComponent({ weatherData }) {
   );
 
   // Debug: log selected backgroundMedia
-  console.debug('[BackgroundMediaComponent] Render with:', backgroundMedia);
+  useEffect(() => {
+    console.log('[BackgroundMediaComponent] Rendering background:', {
+      condition,
+      isNightTime,
+      backgroundMedia,
+    });
+  }, [condition, isNightTime, backgroundMedia]);
 
   return (
     <div>

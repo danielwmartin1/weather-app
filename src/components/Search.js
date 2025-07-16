@@ -16,9 +16,7 @@ const Search = ({ onSearch }) => {
     const value = e.target.value;
     setLocation(value);
     setHighlightedIndex(-1);
-
-    console.log('Input value:', value); // Debug: log each keystroke
-
+    
     if (value.length > 2) {
       try {
         const res = await axios.get(
