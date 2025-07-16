@@ -255,12 +255,26 @@
   }
   
   .forecast-part {
-    display: flex !important;
-    flex-direction: column;
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr); /* Default to 4 columns */
+    gap: var(--padding-small); /* Visible gap between items */
+    justify-items: center;
     align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: var(--padding-small);
+    padding: var(--padding-medium);
+    font-size: 1rem;
+  }
+  
+  /* Responsive adjustments for forecast-part grid */
+  @media (max-width: 1200px) {
+    .forecast-part {
+      grid-template-columns: repeat(3, 1fr) !important;
+    }
+  }
+  
+  @media (max-width: 800px) {
+    .forecast-part {
+      grid-template-columns: repeat(2, 1fr) !important; /* 2 columns on smaller screens */
+    }
   }
   
   .selected-day-forecast {
@@ -667,7 +681,7 @@
       grid-template-columns: repeat(3, 1fr) !important; /* Responsive grid with 3 columns */
     }
   
-    .forecast-parts {
+    .forecast-part {
       grid-template-columns: repeat(3, 1fr) !important; /* Always at least 3 columns */
     }
   }
@@ -726,7 +740,7 @@
   
     .forecast-part {
       display: grid;
-      grid-template-columns: repeat(2, 1fr) !important; /* Responsive grid with 2 columns */
+      grid-template-columns: repeat(3, 1fr) !important; /* Responsive grid with 2 columns */
     }
   }
   
@@ -734,7 +748,12 @@
      header, footer, .dateHeader, .search-form input, .search-form button {
       font-size: calc(var(--font-size-small) * 0.7);
       padding: var(--padding-small);
-    }  
+    }
+    
+    .forecast-part {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr) !important; /* Responsive grid with 2 columns */
+    }
   
     .fiveDay {
       font-size: calc(var(--font-size-small) * 0.7);

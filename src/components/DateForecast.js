@@ -168,13 +168,7 @@ const DateForecast = ({ dayData }) => {
                         {getDayName(overallData.dt)} - {getDateWithSuffix(overallData.dt)}
                     </h2>
                     {/* Weather details grid */}
-                    <div className="forecast-part" style={{
-                        display: 'grid',
-                        gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
-                        gap: 'var(--padding-small)',
-                        width: '100%',
-                        margin: 'var(--margin-small) 0'
-                    }}>
+                    <div className="forecast-part">
                         {weatherDetails.map((detail, index) => (
                             <div className='details' key={index} style={{
                                 borderRadius: '8px',
