@@ -254,9 +254,9 @@ img,
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: var(--padding-small);
-  font-size: calc(var(--font-size-small) * 1.1);
+  font-size: 1.25rem !important;
   text-align: center;
+  padding: var(--padding-medium);
   color: var(--color-text);
   background-color: #003a8b;
   text-shadow: #0067c7 1px 1px 1px;
@@ -673,10 +673,6 @@ input {
 
   .locationHeader {
     font-size: 1rem;
-  }
-
-  .dateHeader {
-    font-size: calc(var(--font-size-small) * 0.9);
   }
   
   .forecast-day {
