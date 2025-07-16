@@ -10,57 +10,47 @@ import './CurrentWeather.css';
 
 // Converts wind degree to compass direction (e.g., 90° -> E)
 const getWindDirection = (deg) => {
-  console.debug('getWindDirection called with:', deg);
   const directions = [
     'N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE',
     'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW'
   ];
   const index = Math.round(deg / 22.5) % 16;
   const result = `${Math.round(deg)}° ${directions[index]}`;
-  console.debug('getWindDirection result:', result);
   return result;
 };
 
 // Capitalizes the first letter of each word in a string
 const capitalizeFirstLetter = (str) => {
-  console.debug('capitalizeFirstLetter called with:', str);
   const result = str
     .split(' ')
     .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
     .join(' ');
-  console.debug('capitalizeFirstLetter result:', result);
   return result;
 };
 
 // Returns the short weekday name from a UNIX timestamp
 const getDayName = (timestamp) => {
-  console.debug('getDayName called with:', timestamp);
   const result = new Date(timestamp * 1000).toLocaleDateString('en-US', { weekday: 'short' });
-  console.debug('getDayName result:', result);
   return result;
 };
 
 // Returns the day of the month with the appropriate suffix (e.g., 1st, 2nd)
 const getDayWithSuffix = (date) => {
-  console.debug('getDayWithSuffix called with:', date);
   const day = date.getDate();
   const suffixes = ['th', 'st', 'nd', 'rd'];
   const v = day % 100;
   const suffix = suffixes[(v - 20) % 10] || suffixes[v] || suffixes[0];
   const result = `${day}${suffix}`;
-  console.debug('getDayWithSuffix result:', result);
   return result;
 };
 
 // Formats the location header based on location and weather data
 const getLocationHeader = (location, weatherData) => {
-  console.debug('getLocationHeader called with:', location, weatherData);
   if (typeof location === 'object' && location !== null) {
     const city = location.name;
     const state = location.state && location.country === 'US' ? location.state : (location.state || '');
     const country = location.country || '';
     const result = `${city}${state ? `, ${state}` : ''}${country ? `, ${country}` : ''}`;
-    console.debug('getLocationHeader result:', result);
     return result;
   }
 
@@ -70,12 +60,10 @@ const getLocationHeader = (location, weatherData) => {
     // Special case for Huntertown, US
     if (weatherData?.sys?.country === 'US' && city === 'Huntertown') state = 'IN';
     const result = `${city}${state ? `, ${state}` : ''}${country ? `, ${country}` : ''}`;
-    console.debug('getLocationHeader result:', result);
     return result;
   }
 
   const result = location || '';
-  console.debug('getLocationHeader result:', result);
   return result;
 };
 
@@ -99,30 +87,8 @@ const CurrentWeather = ({ weatherData, forecastData, location }) => {
   const isNightTime = weatherData?.weather?.[0]?.icon?.endsWith('n');
   const backgroundMedia = getBackgroundMedia(condition, isNightTime);
 
-  useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.playbackRate = 0.5;
-    }
-  }, [backgroundMedia]);
-
-  // Debugging: Log props and key data
-  useEffect(() => {
-    console.debug('CurrentWeather props:', { weatherData, forecastData, location });
-  }, [weatherData, forecastData, location]);
-
-  // Update time every second
-  useEffect(() => {
-    const interval = setInterval(() => {
-      const now = new Date();
-      console.debug('Updating time state:', now);
-      setTime(now);
-    }, 1000);
-    return () => clearInterval(interval);
-  }, []);
-
   // Prepare weather details for display using useMemo to avoid unnecessary recalculations
   const weatherDetails = useMemo(() => {
-    console.debug('Calculating weatherDetails with:', { weatherData, forecastData });
     let units = 'imperial';
     let high = null;
     let low = null;
@@ -225,17 +191,30 @@ const CurrentWeather = ({ weatherData, forecastData, location }) => {
         },
 
       ].filter(detail => detail.value !== null);
-      console.debug('weatherDetails calculated:', details);
       return details;
     }
-    console.debug('weatherDetails empty due to missing data');
     return [];
   }, [weatherData, forecastData]);
 
-  // Debugging: Log weather details
   useEffect(() => {
-    console.debug('Weather details:', weatherDetails);
-  }, [weatherDetails]);
+    if (videoRef.current) {
+      videoRef.current.playbackRate = 0.5;
+    }
+  }, [backgroundMedia]);
+
+  // Only log once per relevant change (not every render)
+  useEffect(() => {
+    console.log('CurrentWeather:', {
+      weatherData,
+      forecastData,
+      location,
+      backgroundMedia,
+      weatherDetails,
+    });
+  }, [weatherData, forecastData, location, backgroundMedia, weatherDetails]);
+
+  // Update time every second (no logging here)
+
 
   // Early return if required data is missing
   if (
@@ -251,9 +230,6 @@ const CurrentWeather = ({ weatherData, forecastData, location }) => {
   }
 
   // --- Render ---
-
-  console.debug('Rendering CurrentWeather component');
-  console.debug('backgroundMedia:', backgroundMedia);
 
   return (
     <div className="current-weather" style={{ position: 'relative', overflow: 'hidden' }}>
@@ -331,8 +307,6 @@ const CurrentWeather = ({ weatherData, forecastData, location }) => {
               className='large-icon'
               src={`http://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`}
               alt={weatherData.weather[0].description}
-              onLoad={() => console.debug('Weather icon loaded')}
-              onError={() => console.error('Weather icon failed to load')}
             />
           )}
         </div>
