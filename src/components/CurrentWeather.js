@@ -215,7 +215,7 @@ const CurrentWeather = ({ weatherData, forecastData, location }) => {
     }
   }, [backgroundMedia]);
 
-  // Only log once per relevant change (not every render)
+  // Only log once on initial mount
   useEffect(() => {
     console.log('CurrentWeather:', {
       weatherData,
@@ -224,10 +224,8 @@ const CurrentWeather = ({ weatherData, forecastData, location }) => {
       backgroundMedia,
       weatherDetails,
     });
-  }, [weatherData, forecastData, location, backgroundMedia, weatherDetails]);
-
-
-
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Early return if required data is missing
   if (

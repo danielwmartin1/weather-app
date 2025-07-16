@@ -337,7 +337,7 @@ hr {
   flex-wrap: wrap;
   border-bottom: 2px solid var(--color-border);
   margin: 0;
-  background-color: rgba(0, 58, 139, 1);
+  background-color: var(--color-primary);
   width: 100vw;
 }
 
@@ -366,7 +366,7 @@ hr {
   font-size: calc(var(--font-size-medium) + 0.25rem);
   text-align: center;
   color: var(--color-text);
-  background-color: #003a8b;
+  background-color: var(--color-primary);
   text-shadow: #016ccf 1px 1px 1px;
   border: 1px solid var(--color-border);
   border-radius: var(--border-radius);
