@@ -164,7 +164,9 @@ const Forecast = React.memo(({ forecastData }) => {
                             <div className="forecast-day-content">
                                 <div className="headerContainer">
                                     <h3 className="dateHeader">
-                                        {getDayName(day[0].dt)} - {formatDateWithSuffix(day[0].dt)}
+                                        {dayIndex === 0
+                                            ? "Today"
+                                            : `${getDayName(day[0].dt)} - ${formatDateWithSuffix(day[0].dt)}`}
                                     </h3>
                                     <h4 className="high-low">
                                         High: {Math.round(getHighLowTemps(day).high)}°F&nbsp;|&nbsp;

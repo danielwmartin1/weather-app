@@ -31,6 +31,16 @@ const getDateWithSuffix = (timestamp) => {
         .replace(day, day + suffix);
 };
 
+// Helper to check if a timestamp is today
+const isToday = (timestamp) => {
+    const input = new Date(timestamp * 1000);
+    const now = new Date();
+    return (
+        input.getDate() === now.getDate() &&
+        input.getMonth() === now.getMonth() &&
+        input.getFullYear() === now.getFullYear()
+    );
+};
 
 // Main component to display the forecast for a specific date
 const DateForecast = ({ dayData }) => {
@@ -165,7 +175,9 @@ const DateForecast = ({ dayData }) => {
                             fontSize: 'calc(var(--font-size-small) * 1.1)'
                         }}
                     >
-                        {getDayName(overallData.dt)} - {getDateWithSuffix(overallData.dt)}
+                        {isToday(overallData.dt)
+                            ? "Today"
+                            : `${getDayName(overallData.dt)} - ${getDateWithSuffix(overallData.dt)}`}
                     </h2>
                     {/* Weather details grid */}
                     <div className="forecast-part">
