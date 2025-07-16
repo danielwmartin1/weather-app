@@ -9,6 +9,9 @@
   width: 100vw!important;
 }
 
+.current-weather-title {
+  background-color: var(--primary-color)!important;
+}
 
 .current-weather .forecast-part {
   display: grid !important;

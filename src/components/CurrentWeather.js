@@ -83,6 +83,14 @@ const CurrentWeather = ({ weatherData, forecastData, location }) => {
   const [time, setTime] = useState(new Date());
   const videoRef = useRef(null);
 
+  // Update the time every second
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTime(new Date());
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
   // Background media based on weather condition and time of day
   const condition = weatherData?.weather?.[0]?.main?.toLowerCase() || '';
   const isNightTime = weatherData?.weather?.[0]?.icon?.endsWith('n');
@@ -291,9 +299,9 @@ const CurrentWeather = ({ weatherData, forecastData, location }) => {
               {/* Current time */}
               {time.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', second: '2-digit' })}
             </h4>
-          </div>
-        </div>
-        {/* Weather details list */}
+                    </div>
+                  </div>
+                  {/* Weather details list */}
         <div className="weather-detail">
           {weatherDetails.map((detail, idx) => (
             <p className='details' key={idx}>
