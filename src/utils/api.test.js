@@ -104,8 +104,16 @@ describe('api.js', () => {
   });
 
   describe('getUnitsByCountry', () => {
+    const originalGB = { ...countries.GB };
+    const originalUS = { ...countries.US };
+
     beforeEach(() => {
       axios.get = jest.fn();
+    });
+
+    afterEach(() => {
+      countries.GB = { ...originalGB };
+      countries.US = { ...originalUS };
     });
 
     it('returns metric for Europe', async () => {
