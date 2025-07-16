@@ -9,7 +9,6 @@
 }
 
 .forecast-day {
-  margin: var(--margin-small);
   padding: var(--padding-small);
   border-radius: var(--border-radius);
   background: rgba(0,0,0,0.05);

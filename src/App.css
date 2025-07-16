@@ -587,9 +587,6 @@ input {
     font-size: calc(var(--font-size-small) * 0.85);
   }
   
-  .forecast-day {
-    margin: var(--margin-small);
-  }
 }
 
 @media (max-width: 800px) {
@@ -617,10 +614,6 @@ input {
 
   .high-low {
     font-size: 1rem;
-  }
-  
-  .forecast-day {
-    margin: var(--margin-small);
   }
 }
 
@@ -687,7 +680,7 @@ input {
   }
   
   .forecast-day {
-    margin: var(--margin-small);
+    margin: 0;
   }
 
   .forecast-part {
