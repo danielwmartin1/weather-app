@@ -7,7 +7,7 @@ const mockForecastData = {
   list: Array(16).fill().map((_, i) => ({
     dt: 1600010000 + i * 10800,
     main: { temp: 70 + i },
-    weather: [{ description: 'clear sky', icon: '01d' }],
+    weather: [{ description: 'clear sky', icon: '01d', main: 'Clear' }],
     wind: { speed: 5, deg: 90 },
     clouds: { all: 10 },
     visibility: 10000,
@@ -17,6 +17,18 @@ const mockForecastData = {
     units: 'imperial'
   })),
 };
+// Ensure all weather items have a valid description and icon
+mockForecastData.list.forEach(item => {
+  if (!item.weather || !item.weather[0]) {
+    item.weather = [{ description: 'clear sky', icon: '01d' }];
+  }
+  if (typeof item.weather[0].description !== 'string') {
+    item.weather[0].description = 'clear sky';
+  }
+  if (typeof item.weather[0].icon !== 'string') {
+    item.weather[0].icon = '01d';
+  }
+});
 
 describe('Forecast', () => {
   it('renders forecast overview', () => {
