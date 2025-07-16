@@ -1,96 +1,119 @@
 import { useMemo } from 'react';
 
+// Helper to select the first available media file for a given name and extensions.
+function getMedia(name, extensions = ['mp4', 'gif', 'jpg', 'png']) {
+  const basePath = `/images/${name}`;
+  if (typeof window !== 'undefined' && window.__MEDIA_EXISTS__) {
+    for (const ext of extensions) {
+      if (window.__MEDIA_EXISTS__[`${name}.${ext}`]) {
+        let type = ext === 'mp4' ? 'video' : ext === 'gif' ? 'gif' : 'image';
+        // Debug: log selected media
+        console.debug(`[getMedia] Found media: ${basePath}.${ext} (type: ${type})`);
+        return { type, src: `${basePath}.${ext}`, ext };
+      }
+    }
+  }
+  // Debug: log fallback
+  console.debug(`[getMedia] Fallback to: ${basePath}.jpg`);
+  return { type: 'image', src: `${basePath}.jpg`, ext: 'jpg' };
+}
+
 // Returns an object describing the background media (image, gif, or video) to use
 // based on the weather condition and whether it's night time.
 export function getBackgroundMedia(condition, isNightTime) {
-  // Helper to select the first available media file for a given name and extensions.
-  // Uses window.__MEDIA_EXISTS__ to check which files exist.
-  function getMedia(name, extensions = ['mp4', 'gif', 'jpg', 'png']) {
-    const basePath = `/images/${name}`;
-    if (typeof window !== 'undefined' && window.__MEDIA_EXISTS__) {
-      // Loop through the provided extensions and return the first existing media file
-      for (const ext of extensions) {
-        if (window.__MEDIA_EXISTS__[`${name}.${ext}`]) {
-          // Determine the media type based on the extension
-          let type = ext === 'mp4' ? 'video' : ext === 'gif' ? 'gif' : 'image';
-          return { type, src: `${basePath}.${ext}`, ext };
-        }
-      }
-    }
-    // Default to jpg if nothing found
-    return { type: 'image', src: `${basePath}.jpg`, ext: 'jpg' };
+  const condStr = typeof condition === 'string' ? condition.toLowerCase() : '';
+  console.debug(`[getBackgroundMedia] condition: ${condition}, isNightTime: ${isNightTime}`);
+
+  // Overcast condition (day or night)
+  if (condStr.includes('overcast')) {
+    const media = isNightTime
+      ? getMedia('night-overcast', ['mp4', 'jpg'])
+      : getMedia('overcast', ['mp4', 'jpg']);
+    console.debug('[getBackgroundMedia] Overcast selected:', media);
+    return media;
   }
 
-  // --- Thunderstorm condition ---
-  // Use thunderstorm-specific media if the condition matches
-  if (/thunderstorm/i.test(condition)) {
-    return getMedia('thunderstorm', ['mp4', 'jpg']);
+  // Thunderstorm condition
+  if (/thunderstorm/i.test(condStr)) {
+    const media = getMedia('thunderstorm', ['mp4', 'jpg']);
+    console.debug('[getBackgroundMedia] Thunderstorm selected:', media);
+    return media;
   }
 
-  // --- Night overcast condition ---
-  // Use night-overcast media if it's night and overcast
-  if (isNightTime && /overcast/i.test(condition)) {
-    return getMedia('night-overcast', ['mp4', 'jpg']);
+  // Scattered/Broken Clouds
+  if (/scattered clouds?|broken clouds?/i.test(condStr)) {
+    const media = isNightTime
+      ? getMedia('night-broken-clouds', ['mp4', 'jpg'])
+      : getMedia('broken-clouds', ['mp4', 'jpg']);
+    console.debug('[getBackgroundMedia] Broken/Scattered Clouds selected:', media);
+    return media;
   }
 
-  // --- Fog or Haze condition (day or night) ---
-  // Use fog-specific media if the condition matches
-  if (/fog|haze/i.test(condition)) {
-    return getMedia('fog', ['mp4', 'jpg']);
-  }
-
-  // --- Scattered Clouds and Broken Clouds (use broken-clouds media) ---
-  if (/scattered clouds?|broken clouds?/i.test(condition)) {
-    if (isNightTime) {
-      return getMedia('night-broken-clouds', ['mp4', 'jpg']);
-    } else {
-      return getMedia('broken-clouds', ['mp4', 'jpg']);
-    }
-  }
-
-  // Handle night time backgrounds
+  // Night time backgrounds
   if (isNightTime) {
-    // Use night-cloudy media for cloudy conditions at night
-    if (/clouds?|cloudy/.test(condition)) {
-      return getMedia('night-cloudy', ['mp4', 'jpg']);
+    if (/clouds?|cloudy/.test(condStr) && !condStr.includes('overcast')) {
+      const media = getMedia('night-cloudy', ['mp4', 'jpg']);
+      console.debug('[getBackgroundMedia] Night Cloudy selected:', media);
+      return media;
     }
-    // Use night-clear media for clear conditions at night
-    if (condition === 'clear') {
-      return getMedia('night-clear', ['mp4', 'jpg']);
+    if (condStr === 'clear') {
+      const media = getMedia('night-clear', ['mp4', 'jpg']);
+      console.debug('[getBackgroundMedia] Night Clear selected:', media);
+      return media;
     }
-    // Use night-mist media for mist or drizzle at night
-    if (['mist', 'drizzle'].includes(condition)) {
-      return getMedia('night-mist', ['mp4', 'jpg']);
+    if (['mist', 'drizzle'].includes(condStr)) {
+      const media = getMedia('night-mist', ['mp4', 'jpg']);
+      console.debug('[getBackgroundMedia] Night Mist/Drizzle selected:', media);
+      return media;
     }
-    // Use night-fog media for fog or haze at night
-    if (condition === 'fog' || condition === 'haze') {
-      return getMedia('night-fog', ['mp4', 'jpg']);
+    if (condStr === 'fog' || condStr === 'haze') {
+      const media = getMedia('night-fog', ['mp4', 'jpg']);
+      console.debug('[getBackgroundMedia] Night Fog/Haze selected:', media);
+      return media;
     }
-    // Default night background
-    return getMedia('night', ['mp4', 'jpg']);
+    const media = getMedia('night', ['mp4', 'jpg']);
+    console.debug('[getBackgroundMedia] Default Night selected:', media);
+    return media;
   }
 
-  // Handle daytime mist
-  if (condition === 'mist') {
-    return getMedia('mist', ['mp4', 'jpg']);
+  // Daytime mist
+  if (condStr === 'mist') {
+    const media = getMedia('mist', ['mp4', 'jpg']);
+    console.debug('[getBackgroundMedia] Day Mist selected:', media);
+    return media;
   }
 
-  // Handle daytime fog or haze
-  if (condition === 'fog' || condition === 'haze') {
-    return getMedia('fog', ['mp4', 'jpg']);
+  // Daytime fog or haze
+  if (condStr === 'fog' || condStr === 'haze') {
+    const media = getMedia('fog', ['mp4', 'jpg']);
+    console.debug('[getBackgroundMedia] Day Fog/Haze selected:', media);
+    return media;
   }
 
   // Fallback if no condition is provided
   if (!condition) {
+    console.debug('[getBackgroundMedia] No condition, fallback to blue-ribbon');
     return { type: 'image', src: '/images/blue-ribbon.jpg', ext: 'jpg' };
   }
 
   // Default: try all extensions for the given condition
-  return getMedia(condition, ['mp4', 'gif', 'jpg', 'png']);
+  const media = getMedia(condStr, ['mp4', 'gif', 'jpg', 'png']);
+  console.debug('[getBackgroundMedia] Default selected:', media);
+  return media;
 }
 
 export function BackgroundMediaComponent({ weatherData }) {
-  const backgroundMedia = useMemo(() => getBackgroundMedia(weatherData), [weatherData]);
+  // Accepts either { condition, isNightTime } or just condition
+  const condition = weatherData?.condition ?? weatherData;
+  const isNightTime = weatherData?.isNightTime ?? false;
+
+  const backgroundMedia = useMemo(
+    () => getBackgroundMedia(condition, isNightTime),
+    [condition, isNightTime]
+  );
+
+  // Debug: log selected backgroundMedia
+  console.debug('[BackgroundMediaComponent] Render with:', backgroundMedia);
 
   return (
     <div>
