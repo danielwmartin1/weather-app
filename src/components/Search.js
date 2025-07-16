@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import '../App.css';
+import './Search.css';
 
 const InitialRenderImage = (process.env.PUBLIC_URL || '') + '/images/initial-render-image.svg';
 
@@ -15,6 +16,8 @@ const Search = ({ onSearch }) => {
     const value = e.target.value;
     setLocation(value);
     setHighlightedIndex(-1);
+
+    console.log('Input value:', value); // Debug: log each keystroke
 
     if (value.length > 2) {
       try {

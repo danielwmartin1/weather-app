@@ -4,3 +4,10 @@ ul {
   background-color: #fff !important; /* Ensure white background */
   border: 2px solid #ccc;
 }
+
+.search-form input {
+  color: rgb(0, 0, 0);
+  background-color: #ffffff !important;
+  text-shadow: none !important;
+  border: 2px solid #ccc;
+}
