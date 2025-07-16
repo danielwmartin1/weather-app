@@ -152,7 +152,7 @@ footer {
   text-align: center;
 }
 
-.locationHeader {
+.locationHeader, .dateHeader {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -163,6 +163,7 @@ footer {
   border: 1px solid var(--color-border);
   border-radius: var(--border-radius);
   padding: var(--padding-medium);
+  box-shadow: 0 0 2px 1px aqua;
 }
 
 .home-screen {
@@ -302,6 +303,7 @@ img,
   width: 135px;
   height: 35px;
   border: none;
+  box-shadow: 0 0 2px 1px aqua; /* Added box shadow */
 }
 
 .backButton:hover {
