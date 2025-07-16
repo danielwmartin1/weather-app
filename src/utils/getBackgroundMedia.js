@@ -35,7 +35,7 @@ export function getBackgroundMedia(condition, isNightTime) {
   }
 
   // Scattered/Broken Clouds
-  if (/scattered clouds|broken clouds/i.test(condStr)) {
+  if (/(scattered clouds|broken clouds)/i.test(condStr)) {
     const media = isNightTime
       ? getMedia('night-broken-clouds', ['mp4', 'jpg'])
       : getMedia('broken-clouds', ['mp4', 'jpg']);
@@ -52,7 +52,7 @@ export function getBackgroundMedia(condition, isNightTime) {
       const media = getMedia('night-clear', ['mp4', 'jpg']);
       return media;
     }
-    if (['mist', 'drizzle'].includes(condStr.toLowerCase())) {
+    if (['mist', 'drizzle'].includes(condStr)) {
       const media = getMedia('night-mist', ['mp4', 'jpg']);
       return media;
     }
