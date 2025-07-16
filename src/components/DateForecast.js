@@ -167,13 +167,22 @@ const DateForecast = ({ dayData }) => {
                     >
                         {getDayName(overallData.dt)} - {getDateWithSuffix(overallData.dt)}
                     </h2>
-                    {/* Weather details list */}
-                    <div className="forecast-part" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    {/* Weather details grid */}
+                    <div className="forecast-part" style={{
+                        display: 'grid',
+                        gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
+                        gap: 'var(--padding-small)',
+                        width: '100%',
+                        margin: 'var(--margin-small) 0'
+                    }}>
                         {weatherDetails.map((detail, index) => (
-                            <p className='details' key={index}>
+                            <div className='details' key={index} style={{
+                                borderRadius: '8px',
+                                padding: 'var(--padding-small)',
+                            }}>
                                 <strong>{detail.label}:&nbsp;</strong>
                                 {typeof detail.value === 'string' ? detail.value : null}
-                            </p>
+                            </div>
                         ))}
                     </div>
                     {/* Place the icon after the forecast-part */}

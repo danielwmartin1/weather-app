@@ -673,23 +673,7 @@
   }
   
   @media (max-width: 480px) {
-    .forecast-part {
-      display: grid !important;
-      grid-template-columns: repeat(3, 1fr) !important;
-    }
-    .forecast-parts {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr)!important;
-        gap: var(--padding-small);
-        width: 100%;
-        padding: var(--padding-small);  
-    }      
-  
-    .forecast, .forecast-day, .forecast-part {
-      font-size: calc(var(--font-size-small) * 0.75);
-      padding: calc(var(--padding-small) * 0.75);
-    }
-  
+
     .home-screen {
       padding: 3rem 4rem;
     }
@@ -705,9 +689,6 @@
       padding: calc(var(--padding-small) * 0.75);
     }
   
-    .forecast-day p {
-      margin: 0.25rem;
-    }
   
     .large-icon {
       width: calc(10rem * 0.75);
@@ -749,8 +730,8 @@
     }
   }
   
-  @media (max-width: 375px) {
-    .forecast, .forecast-day, .details, header, footer, .dateHeader, .search-form input, .search-form button {
+  @media (max-width: 368px) {
+     header, footer, .dateHeader, .search-form input, .search-form button {
       font-size: calc(var(--font-size-small) * 0.7);
       padding: var(--padding-small);
     }  
@@ -782,10 +763,6 @@
   
     .statusMessage {
       font-size: 2rem;
-    }
-    
-    .forecast-day {
-      margin: var(--margin-small); /* Consistent margin */
     }
   }
   
