@@ -28,17 +28,17 @@ export function getBackgroundMedia(condition, isNightTime) {
     return media;
   }
 
-  // Thunderstorm condition
-  if (/thunderstorm/i.test(condStr)) {
-    const media = getMedia('thunderstorm', ['mp4', 'jpg']);
-    return media;
-  }
-
   // Scattered/Broken Clouds
   if (/(scattered clouds|broken clouds)/i.test(condStr)) {
     const media = isNightTime
       ? getMedia('night-broken-clouds', ['mp4', 'jpg'])
       : getMedia('broken-clouds', ['mp4', 'jpg']);
+    return media;
+  }
+
+  // Thunderstorm condition
+  if (/thunderstorm/i.test(condStr)) {
+    const media = getMedia('thunderstorm', ['mp4', 'jpg']);
     return media;
   }
 
@@ -113,7 +113,6 @@ export function BackgroundMediaComponent({ weatherData }) {
           loop
           muted
           playsInline
-          webkit-playsinline="true"
           preload="auto"
           poster={backgroundMedia.src.replace('.mp4', '.jpg')}
           style={{ width: '100%', height: '100%', objectFit: 'cover' }}

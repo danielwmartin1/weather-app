@@ -92,8 +92,12 @@ const CurrentWeather = ({ weatherData, forecastData, location }) => {
   }, []);
 
   // Background media based on weather condition and time of day
-  const condition = weatherData?.weather?.[0]?.main?.toLowerCase() || '';
-  const isNightTime = weatherData?.weather?.[0]?.icon?.endsWith('n');
+  const condition = weatherData && weatherData.weather && weatherData.weather[0] && weatherData.weather[0].main
+    ? weatherData.weather[0].main.toLowerCase()
+    : '';
+  const isNightTime = weatherData && weatherData.weather && weatherData.weather[0] && weatherData.weather[0].icon
+    ? weatherData.weather[0].icon.endsWith('n')
+    : false;
   const backgroundMedia = getBackgroundMedia(condition, isNightTime);
 
   // Prepare weather details for display using useMemo to avoid unnecessary recalculations
