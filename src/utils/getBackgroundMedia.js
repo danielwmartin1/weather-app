@@ -20,7 +20,7 @@ export function getBackgroundMedia(condition, isNightTime) {
   const condStr = typeof condition === 'string' ? condition.toLowerCase() : '';
 
   // Overcast condition (day or night)
-  if (/overcast(\s+clouds)?/i.test(condStr)) {
+  if (condStr.includes('overcast')) {
     const media = isNightTime
       ? getMedia('night-overcast', ['mp4', 'jpg'])
       : getMedia('overcast', ['mp4', 'jpg']);
