@@ -79,6 +79,7 @@ const getLocationHeader = (location, weatherData) => {
  */
 const CurrentWeather = ({ weatherData, forecastData, location }) => {
   // State for current time (updates every second)
+   // eslint-disable-next-line
   const [time, setTime] = useState(new Date());
   const videoRef = useRef(null);
 
@@ -213,7 +214,7 @@ const CurrentWeather = ({ weatherData, forecastData, location }) => {
     });
   }, [weatherData, forecastData, location, backgroundMedia, weatherDetails]);
 
-  // Update time every second (no logging here)
+
 
 
   // Early return if required data is missing

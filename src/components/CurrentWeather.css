@@ -1,13 +1,12 @@
-
 .current-weather {
   color: var(--color-text);
   border-radius: var(--border-radius);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   overflow-y: visible;
   border: 2px solid var(--color-border);
-  margin: 0 var(--margin-large) !important;
+  padding: 0;
   display: flex;
-  width: 100vw;
+  width: 100vw!important;
 }
 
 
@@ -57,11 +56,6 @@
   }
 }
 
-@media (max-width: 325px) {
-  .weather-detail {
-    grid-template-columns: repeat(1, minmax(120px, 1fr));
-  }
-}
 .statusMessage {
   color: var(--color-text);
   font-size: var(--font-size-large);
@@ -69,4 +63,10 @@
 
 .high-low {
   font-size: 1.1rem;
+}
+
+.current-weather-content {
+  width: 100vw!important;
+  margin: 0;
+  padding: 0;
 }
