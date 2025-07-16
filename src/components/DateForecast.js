@@ -122,6 +122,7 @@ const DateForecast = ({ dayData }) => {
         { label: capitalizeWords('precipitation'), value: `${totalPrecipInches.toFixed(2)} in` },
         { label: capitalizeWords('snow'), value: overallData.snow?.['1h'] ? `${(overallData.snow['1h'] * 0.0393701).toFixed(2)} in` : null },
         { label: capitalizeWords('wind speed'), value: `${windSpeed} ${units === 'imperial' ? 'mph' : 'm/s'}` },
+        { label: capitalizeWords('wind gust'), value: overallData.wind?.gust !== undefined ? `${Math.round(overallData.wind.gust)} ${units === 'imperial' ? 'mph' : 'm/s'}` : 'N/A' },
         { label: capitalizeWords('wind direction'), value: windDirection || 'N/A' },
     ].filter(detail => detail.value !== null);
 

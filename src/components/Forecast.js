@@ -195,12 +195,23 @@ const Forecast = React.memo(({ forecastData }) => {
                                             </p>
                                             <p className="part">
                                                 🌧️ {part.rain?.['3h']
+                                                    // Convert mm to inches
                                                     ? `${(part.rain['3h'] * 0.0393701).toFixed(2)} in`
                                                     : '0 in'}
                                             </p>
                                             <p className="part">
                                                 🌬️ {Math.round(part.wind.speed)} mph {getWindDirection(part.wind.deg)}
                                             </p>
+                                            <p className="part">
+                                                Gust: {part.wind.gust !== undefined ? `${Math.round(part.wind.gust)} mph` : 'N/A'}
+                                            </p>
+                                            {part.weather[0].main.toLowerCase().includes('snow') && (
+                                                <p className="part">
+                                                    ❄️ {part.snow?.['3h']
+                                                        ? `${(part.snow['3h'] * 0.0393701).toFixed(2)} in`
+                                                        : '0 in'}
+                                                </p>
+                                            )}
                                         </div>
                                     ))}
                                 </div>

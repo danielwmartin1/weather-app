@@ -154,6 +154,10 @@ const CurrentWeather = ({ weatherData, forecastData, location }) => {
           value: `${windSpeed} ${units === 'imperial' ? 'mph' : 'm/s'}`
         },
         {
+          label: 'Wind Gust',
+          value: weatherData.wind?.gust !== undefined ? `${Math.round(weatherData.wind.gust)} ${units === 'imperial' ? 'mph' : 'm/s'}` : 'N/A'
+        },
+        {
           label: 'Wind Direction',
           value: windDirection
         },
