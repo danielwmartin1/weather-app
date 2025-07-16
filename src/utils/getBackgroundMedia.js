@@ -108,8 +108,19 @@ export function BackgroundMediaComponent({ weatherData }) {
   return (
     <div>
       {backgroundMedia.type === 'video' ? (
-        <video autoPlay loop muted playsInline>
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          webkit-playsinline="true"
+          preload="auto"
+          poster={backgroundMedia.src.replace('.mp4', '.jpg')}
+          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+        >
           <source src={backgroundMedia.src} type="video/mp4" />
+          {/* Fallback image if video fails */}
+          <img src={backgroundMedia.src.replace('.mp4', '.jpg')} alt="Weather Background" />
           Your browser does not support the video tag.
         </video>
       ) : backgroundMedia.type === 'gif' ? (
