@@ -197,10 +197,40 @@ footer {
 }
 
 #submit,
-.search-form button {
+.search-form button,
+.backButton {
+  font-family: Arial, sans-serif;
+  font-size: 1rem;
+  background-color: var(--color-secondary);
+  color: var(--color-text);
+  border-radius: var(--border-radius);
+  cursor: pointer;
   border: 2px solid var(--color-accent);
-  transition: border-color 0.3s, box-shadow 0.3s;
+  transition: background-color 0.3s, transform 0.2s, border-color 0.3s, box-shadow 0.3s;
+  box-shadow: 0 2px 8px 2px rgba(0, 0, 0, 0.25);
+  padding: var(--padding-small) var(--padding-large);
+  margin: var(--margin-medium);
+  width: auto;
+  outline: none;
 }
+
+#submit:hover,
+.search-form button:hover,
+.backButton:hover {
+  background-color: var(--color-primary);
+  border-color: aqua;
+  box-shadow: 0 0 8px 2px aqua;
+  transform: scale(1.05);
+}
+
+#submit:active,
+.search-form button:active,
+.backButton:active {
+  background-color: #003f7f;
+  border-color: aqua;
+  box-shadow: 0 0 8px 2px #003f7f;
+}
+
 #title,
 img,
 #submit:focus,
@@ -300,8 +330,6 @@ img,
   transition: background-color 0.3s, transform 0.2s;
   margin: var(--margin-medium);
   padding: var(--padding-small);
-  width: 135px;
-  height: 35px;
   border: none;
   box-shadow: 0 0 2px 1px aqua; /* Added box shadow */
 }
