@@ -172,7 +172,6 @@ footer {
   justify-content: center;
   text-align: center;
   border-radius: var(--border-radius);
-  padding: var(--padding-large);
   margin: var(--margin-large);
 }
 
@@ -634,11 +633,6 @@ input {
     font-size: calc(var(--font-size-small) * 0.75);
     padding: calc(var(--padding-small) * 0.75);
   }
-
-  .home-screen {
-    padding: 3rem 4rem;
-  }
-
   header, footer {
     font-size: calc(var(--font-size-small) * 0.75);
     min-width: 100vw;
