@@ -10,7 +10,7 @@
 }
 
 
-.current-weather {
+.current-weather .forecast-part {
   display: grid !important;
   grid-template-columns: repeat(6, 1fr);
   gap: var(--padding-small);
