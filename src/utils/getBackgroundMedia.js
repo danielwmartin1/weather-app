@@ -18,8 +18,9 @@ function getMedia(name, extensions = ['mp4', 'gif', 'jpg', 'png']) {
 // based on the weather condition and whether it's night time.
 export function getBackgroundMedia(condition, isNightTime) {
   const condStr = typeof condition === 'string' ? condition.toLowerCase() : '';
-
   // Overcast condition (day or night)
+  // Prioritize 'overcast' only if 'overcast' is explicitly in the condition string,
+  // otherwise let 'cloudy' match to 'cloudy' media (not overcast).
   if (/overcast/i.test(condStr)) {
     const media = isNightTime
       ? getMedia('night-overcast', ['mp4', 'jpg'])
@@ -75,8 +76,8 @@ export function getBackgroundMedia(condition, isNightTime) {
     return media;
   }
 
-  // Fallback if no condition is provided
-  if (!condition) {
+  // Fallback if no condition is provided or condition is an empty string
+  if (!condition || (typeof condition === 'string' && condition.trim() === '')) {
     return { type: 'image', src: '/images/blue-ribbon.jpg', ext: 'jpg' };
   }
 
