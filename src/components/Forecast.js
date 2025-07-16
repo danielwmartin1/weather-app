@@ -174,7 +174,9 @@ const Forecast = React.memo(({ forecastData }) => {
                                 <div className="forecast-parts">
                                     {day.map((part) => (
                                         <div key={part.dt} className="forecast-part">
-                                            <p className="part">
+                                            <p
+                                                style={{ fontWeight: 'bold', fontSize: '1.05rem' }}
+                                                className="part">
                                                 {new Date(part.dt * 1000).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}
                                             </p>
                                             <p className="part">{Math.round(part.main.temp)}°F</p>
