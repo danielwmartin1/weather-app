@@ -251,7 +251,10 @@
     align-items: center;
     flex-wrap: wrap;
     text-align: center;
-    overflow-y: auto; /* Add scrolling if the content exceeds the container height */
+    overflow-y: auto; /* Enable vertical scrolling */
+    max-height: 60vh; /* Prevent forecast from covering the entire view */
+    width: 100vw;
+    position: relative;
   }
   
   .forecast-part {
