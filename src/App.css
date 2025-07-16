@@ -321,7 +321,7 @@ img,
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  padding: var(--padding-large);
+  padding: var(--padding-large); /* Increased padding */
 }
 
 
@@ -892,11 +892,12 @@ input {
   border: 2px solid #ccc;
 }
 
-/* Make all icons use the same border color */
+/* Make all icons use the same border and background color */
 .large-icon,
 .small-icon,
 .date-icon {
   border: 2px solid var(--color-primary) !important;
   border-radius: 50% !important;
+  background-color: #0057b3cf !important;
 }
 
