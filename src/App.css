@@ -798,7 +798,6 @@ header, footer, .details, .dateHeader, .fiveDay, .popup-content, .statusMessage,
   justify-content: center;
   text-align: center;
   align-items: center;
-  margin-bottom: var(--margin-medium);  
 }
 
 .date-icon {
