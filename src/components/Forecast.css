@@ -20,6 +20,15 @@
   width: 100%;
 }
 
+.headerContainer {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--color-primary);
+  width: 100%;
+}
+
 @media (max-width: 1200px) {
   .forecast-parts { 
     grid-template-columns: repeat(6, 1fr) !important;

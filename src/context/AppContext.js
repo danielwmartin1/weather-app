@@ -144,7 +144,7 @@ export const AppProvider = ({ children }) => {
       console.error(`[AppContext] Error fetching weather and forecast data:`, error);
       if (error.response) {
         console.error(`[AppContext] API error response:`, error.response);
-      }
+      } 
     }
     console.groupEnd();
   };
