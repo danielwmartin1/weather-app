@@ -759,41 +759,19 @@ input {
   }
 }
 
-.suggestions-list {
-  position: absolute;
-  background: #a2a2a2;
-  border: 1px solid #ccc;
+/* Add grid lines to forecast-parts */
+.forecast-parts {
   border-radius: var(--border-radius);
-  width: 90%;
-  max-height: 200px;
-  overflow-y: auto;
-  z-index: 1000;
-  margin-top: 2px;
-  padding-left: 0;
-  list-style: none;
-  padding: 0.5rem;
+  background: rgba(0,86,179,0.04);
+  margin-bottom: 1rem;
 }
 
-.high-low {
-  font-size: 0.9rem;
-}
-
-.suggestion-item {
-  margin: 0.5rem;
-  cursor: pointer;
-  transition: background 0.2s, color 0.2s;
-  border-radius: 4px;
-}
-
-.suggestion-item:hover,
-.suggestion-item:focus {
-  background: #0056b3;
-  color: #fff;
-}
-
-.suggestion-item:active {
-  background: #003366;
-  color: #fff;
+/* Add grid lines to each forecast-part cell */
+.forecast-part {
+  box-shadow: 0 0 4px 2px var(--color-primary);
+  border-radius: 6px;
+  background: rgba(255,255,255,0.08);
+  margin: 0.25rem;
 }
 
 /* Ensure the parent form is positioned relative for absolute dropdown */
