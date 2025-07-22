@@ -771,7 +771,6 @@ input {
   box-shadow: 0 0 2px 1px #003a8b;
   border-radius: 6px;
   background: rgba(255,255,255,0.08);
-  margin: 0.25rem;
 }
 
 /* Ensure the parent form is positioned relative for absolute dropdown */
