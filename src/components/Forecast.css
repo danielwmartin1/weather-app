@@ -6,7 +6,6 @@
   flex-wrap: wrap;
   text-align: center;
   overflow-y: auto;
-  margin-bottom: var(--margin-medium);
 }
 
 .forecast-day {
@@ -22,7 +21,7 @@
 }
 
 @media (max-width: 1200px) {
-  .forecast-parts {
+  .forecast-parts { 
     grid-template-columns: repeat(6, 1fr) !important;
   }
 }
