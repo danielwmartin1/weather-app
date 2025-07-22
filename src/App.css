@@ -845,7 +845,6 @@ header, footer, .details, .dateHeader, .fiveDay, .popup-content, .statusMessage,
 .forecast-part {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
-  width: 100%;
 }
 
 /* Responsive adjustments for forecast-parts */
