@@ -903,3 +903,24 @@ input {
   background-color: #0057b3cf !important;
 }
 
+/* Responsive adjustments for smaller screens */
+@media (max-width: 1200px) {
+  .selected-day-forecast .forecast-parts {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)) !important;
+  }
+}
+@media (max-width: 800px) {
+  .selected-day-forecast .forecast-parts {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)) !important;
+  }
+}
+@media (max-width: 600px) {
+  .selected-day-forecast .forecast-parts {
+    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr)) !important;
+  }
+}
+@media (max-width: 400px) {
+  .selected-day-forecast .forecast-parts {
+    grid-template-columns: repeat(2, 1fr)
+  }
+} 

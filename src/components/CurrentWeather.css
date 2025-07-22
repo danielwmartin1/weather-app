@@ -1,85 +1,34 @@
-.current-weather {
-  color: var(--color-text);
-  border-radius: var(--border-radius);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  overflow-y: visible;
-  border: 2px solid var(--color-border);
-  padding: 0;
-  display: flex;
-  width: 100vw!important;
-}
-
-.current-weather-title {
-  background-color: var(--primary-color)!important;
-}
-
 .current-weather .forecast-part {
   display: grid !important;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(6, minmax(120px, 1fr));
   gap: var(--padding-small);
   justify-items: center;
   align-items: center;
   padding: var(--padding-medium);
   font-size: 1rem;
 }
-.forecast-part {
-  grid-template-columns: repeat(6, minmax(120px, 1fr))!important;
-}
-
 
 @media (max-width: 1200px) {
-  .weather-detail {
-    grid-template-columns: repeat(6, 1fr);
+  .forecast-part {
+    grid-template-columns: repeat(5, minmax(120px, 1fr)) !important;
   }
 }
 
 @media (max-width: 900px) {
-  .weather-detail {
-    grid-template-columns: repeat(5, 1fr);
-  }
-}
-
-@media (max-width: 800px) {
-  .weather-detail {
-    grid-template-columns: repeat(4, minmax(120px, 1fr));
+  .forecast-part {
+    grid-template-columns: repeat(4, minmax(120px, 1fr)) !important;
   }
 }
 
 @media (max-width: 600px) {
-  .weather-detail {
-    grid-template-columns: repeat(3, 1fr);
+  .forecast-part {
+    grid-template-columns: repeat(3, minmax(120px, 1fr)) !important;
   }
 }
 
-@media (max-width: 400px) {
-  .weather-detail {
-    grid-template-columns: repeat(2, 1fr);
+@media (max-width: 368px) {
+  .forecast-part {
+    grid-template-columns: repeat(2, minmax(120px, 1fr)) !important;
   }
 }
 
-@media (max-width: 500px) {
-  .weather-detail {
-    grid-template-columns: repeat(3, minmax(120px, 1fr));
-  }
-}
-
-@media (max-width: 400px) {
-  .weather-detail {
-    grid-template-columns: repeat(2, minmax(120px, 1fr));
-  }
-}
-
-.statusMessage {
-  color: var(--color-text);
-  font-size: var(--font-size-large);
-}
-
-.high-low {
-  font-size: 1.1rem;
-}
-
-.current-weather-content {
-  width: 100vw!important;
-  margin: 0;
-  padding: 0;
-}
