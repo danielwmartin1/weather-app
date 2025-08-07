@@ -177,7 +177,7 @@ const App = () => {
               <CurrentWeather
                 weatherData={weatherData}
                 forecastData={forecastData}
-                location={state.location}
+                location={state.location || weatherData?.name || ''}
               />
               <hr />
               <h2 className="fiveDay">5-Day Forecast</h2>
