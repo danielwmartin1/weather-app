@@ -8,6 +8,8 @@
   font-size: 1rem;
 }
 
+
+
 @media (max-width: 1200px) {
   .forecast-part {
     grid-template-columns: repeat(5, minmax(120px, 1fr)) !important;

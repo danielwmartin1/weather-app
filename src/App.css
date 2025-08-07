@@ -795,6 +795,10 @@ input {
   opacity: 0.9 !important;
 }
 
+.fiveDay, .locationTimeContainer {
+  opacity: 0.9; 
+}
+
 /* Vendor prefixes for compatibility */
 header, footer, .details, .dateHeader, .fiveDay, .popup-content, .statusMessage, .search-form, .forecast-day {
   -webkit-box-sizing: border-box;
@@ -915,6 +919,7 @@ input {
 .small-icon,
 .date-icon {
   border: 2px solid var(--color-primary) !important;
-  border-radius: 50% !important;
-  background-color: #0057b3cf !important;
-}
+    border-radius: 50% !important;
+    background-color: rgb(4, 141, 204);
+    opacity: 0.9;
+  }
